@@ -27,7 +27,7 @@ $factory->define(App\Models\Contact::class, function (Faker\Generator $faker)
 {
 	return [
 		'first_name' => $faker->firstName,
-//		'middle_name' => $faker->word,
+		'middle_name' => $faker->word,
 		'last_name' => $faker->lastName,
 		'email' => $faker->freeEmail,
 		'phone_home' => $faker->phoneNumber,
@@ -42,9 +42,9 @@ $factory->define(App\Models\Contact::class, function (Faker\Generator $faker)
 		'no_mail' => $faker->boolean(46),
 		'iuaa_member' => $faker->boolean(50),
 		'share_with_iuaa' => $faker->boolean(50),
-		'created' => $faker->dateTimeThisDecade,
-		'modified' => $faker->dateTimeThisDecade,
-		'deleted' => mt_rand(1, 10) > 5 ? NULL : $faker->dateTimeThisMonth,
+		'created_at' => $faker->dateTimeThisDecade,
+		'updated_at' => $faker->dateTimeThisDecade,
+		'deleted_at' => mt_rand(1, 10) > 5 ? NULL : $faker->dateTimeThisMonth,
 	];
 });
 

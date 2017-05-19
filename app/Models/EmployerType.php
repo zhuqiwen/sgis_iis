@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EmployerType extends Model
 {
-    protected $table = 'employer_type';
+    protected $table = 'employer_types';
 
     public $timestamps = false;
 
@@ -22,5 +22,5 @@ class EmployerType extends Model
 
     protected $guarded = [];
 
-        
+
 }

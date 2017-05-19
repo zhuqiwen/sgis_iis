@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Contact extends Model
 {
-    protected $table = 'contact';
+    protected $table = 'contacts';
 
     public $timestamps = false;
 
@@ -38,5 +38,5 @@ class Contact extends Model
 
     protected $guarded = [];
 
-        
+
 }

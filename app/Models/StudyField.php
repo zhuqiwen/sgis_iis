@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StudyField extends Model
 {
-    protected $table = 'study_field';
+    protected $table = 'study_fields';
 
     public $timestamps = false;
 
@@ -22,5 +22,5 @@ class StudyField extends Model
 
     protected $guarded = [];
 
-        
+
 }

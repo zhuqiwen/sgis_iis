@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Event extends Model
 {
-    protected $table = 'event';
+    protected $table = 'events';
 
     public $timestamps = false;
 
@@ -26,5 +26,5 @@ class Event extends Model
 
     protected $guarded = [];
 
-        
+
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EngagementIndicator extends Model
 {
-    protected $table = 'engagement_indicator';
+    protected $table = 'engagement_indicators';
 
     public $timestamps = false;
 
@@ -22,5 +22,5 @@ class EngagementIndicator extends Model
 
     protected $guarded = [];
 
-        
+
 }

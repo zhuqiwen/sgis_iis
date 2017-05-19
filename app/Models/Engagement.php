@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Engagement extends Model
 {
-    protected $table = 'engagement';
+    protected $table = 'engagements';
 
     public $timestamps = false;
 
@@ -23,5 +23,5 @@ class Engagement extends Model
 
     protected $guarded = [];
 
-        
+
 }
