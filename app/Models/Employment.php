@@ -28,4 +28,13 @@ class Employment extends Model
     protected $guarded = [];
 
 
+	public function employer()
+	{
+		return $this->belongsTo('App\Models\Employer');
+	}
+
+	public function contact()
+	{
+		return $this->belongsTo('App\Models\Contact');
+	}
 }
