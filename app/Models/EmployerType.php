@@ -23,4 +23,10 @@ class EmployerType extends Model
     protected $guarded = [];
 
 
+	public function employers()
+	{
+		return $this->hasMany('App\Models\Employer');
+	}
+
+
 }

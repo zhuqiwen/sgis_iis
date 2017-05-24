@@ -25,4 +25,13 @@ class Employer extends Model
     protected $guarded = [];
 
 
+	public function employments()
+	{
+		return $this->hasMany('App\Models\Employment');
+	}
+
+	public function type()
+	{
+		return $this->belongsTo('App\Models\EmployerType');
+	}
 }
