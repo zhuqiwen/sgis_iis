@@ -40,9 +40,34 @@ class Contact extends Model
     protected $guarded = [];
 
 
+	/**
+	 * relationships
+	 */
+
+	/**
+	 * hasMany
+	 */
+
 	public function academicInfo()
 	{
 		return $this->hasMany('App\Models\AcademicInfo');
+	}
+
+	public function engagements()
+	{
+		return $this->hasMany('App\Models\Engagement');
+	}
+
+	public function eventAttendance()
+	{
+		return $this->hasMany('App\Models\EventAttendance');
+	}
+
+	// a contact may have multiple employments, but only the one with null of deleted_at is the current one.
+	// to update one's employment info, we should soft delete previous one and insert a new record
+	public function employments()
+	{
+		return $this->hasMany('App\Models\Engagement');
 	}
 
 }
