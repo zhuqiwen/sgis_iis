@@ -23,4 +23,8 @@ class EngagementIndicator extends Model
     protected $guarded = [];
 
 
+	public function engagements()
+	{
+		return $this->hasMany('App\Models\Engagement');
+	}
 }

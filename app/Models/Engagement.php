@@ -24,4 +24,13 @@ class Engagement extends Model
     protected $guarded = [];
 
 
+	public function engagementIndicator()
+	{
+		return $this->belongsTo('App\Models\EngagementIndicator');
+	}
+
+	public function contact()
+	{
+		return $this->belongsTo('App\Models\Contact');
+	}
 }
