@@ -32,9 +32,9 @@ class Contact extends Model
         'no_mail',
         'iuaa_member',
         'share_with_iuaa',
-        'created',
-        'modified',
-        'deleted'
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     protected $guarded = [];

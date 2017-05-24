@@ -16,12 +16,12 @@ class EventAttendance extends Model
     protected $fillable = [
         'contact_id',
         'event_id',
-        'created',
-        'modified',
-        'deleted'
+	    'created_at',
+	    'updated_at',
+	    'deleted_at'
     ];
 
     protected $guarded = [];
 
-        
+
 }

@@ -19,9 +19,9 @@ class Event extends Model
         'country',
         'state',
         'city',
-        'created',
-        'modified',
-        'deleted'
+	    'created_at',
+	    'updated_at',
+	    'deleted_at'
     ];
 
     protected $guarded = [];

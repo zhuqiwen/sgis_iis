@@ -15,9 +15,9 @@ class StudyField extends Model
 
     protected $fillable = [
         'field',
-        'created',
-        'modified',
-        'deleted'
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     protected $guarded = [];

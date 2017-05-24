@@ -16,9 +16,9 @@ class Engagement extends Model
     protected $fillable = [
         'contact_id',
         'indicator_id',
-        'created',
-        'modified',
-        'deleted'
+	    'created_at',
+	    'updated_at',
+	    'deleted_at'
     ];
 
     protected $guarded = [];

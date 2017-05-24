@@ -15,9 +15,9 @@ class EmployerType extends Model
 
     protected $fillable = [
         'type',
-        'created',
-        'modified',
-        'deleted'
+	    'created_at',
+	    'updated_at',
+	    'deleted_at'
     ];
 
     protected $guarded = [];

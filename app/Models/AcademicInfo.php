@@ -18,9 +18,9 @@ class AcademicInfo extends Model
         'field_id',
         'class_year',
         'degree',
-        'created',
-        'modified',
-        'deleted'
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     protected $guarded = [];

@@ -17,9 +17,9 @@ class Employer extends Model
         'name',
         'web_address',
         'type_id',
-        'created',
-        'modified',
-        'deleted'
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     protected $guarded = [];
