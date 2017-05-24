@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class Contact
@@ -38,5 +39,10 @@ class Contact extends Model
 
     protected $guarded = [];
 
+
+	public function academicInfo()
+	{
+		return $this->hasMany('App\Models\AcademicInfo');
+	}
 
 }

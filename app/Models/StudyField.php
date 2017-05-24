@@ -23,4 +23,9 @@ class StudyField extends Model
     protected $guarded = [];
 
 
+	public function academicInfo()
+	{
+		return $this->hasMany('App\Models\AcademicInfo');
+	}
+
 }
