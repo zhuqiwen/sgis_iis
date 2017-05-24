@@ -25,5 +25,14 @@ class AcademicInfo extends Model
 
     protected $guarded = [];
 
-        
+
+	public function contact()
+	{
+		return $this->belongsTo('App\Models\Contact');
+	}
+
+	public function studyField()
+	{
+		return $this->belongsTo('App\Models\StudyField');
+	}
 }
