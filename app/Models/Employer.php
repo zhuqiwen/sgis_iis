@@ -34,4 +34,10 @@ class Employer extends Model
 	{
 		return $this->belongsTo('App\Models\EmployerType');
 	}
+
+
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Models\Contact', 'employments')->withPivot('job_title', 'country', 'state', 'city')->withTimestamps();
+	}
 }

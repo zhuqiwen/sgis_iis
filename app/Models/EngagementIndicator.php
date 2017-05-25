@@ -30,6 +30,6 @@ class EngagementIndicator extends Model
 
 	public function contacts()
 	{
-		return $this->belongsToMany('App\Models\Contact');
+		return $this->belongsToMany('App\Models\Contact', 'engagements', 'contact_id', 'indicator_id')->withTimestamps();
 	}
 }

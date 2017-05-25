@@ -79,22 +79,22 @@ class Contact extends Model
 
 	public function events()
 	{
-		return $this->belongsToMany('App\Models\Event', 'event_attendance');
+		return $this->belongsToMany('App\Models\Event', 'event_attendance')->withTimestamps();
 	}
 
 	public function employers()
 	{
-		return $this->belongsToMany('App\Models\Employer', 'employments');
+		return $this->belongsToMany('App\Models\Employer', 'employments')->withPivot('job_title', 'country', 'state', 'city')->withTimestamps();
 	}
 
 	public function engagementIndicators()
 	{
-		return $this->belongsToMany('App\Models\EngagementIndicator', 'engagement_indicators');
+		return $this->belongsToMany('App\Models\EngagementIndicator', 'engagements', 'contact_id', 'indicator_id')->withTimestamps();
 	}
 
 	public function studyFields()
 	{
-		return $this->belongsToMany('App\Models\StudyField', 'study_fields');
+		return $this->belongsToMany('App\Models\StudyField', 'academic_info', 'contact_id', 'field_id')->withPivot('class_year', 'degree')->withTimestamps();
 	}
 
 

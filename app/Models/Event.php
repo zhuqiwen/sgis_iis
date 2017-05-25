@@ -35,6 +35,6 @@ class Event extends Model
 
 	public function contacts()
 	{
-		return $this->belongsToMany('App\Models\Contact');
+		return $this->belongsToMany('App\Models\Contact', 'event_attendance')->withTimestamps();
 	}
 }
