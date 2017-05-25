@@ -45,7 +45,7 @@ class Contact extends Model
 	 */
 
 	/**
-	 * hasMany
+	 * one to many
 	 */
 
 	public function academicInfo()
@@ -69,5 +69,6 @@ class Contact extends Model
 	{
 		return $this->hasMany('App\Models\Engagement');
 	}
+
 
 }

@@ -23,5 +23,14 @@ class EventAttendance extends Model
 
     protected $guarded = [];
 
+	public function event()
+	{
+		return $this->belongsTo('App\Models\Event');
+	}
+
+	public function contact()
+	{
+		return $this->belongsTo('App\Models\Contact');
+	}
 
 }

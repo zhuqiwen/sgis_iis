@@ -27,4 +27,9 @@ class Event extends Model
     protected $guarded = [];
 
 
+	public function eventAttendance()
+	{
+		return $this->hasMany('App\Models\EventAttendance');
+	}
+
 }
