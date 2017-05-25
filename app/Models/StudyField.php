@@ -28,4 +28,9 @@ class StudyField extends Model
 		return $this->hasMany('App\Models\AcademicInfo');
 	}
 
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Models\Contact');
+	}
+
 }

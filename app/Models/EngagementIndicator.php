@@ -27,4 +27,9 @@ class EngagementIndicator extends Model
 	{
 		return $this->hasMany('App\Models\Engagement');
 	}
+
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Models\Contact');
+	}
 }

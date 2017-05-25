@@ -32,4 +32,9 @@ class Event extends Model
 		return $this->hasMany('App\Models\EventAttendance');
 	}
 
+
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Models\Contact');
+	}
 }

@@ -71,4 +71,32 @@ class Contact extends Model
 	}
 
 
+
+
+	/**
+	 * many to many
+	 */
+
+	public function events()
+	{
+		return $this->belongsToMany('App\Models\Event', 'event_attendance');
+	}
+
+	public function employers()
+	{
+		return $this->belongsToMany('App\Models\Employer', 'employments');
+	}
+
+	public function engagementIndicators()
+	{
+		return $this->belongsToMany('App\Models\EngagementIndicator', 'engagement_indicators');
+	}
+
+	public function studyFields()
+	{
+		return $this->belongsToMany('App\Models\StudyField', 'study_fields');
+	}
+
+
+
 }
