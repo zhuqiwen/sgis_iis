@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInternStudentsTable extends Migration
+class CreateInternEvaluationBySupervisorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,11 @@ class CreateInternStudentsTable extends Migration
     public function up()
     {
         //
-	    Schema::create('intern_students', function (Blueprint $table) {
+	    Schema::create('intern_evaluation_by_supervisor', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('first_name');
-		    $table->string('middle_name')->nullable();
-		    $table->string('last_name');
-		    $table->string('iu_username');
-		    $table->string('iuid');
-		    $table->string('password');
+		    $table->integer('internship_id')->unsigned();
+		    $table->foreign('internship_id')->references('id')->on('internships');
+		    $table->string('not_approved_reasons');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
