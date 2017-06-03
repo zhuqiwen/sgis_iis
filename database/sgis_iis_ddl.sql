@@ -148,3 +148,6 @@ CREATE TABLE event_attendance(
   FOREIGN KEY (event_id) REFERENCES event(id)
 );
 
+
+
+

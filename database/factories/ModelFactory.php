@@ -48,3 +48,6 @@ $factory->define(App\Models\Contact::class, function (Faker\Generator $faker)
 	];
 });
 
+
+
+
