@@ -19,6 +19,7 @@ class CreateInternJobsTable extends Migration
 		    $table->integer('internship_id')->unsigned();
 		    $table->foreign('internship_id')->references('id')->on('internships');
 		    $table->boolean('is_approved');
+		    $table->boolean('has_liability_form');
 		    $table->string('not_approved_reasons');
 		    $table->boolean('supervisor_evaluation_received');
 		    $table->boolean('site_evaluation_received');
