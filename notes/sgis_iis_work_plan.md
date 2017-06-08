@@ -30,7 +30,10 @@
         3. 然后跳转回学生log in界面
     2. 已注册过
         1. 直接登录
-        2. 新建internship application
+        2. 继续完成之前的申请
+        
+        或
+        2. 新建internship application；每步都应当校验数据；所有field都是必填
             1. 选择organization
                 1. 如果没有，则新建
             2. 选择location
@@ -55,10 +58,12 @@
                 1. airfare; 
                 2. living costs; 
                 3. accommodations；
-                4. etc.)
+                4. etc.
             6. 填写工作细节
                 1. detailed description of the internship experience and your specific duties
                 2. work schedule(number of hours per week)
-            
-
+            7. Explain why this internship/volunteer opportunity was chosen (i.e., how will it help you in your educational and career goals):
+            8. 提交申请(set "is_submitted" tag to true)
+                * 提交之前，可随时save（update record without setting is_submitted to true）
+                
 ## 

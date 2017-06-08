@@ -31,6 +31,9 @@ class CreateInternshipsTable extends Migration
 		    $table->string('organization_url');
 		    $table->string('term');
 		    $table->boolean('has_location_warning');
+		    $table->boolean('liability_form_signed');
+		    $table->date('liability_form_signed_date');
+		    $table->boolean('is_submitted');
 
 		    $table->date('start_date');
 		    $table->date('end_date');

@@ -18,7 +18,6 @@ class CreateInternSiteEvaluationTable extends Migration
 		    $table->increments('id');
 		    $table->integer('internship_id')->unsigned();
 		    $table->foreign('internship_id')->references('id')->on('internships');
-		    $table->string('not_approved_reasons');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
