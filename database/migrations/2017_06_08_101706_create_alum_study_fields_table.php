@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudyFieldsTable extends Migration
+class CreateAlumStudyFieldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateStudyFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create('study_fields', function (Blueprint $table){
-	        $table->increments('id');
-	        $table->string('field');
-	        $table->timestamps();
-	        $table->softDeletes();
-        });
+	    Schema::create('alum_study_fields', function (Blueprint $table){
+		    $table->increments('id');
+		    $table->string('field');
+		    $table->timestamps();
+		    $table->softDeletes();
+	    });
+
     }
 
     /**
@@ -28,6 +29,7 @@ class CreateStudyFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('study_fields');
+	    Schema::dropIfExists('alum_study_fields');
+
     }
 }

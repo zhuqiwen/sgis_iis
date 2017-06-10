@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployerTypesTable extends Migration
+class CreateTestTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,7 @@ class CreateEmployerTypesTable extends Migration
      */
     public function up()
     {
-	    Schema::create('employer_types', function (Blueprint $table) {
-		    $table->increments('id');
-		    $table->string('type');
-		    $table->timestamps();
-		    $table->softDeletes();
-	    });
+        //
     }
 
     /**
@@ -28,6 +23,6 @@ class CreateEmployerTypesTable extends Migration
      */
     public function down()
     {
-	    Schema::dropIfExists('employer_types');
+        //
     }
 }

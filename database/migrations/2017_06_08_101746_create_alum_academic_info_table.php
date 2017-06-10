@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmploymentsTable extends Migration
+class CreateAlumAcademicInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateEmploymentsTable extends Migration
      */
     public function up()
     {
-	    Schema::create('employments', function (Blueprint $table) {
+	    Schema::create('alum_academic_info', function(Blueprint $table){
 		    $table->increments('id');
-		    $table->string('job_title');
-		    $table->string('country')->nullable();
-		    $table->string('state')->nullable();
-		    $table->string('city')->nullable();
+		    $table->date('class-year')->nullable()->default(NULL);
+		    $table->string('degree')->nullable()->default(NULL);
 		    $table->integer('contact_id')->unsigned();
-		    $table->integer('employer_id')->unsigned();
+		    $table->integer('field_id')->unsigned();
 		    $table->foreign('contact_id')->references('id')->on('contacts');
-		    $table->foreign('employer_id')->references('id')->on('employers');
+		    $table->foreign('field_id')->references('id')->on('study_fields');
 		    $table->timestamps();
 		    $table->softDeletes();
+
 	    });
+
     }
 
     /**
@@ -35,7 +35,7 @@ class CreateEmploymentsTable extends Migration
      */
     public function down()
     {
-	    Schema::dropIfExists('employments');
+	    Schema::dropIfExists('alum_academic_info');
 
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployersTable extends Migration
+class CreateAlumEngagementIndicatorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateEmployersTable extends Migration
      */
     public function up()
     {
-	    Schema::create('employers', function (Blueprint $table) {
+	    Schema::create('alum_engagement_indicators', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->string('name');
-		    $table->string('web_address')->nullable();
-		    $table->integer('type_id')->unsigned();
-		    $table->foreign('type_id')->references('id')->on('employer_types');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
+
     }
 
     /**
@@ -31,7 +29,7 @@ class CreateEmployersTable extends Migration
      */
     public function down()
     {
-	    Schema::dropIfExists('employers');
+	    Schema::dropIfExists('alum_engagement_indicators');
 
     }
 }
