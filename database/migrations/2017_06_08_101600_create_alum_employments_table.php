@@ -21,8 +21,8 @@ class CreateAlumEmploymentsTable extends Migration
 		    $table->string('city')->nullable();
 		    $table->integer('contact_id')->unsigned();
 		    $table->integer('employer_id')->unsigned();
-		    $table->foreign('contact_id')->references('id')->on('contacts');
-		    $table->foreign('employer_id')->references('id')->on('employers');
+		    $table->foreign('contact_id')->references('id')->on('alum_contacts');
+		    $table->foreign('employer_id')->references('id')->on('alum_employers');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

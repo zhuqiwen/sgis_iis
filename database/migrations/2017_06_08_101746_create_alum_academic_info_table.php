@@ -19,8 +19,8 @@ class CreateAlumAcademicInfoTable extends Migration
 		    $table->string('degree')->nullable()->default(NULL);
 		    $table->integer('contact_id')->unsigned();
 		    $table->integer('field_id')->unsigned();
-		    $table->foreign('contact_id')->references('id')->on('contacts');
-		    $table->foreign('field_id')->references('id')->on('study_fields');
+		    $table->foreign('contact_id')->references('id')->on('alum_contacts');
+		    $table->foreign('field_id')->references('id')->on('alum_study_fields');
 		    $table->timestamps();
 		    $table->softDeletes();
 

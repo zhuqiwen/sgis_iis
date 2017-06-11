@@ -18,7 +18,7 @@ class CreateAlumEmployersTable extends Migration
 		    $table->string('name');
 		    $table->string('web_address')->nullable();
 		    $table->integer('type_id')->unsigned();
-		    $table->foreign('type_id')->references('id')->on('employer_types');
+		    $table->foreign('type_id')->references('id')->on('alum_employer_types');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

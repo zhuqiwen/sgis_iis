@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS contact;
+DROP TABLE IF exists alum_contact;
 
-CREATE TABLE contact(
+create table alum_contact(
   id INTEGER AUTO_INCREMENT NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   middle_name VARCHAR(255) DEFAULT NULL,
@@ -24,9 +24,9 @@ CREATE TABLE contact(
   deleted DATETIME DEFAULT NULL,
   PRIMARY KEY (id)
 );
-DROP TABLE IF EXISTS employer_type;
+DROP TABLE IF exists alum_employer_type;
 
-CREATE TABLE employer_type(
+create table alum_employer_type(
   id INTEGER AUTO_INCREMENT NOT NULL,
   type VARCHAR(255) NOT NULL,
   created DATETIME NOT NULL,
@@ -35,9 +35,9 @@ CREATE TABLE employer_type(
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS employer;
+DROP TABLE IF exists alum_employer;
 
-CREATE TABLE employer(
+create table alum_employer(
   id INTEGER AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
   web_address VARCHAR(255) NOT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE employer(
   FOREIGN KEY (type_id) REFERENCES employer_type(id)
 );
 
-DROP TABLE IF EXISTS employment;
+DROP TABLE IF exists alum_employment;
 
-CREATE TABLE employment(
+create table alum_employment(
   id INTEGER AUTO_INCREMENT NOT NULL,
   contact_id INTEGER,
   employer_id INTEGER,
@@ -67,9 +67,9 @@ CREATE TABLE employment(
   FOREIGN KEY (employer_id) REFERENCES employer(id)
 );
 
-DROP TABLE IF EXISTS engagement_indicator;
+DROP TABLE IF exists alum_engagement_indicator;
 
-CREATE TABLE engagement_indicator(
+create table alum_engagement_indicator(
   id INTEGER AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
   created DATETIME NOT NULL,
@@ -78,9 +78,9 @@ CREATE TABLE engagement_indicator(
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS engagement;
+DROP TABLE IF exists alum_engagement;
 
-CREATE TABLE engagement(
+create table alum_engagement(
   id INTEGER AUTO_INCREMENT NOT NULL,
   contact_id INTEGER,
   indicator_id INTEGER,
@@ -92,9 +92,9 @@ CREATE TABLE engagement(
   FOREIGN KEY (indicator_id) REFERENCES engagement_indicator(id)
 );
 
-DROP TABLE IF EXISTS study_field;
+DROP TABLE IF exists alum_study_field;
 
-CREATE TABLE study_field(
+create table alum_study_field(
   id INTEGER AUTO_INCREMENT NOT NULL,
   field VARCHAR(255) NOT NULL,
   created DATETIME NOT NULL,
@@ -103,9 +103,9 @@ CREATE TABLE study_field(
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS academic_info;
+DROP TABLE IF exists alum_academic_info;
 
-CREATE TABLE academic_info(
+create table alum_academic_info(
   id INTEGER AUTO_INCREMENT NOT NULL,
   contact_id INTEGER,
   field_id INTEGER,
@@ -119,9 +119,9 @@ CREATE TABLE academic_info(
   FOREIGN KEY (field_id) REFERENCES study_field(id)
 );
 
-DROP TABLE IF EXISTS event;
+DROP TABLE IF exists alum_event;
 
-CREATE TABLE event(
+create table alum_event(
   id INTEGER AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
   date DATE DEFAULT NULL,
@@ -134,9 +134,9 @@ CREATE TABLE event(
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS event_attendance;
+DROP TABLE IF exists alum_event_attendance;
 
-CREATE TABLE event_attendance(
+create table alum_event_attendance(
   id INTEGER AUTO_INCREMENT NOT NULL,
   contact_id INTEGER,
   event_id INTEGER,
@@ -147,6 +147,16 @@ CREATE TABLE event_attendance(
   FOREIGN KEY (contact_id) REFERENCES contact(id),
   FOREIGN KEY (event_id) REFERENCES event(id)
 );
+
+# internship module
+
+DROP TABLE IF EXISTS intern_students;
+DROP TABLE IF EXISTS intern_organizations;
+DROP TABLE IF EXISTS intern_supervisors;
+DROP TABLE IF EXISTS intern_internships;
+DROP TABLE IF EXISTS intern_approvals;
+DROP TABLE IF EXISTS intern_site_evaluations;
+DROP TABLE IF EXISTS intern_student_evaluations;
 
 
 

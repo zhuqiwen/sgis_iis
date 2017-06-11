@@ -17,8 +17,8 @@ class CreateAlumEngagementsTable extends Migration
 		    $table->increments('id');
 		    $table->integer('contact_id')->unsigned();
 		    $table->integer('indicator_id')->unsigned();
-		    $table->foreign('contact_id')->references('id')->on('contacts');
-		    $table->foreign('indicator_id')->references('id')->on('engagement_indicators');
+		    $table->foreign('contact_id')->references('id')->on('alum_contacts');
+		    $table->foreign('indicator_id')->references('id')->on('alum_engagement_indicators');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

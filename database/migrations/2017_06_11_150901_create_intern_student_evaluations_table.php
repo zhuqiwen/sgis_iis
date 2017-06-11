@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInternSiteEvaluationTable extends Migration
+class CreateInternStudentEvaluationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,6 @@ class CreateInternSiteEvaluationTable extends Migration
     public function up()
     {
         //
-	    Schema::create('intern_site_evaluation', function (Blueprint $table) {
-		    $table->increments('id');
-		    $table->integer('internship_id')->unsigned();
-		    $table->foreign('internship_id')->references('id')->on('internships');
-		    $table->timestamps();
-		    $table->softDeletes();
-	    });
     }
 
     /**
