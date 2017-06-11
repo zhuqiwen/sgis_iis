@@ -14,6 +14,13 @@ class CreateInternOrganizationsTable extends Migration
     public function up()
     {
         //
+	    Schema::create('intern_organizations', function (Blueprint $table) {
+		    $table->increments('id');
+		    $table->string('name');
+		    $table->string('url')->nullable();
+		    $table->timestamps();
+		    $table->softDeletes();
+	    });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateInternOrganizationsTable extends Migration
      */
     public function down()
     {
-        //
+	    Schema::dropIfExists('intern_organizations');
     }
 }

@@ -13,7 +13,19 @@ class CreateInternSupervisorsTable extends Migration
      */
     public function up()
     {
-        //
+	    Schema::create('intern_supervisors', function (Blueprint $table) {
+		    $table->increments('id');
+		    $table->string('first_name');
+		    $table->string('middle_name')->nullable();
+		    $table->string('last_name');
+		    $table->string('prefix');
+		    $table->string('email');
+		    $table->string('phone');
+		    $table->integer('organization_id')->unsigned();
+		    $table->foreign('organization_id')->references('id')->on('intern_organizations');
+		    $table->timestamps();
+		    $table->softDeletes();
+	    });
     }
 
     /**
@@ -23,6 +35,6 @@ class CreateInternSupervisorsTable extends Migration
      */
     public function down()
     {
-        //
+	    Schema::dropIfExists('intern_supervisors');
     }
 }
