@@ -54,6 +54,6 @@ class CreateInternApplicationsTable extends Migration
      */
     public function down()
     {
-        //
+	    Schema::dropIfExists('intern_applications');
     }
 }
