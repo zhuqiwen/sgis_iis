@@ -25,7 +25,8 @@ class CreateInternSiteEvaluationsTable extends Migration
 		    $table->text('site_weakness');
 		    $table->text('gained_skills');
 		    // the scale is 0-9
-		    $table->integer('willing_to_recommend');
+		    $table->tinyInteger('willing_to_recommend');
+		    $table->boolean('is_submitted');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

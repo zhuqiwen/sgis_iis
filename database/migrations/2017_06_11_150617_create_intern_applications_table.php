@@ -34,7 +34,9 @@ class CreateInternApplicationsTable extends Migration
 		    $table->text('description');
 		    $table->text('reasons');
 		    $table->text('cultural_interaction');
-		    $table->text('challenges')->nullable();
+		    $table->text('challenges');
+		    $table->integer('user_id')->unsigned();
+		    $table->foreign('user_id')->references('id')->on('users');
 		    $table->integer('organization_id')->unsigned();
 		    $table->foreign('organization_id')->references('id')->on('intern_organizations');
 		    $table->integer('supervisor_id')->unsigned();
