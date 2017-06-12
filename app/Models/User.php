@@ -17,6 +17,13 @@ class User extends Model
         'name',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'iuid',
+        'is_intern_student',
+        'is_intern_admin',
+        'is_alum_admin',
+        'is_intern_supervisor',
         'remember_token'
     ];
 
