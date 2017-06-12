@@ -13,7 +13,7 @@ class CreateInternApprovalsTable extends Migration
      */
 	public function up()
 	{
-		Schema::create('intern_student_evaluations', function (Blueprint $table) {
+		Schema::create('intern_approvals', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('application_id')->unsigned();
 			$table->foreign('application_id')->references('id')->on('intern_applications');
