@@ -31,7 +31,7 @@
     2. 已注册过
         1. 直接登录
         2. 继续完成之前的申请
-        
+
         或
         2. 新建internship application；每步都应当校验数据；所有field都是必填
             1. 选择organization
@@ -42,7 +42,7 @@
                        1. 每24或12小时，自动去https://travel.state.gov/content/passports/en/alertswarnings.html抓取危险区域列表
                 2. state/province
                 3. city
-                
+
             3. 自动判断是否有该organization在此location的supervisor信息
                 1. 如有，则提供给学生选择
                     1. 如果没有学生的supervisor，则有学生新建/填写
@@ -59,11 +59,66 @@
                 2. living costs; 
                 3. accommodations；
                 4. etc.
-            6. 填写工作细节
+            7. 填写工作细节
                 1. detailed description of the internship experience and your specific duties
                 2. work schedule(number of hours per week)
-            7. Explain why this internship/volunteer opportunity was chosen (i.e., how will it help you in your educational and career goals):
-            8. 提交申请(set "is_submitted" tag to true)
+            8. Explain why this internship/volunteer opportunity was chosen (i.e., how will it help you in your educational and career goals):
+            9. 提交申请(set "is_submitted" tag to true)
                 * 提交之前，可随时save（update record without setting is_submitted to true）
-                
-## 
+
+## Access Control: internship module
+1. 3 roles
+    1. student
+    2. supervisor
+    3. intern_admin
+
+2. user account
+
+    |                               | student    | supervisor | intern_admin |
+    | ----------------------------- | ---------- | ---------- | ------------ |
+    | CREATE user (student) account | yes (self) | no         | no           |
+    | UPDATE user(student) account  | yes (self) | no         | no           |
+    | DELETE user(student) account  | yes (self) | no         | no           |
+    | VIEW user(student) account    | yes (self) | no         | yes (all)    |
+
+    ​
+
+3. application
+
+    |                    | student                         | supervisor | intern_admin |
+    | ------------------ | ------------------------------- | ---------- | ------------ |
+    | CREATE application | yes                             | no         | no           |
+    | UPDATE applicaiton | own; NO update once submitted   | no         | no           |
+    | DELETE application | own; NO deletion once submitted | no         | no           |
+    | VIEW application   | yes (own)                       | no         | yes (all)    |
+
+4. site_evaluation
+
+    |        | student                         | supervisor | intern_admin |
+    | ------ | ------------------------------- | ---------- | ------------ |
+    | CREATE | yes                             | no         | no           |
+    | UPDATE | own; NO update once submitted   | no         | no           |
+    | DELETE | own; NO deletion once submitted | no         | no           |
+    | VIEW   | yes (own)                       | no         | yes (all)    |
+
+5. student_evaluation
+
+    1. intern_admin generates a encrypted url pointing to a certain student_evaluation
+    2. intern_admin sends the url via email to supervisor
+    3. 用middleware迫使supervisor专项登陆页面
+    4. supervisor logs in with a temp password
+    5. redirect to the student evaluation
+    6. supervisor fills the form
+    7. supervisor submits the form
+    8. 每个supervisor每次填写表格时，都应该有一个一次性的随机密码
+    9. 当某个application的student evaluation被supervisor提交时，重置此supervisor的登陆密码
+    10. 并且，在supervisor的登录页面上隐藏reset / forget password。
+    11. 一旦提交，任何人都无法UPDATE or DELETE
+
+6. organization
+
+    1. 不同国家地区，两个不同的organizations完全同名怎么办？
+    2. 是否需要organization表？
+    3. 如果没有organization表，则supervisor表也没有意义。
+
+7. supervisor
