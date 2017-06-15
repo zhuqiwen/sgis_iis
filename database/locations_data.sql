@@ -1,5 +1,5 @@
 
-INSERT INTO `countries` (`id`, `sort_name`, `name`, `phone_code`) VALUES
+INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
   (1, 'AF', 'Afghanistan', 93),
   (2, 'AL', 'Albania', 355),
   (3, 'DZ', 'Algeria', 213),
@@ -246,18 +246,6 @@ INSERT INTO `countries` (`id`, `sort_name`, `name`, `phone_code`) VALUES
   (244, 'YU', 'Yugoslavia', 38),
   (245, 'ZM', 'Zambia', 260),
   (246, 'ZW', 'Zimbabwe', 263);
-
-
-
-
-
-
-CREATE TABLE IF NOT EXISTS `states` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `country_id` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4121 ;
 
 
 
@@ -4384,14 +4372,6 @@ INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
   (4119, 'Matabeleland South', 246),
   (4120, 'Midlands', 246);
 
-
-
-CREATE TABLE IF NOT EXISTS `cities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `state_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47577 ;
 
 
 

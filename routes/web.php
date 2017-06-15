@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+
+
+
+
+//following routes are for testing new features
+Route::get('/test_search', array('as' => 'search', 'uses' => 'TestAutocompleteController@search'));
+Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAutocompleteController@autocomplete'));

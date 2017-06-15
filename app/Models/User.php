@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * this model is NOT USED by authentication.
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +16,6 @@ class User extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name',
         'email',
         'password',
         'first_name',
@@ -29,5 +30,5 @@ class User extends Model
 
     protected $guarded = [];
 
-        
+
 }

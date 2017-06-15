@@ -17,16 +17,15 @@ class CreateUsersTable extends Migration
 //	    so as long as we have an iu email, the iu_username can be extracted
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('iuid');
-            $table->boolean('is_intern_student');
-            $table->boolean('is_intern_admin');
-            $table->boolean('is_alum_admin');
-            $table->boolean('is_intern_supervisor');
+            $table->string('iuid')->unique();
+            $table->boolean('is_intern_student')->default(TRUE);
+            $table->boolean('is_intern_admin')->default(FALSE);
+            $table->boolean('is_alum_admin')->default(FALSE);
+            $table->boolean('is_intern_supervisor')->default(FALSE);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
