@@ -11,19 +11,58 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
+//访问/ 直接跳转至login
 Route::get('/', function () {
-    return view('welcome');
+	return redirect('/login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
+Route::get('/home', array('as' => 'gotohome', 'uses' => 'HomeController@index'));
 
 
 
+//3个url大类 /student, /supervisor, /intern/admin, /alum/admin
+//每个大类的uri及其子uri，都需要相应的role才可以进入，否则直接跳转至login路由
+// admin/intern, admin/alum
+Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:student']], function (){
+	// define sub uri's actions
+});
+
+Route::group(['prefix' => 'intern/supervisor', 'middleware' => ['auth', 'checkRole:supervisor']], function (){
+	// define sub uri's actions
+});
+
+Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:intern_admin']], function (){
+	// define sub uri's actions
+});
+
+Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum_admin']], function (){
+	// define sub uri's actions
+});
 
 
 
 //following routes are for testing new features
+Route::get('/logout', function (){
+	Auth::logout();
+	return redirect('/');
+});
 Route::get('/test_search', array('as' => 'search', 'uses' => 'TestAutocompleteController@search'));
 Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAutocompleteController@autocomplete'));
+
+Route::group(['prefix' => 'test', 'middleware' => ['auth', 'checkRole:student']], function (){
+	Route::get('abc', function (){
+		echo "hahaha yoho";
+		exit();
+	});
+	Route::get('test', function (){
+		return view('test.test');
+	});
+	Route::get('bcd', function (){
+		return view('welcome');
+	});
+});
