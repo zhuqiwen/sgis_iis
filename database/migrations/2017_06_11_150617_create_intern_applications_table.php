@@ -42,7 +42,8 @@ class CreateInternApplicationsTable extends Migration
 		    $table->integer('supervisor_id')->unsigned();
 		    $table->foreign('supervisor_id')->references('id')->on('intern_supervisors');
 		    $table->boolean('paid_internship')->default(FALSE);
-		    $table->boolean('liability_release_form_signed')->default(FALSE);
+		    $table->text('liability_release_form_signed')->nullable()->default(NULL);
+		    $table->date('liability_release_signed_date')->nullable()->default(NULL);
 		    $table->boolean('is_approved')->default(FALSE);
 		    $table->boolean('is_submitted')->default(FALSE);
 		    $table->boolean('country_warning')->default(FALSE);

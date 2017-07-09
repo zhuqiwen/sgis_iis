@@ -6,56 +6,55 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\User;
+use App\Models\InternApplication;
 
 class InternApplicationController extends Controller
 {
-    //
-	public function create()
+
+	public function prepareLiability(Request $request)
 	{
-//		$user = Auth::user();
-		// receive data from review page
+		$country_warning_data = $this->checkCountryWarning($request->intern_country);
+
+
+		$application = InternApplication::create($request->except('_token'));
+
+		$student = User::find($request->input('user_id'));
+		$student_name = $student->last_name.', '.$student->first_name;
 
 
 
+		return view('intern.student.application.liability_release', $request->except('_token'))
+			->withName($student_name)
+			->withApplicationId($application->id);
 	}
 
-	public function releaseLiability(Request $request)
+	private function checkCountryWarning($country)
 	{
-		$request->flash();
-		$user = User::find($request->old('user_id'));
-
-
-		echo '<pre>';
-		print_r($user);
-//		print_r($request->old());
-//		print_r($request->old('intern_state'));
-//		print_r($request->session()->all());
-		exit();
-		//receive data from application form and put them into session
-		//produce liability release form based on info in session
-
-		//check is the release is signed:
-		//if yes, put true tag into session and direct to review
-		//if not, put false tag into session and set is_submitted false,
-		//  and then insert into db and go back to student's home page
+		return ['warning' => FALSE, 'date' => '2017-09-09'];
 	}
+
+
 
 	public function review(Request $request)
 	{
-		$request->flash();
-		echo '<pre>';
-		print_r($request->old('intern_state'));
-		print_r($request->session()->all());
-		exit();
-		//receive data from liability release form
-		//store them in session
-		//produce review page
+
+		$application = InternApplication::find($request->input('application_id'));
+
+		$application->liability_release_form_signed = $request->input('signature');
+		$application->liability_release_signed_date = $request->input('sign_date');
+
+		$application->save();
+
+		return view('intern.student.application.review')->withApplication($application);
 	}
 
-	public function submit()
+	public function submit(Request $request)
 	{
-		//this requires table with a is_submitted field
-		//if an application is submitted, then it is not allowed to be edited.
+		$application = InternApplication::find($request->input('application_id'));
+		$application->is_submitted = 1;
+		$application->save();
+		return view('intern.student.application.submitted')->withApplication($application);
+
 	}
 
 	public function show($id)

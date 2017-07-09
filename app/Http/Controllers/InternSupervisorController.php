@@ -13,7 +13,7 @@ class InternSupervisorController extends Controller
 
 	    $request->flash();
 
-	    $org_id = $request->old('org_id');
+	    $org_id = (int)$request->old('org_id');
 	    $phone = $request->old('supervisor_phone_country_code').$request->old('supervisor_phone');
 	    $first_name = $request->old('supervisor_first_name');
 	    $last_name =$request->old('supervisor_last_name');
@@ -54,12 +54,6 @@ class InternSupervisorController extends Controller
 	    ];
 	    return redirect('/intern/student/application/create')
 		    ->with('data', $data);
-
-
-	    echo '<pre>';
-//	    print_r($request->old());
-	    print_r(session('org_id'));
-	    exit();
 
     }
 
