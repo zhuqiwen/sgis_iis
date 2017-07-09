@@ -16,7 +16,6 @@ class CreateInternSupervisorsTable extends Migration
 	    Schema::create('intern_supervisors', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->string('first_name');
-		    $table->string('middle_name')->nullable();
 		    $table->string('last_name');
 		    $table->string('prefix');
 		    $table->string('email');

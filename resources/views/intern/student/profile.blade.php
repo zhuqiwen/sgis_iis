@@ -12,3 +12,8 @@ shows info of student, such as
 <p>
     other info
 </p>
+
+<?php
+        echo "<pre>";
+        print_r(Auth::user());
+        exit();

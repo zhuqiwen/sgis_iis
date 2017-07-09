@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 //访问/ 直接跳转至login
 Route::get('/', function () {
@@ -30,6 +31,27 @@ Route::get('/home', array('as' => 'gotohome', 'uses' => 'HomeController@index'))
 // admin/intern, admin/alum
 Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:student']], function (){
 	// define sub uri's actions
+	Route::get('/', function (){
+		return view('intern.student.profile');
+	});
+	Route::get('/application/create', function (){
+		return view('intern.student.application.create');
+	});
+	Route::post('/application/create', 'InternApplicationController@create');
+
+	Route::post('/application/release_liability', 'InternApplicationController@releaseLiability');
+
+	Route::post('/application/review', 'InternApplicationController@review');
+
+
+	Route::get('/application/organization', function (){
+		return view('intern.student.application.organization');
+	});
+	Route::post('/application/organization', 'InternOrganizationController@store');
+
+	Route::get('/application/supervisor', 'InternSupervisorController@prepareForm');
+	Route::post('/application/supervisor', 'InternSupervisorController@store');
+
 });
 
 Route::group(['prefix' => 'intern/supervisor', 'middleware' => ['auth', 'checkRole:supervisor']], function (){

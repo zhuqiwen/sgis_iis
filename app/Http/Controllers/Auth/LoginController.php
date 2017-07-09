@@ -26,22 +26,22 @@ class LoginController extends Controller
 	{
 		if($user->isStudent())
 		{
-			return view('intern.student.test');
+			return redirect('intern/student');
 		}
 
 		if($user->isInternAdmin())
 		{
-			return view('intern.admin.test');
+			return redirect('intern/admin');
 		}
 
 		if($user->isSupervisor())
 		{
-			return view('intern.supervisor.test');
+			return redirect('intern/supervisor');
 		}
 
 		if($user->isAlumAdmin())
 		{
-			return view('alum.admin.test');
+			return redirect('alum/admin');
 		}
 
 		return redirect('/');

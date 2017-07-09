@@ -21,7 +21,7 @@ class CreateInternApplicationsTable extends Migration
 		    $table->string('state');
 		    $table->string('city');
 		    $table->string('street');
-		    $table->string('credit_hours');
+		    $table->integer('credit_hours');
 		    $table->integer('budget_airfare');
 		    $table->integer('budget_living_per_day');
 		    $table->integer('budget_accommodation');
@@ -44,6 +44,7 @@ class CreateInternApplicationsTable extends Migration
 		    $table->boolean('paid_internship')->default(FALSE);
 		    $table->boolean('liability_release_form_signed')->default(FALSE);
 		    $table->boolean('is_approved')->default(FALSE);
+		    $table->boolean('is_submitted')->default(FALSE);
 		    $table->boolean('country_warning')->default(FALSE);
 		    $table->timestamps();
 		    $table->softDeletes();
