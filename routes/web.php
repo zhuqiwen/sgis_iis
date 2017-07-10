@@ -32,7 +32,7 @@ Route::get('/home', array('as' => 'gotohome', 'uses' => 'HomeController@index'))
 Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:student']], function (){
 	// define sub uri's actions
 	Route::get('/', function (){
-		return view('intern.student.profile');
+		return view('intern.student.home');
 	});
 	Route::get('/application/create', function (){
 		return view('intern.student.application.create');
@@ -43,7 +43,7 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 
 
 	Route::post('/application/review', 'InternApplicationController@review');
-	Route::post('/application/submit', 'InternApplicationController@submit');
+	Route::post('/application/submit', 'InternApplication
 
 
 	Route::get('/application/organization', function (){
@@ -62,6 +62,11 @@ Route::group(['prefix' => 'intern/supervisor', 'middleware' => ['auth', 'checkRo
 
 Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:intern_admin']], function (){
 	// define sub uri's actions
+	Route::get('/', function (){
+		return view('intern.admin.home');
+	});
+
+	Route::get('/application', 'InternApplicationController@indexApplicationToBeApproved');
 });
 
 Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum_admin']], function (){

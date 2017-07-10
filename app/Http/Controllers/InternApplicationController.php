@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Models\InternApplication;
+use Illuminate\Support\Facades\Auth;
 
 class InternApplicationController extends Controller
 {
@@ -33,8 +32,6 @@ class InternApplicationController extends Controller
 		return ['warning' => FALSE, 'date' => '2017-09-09'];
 	}
 
-
-
 	public function review(Request $request)
 	{
 
@@ -57,14 +54,20 @@ class InternApplicationController extends Controller
 
 	}
 
-	public function show($id)
+	public function indexApplicationToBeApproved()
 	{
-
-	}
-
-	public function edit($id)
-	{
-		// if application is submitted, call show()
-
+		$user = Auth::user();
+		if($user->hasRole('intern_admin'))
+		{
+			$applications = InternApplication::where('is_approved', 0)
+				->where('deleted_at', NULL)
+				->whereNotNull('liability_release_form_signed')
+				->get();
+			return view('intern/admin/application/index')->withApplications($applications);
+		}
+		else
+		{
+			return redirect('/');
+		}
 	}
 }
