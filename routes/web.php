@@ -43,7 +43,7 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 
 
 	Route::post('/application/review', 'InternApplicationController@review');
-	Route::post('/application/submit', 'InternApplication
+	Route::post('/application/submit', 'InternApplicationController@submit');
 
 
 	Route::get('/application/organization', function (){
