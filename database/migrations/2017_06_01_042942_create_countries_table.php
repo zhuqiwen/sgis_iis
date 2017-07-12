@@ -18,6 +18,9 @@ class CreateCountriesTable extends Migration
 		    $table->string('sort_name');
 		    $table->string('name');
 		    $table->integer('phone_code');
+		    $table->boolean('warning')->nullable()->default(null);
+		    $table->string('warning_type')->nullable()->default(null);
+		    $table->date('warning_date')->nullable()->default(null);
 	    });
     }
 
