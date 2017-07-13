@@ -6,6 +6,20 @@ $credit_hours = [
         '2' => '2',
         '3' => '3',
 ];
+
+$countries = [
+        'China' => 'China',
+        'United Kingdom' => 'United Kingdom',
+];
+
+$states = [
+        'state 1' => 'state 1',
+        'state 2' => 'state 2',
+];
+$cities = [
+        'city 1' => 'city 1',
+        'city 2' => 'city 2',
+];
 ?>
 @section('content')
 
@@ -58,7 +72,7 @@ $credit_hours = [
                                     <div class="tab-pane" id="basics">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <h4 class="info-text"> Let's start with the basic details</h4>
+                                                <h4 class="info-text"> Let's start with the <b>basic details</b></h4>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
@@ -108,49 +122,93 @@ $credit_hours = [
                                     <div class="tab-pane" id="location">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <h4 class="info-text">Tell us more about the internship's location</h4>
+                                                <h4 class="info-text">Tell us more about the internship's <b>location</b></h4>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    {!! Form::label('year', 'Which academic year?') !!}
-                                                    {!! Form::select('year',
-                                                    ['2018' => '2018', '2019'=> '2019'],
-                                                    '2018',
-                                                    ['class' => 'form-control']) !!}
+
+                                                    {!! Form::label('country', 'Country') !!}
+                                                    {!! Form::select('country',
+                                                                      $countries,
+                                                                      null,
+                                                                      ['class' => 'form-control']) !!}
+
 
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    {!! Form::label('term', 'Which Term?') !!}
-                                                    {!! Form::select('term',
-                                                    ['Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'],
-                                                    'Summer',
-                                                    ['class' => 'form-control']) !!}
+                                                    {!! Form::label('state', 'State/Province') !!}
+                                                    {!! Form::select('state',
+                                                                      $states,
+                                                                      null,
+                                                                      ['class' => 'form-control']) !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group">
+
+                                                    {!! Form::label('city', 'City') !!}
+                                                    {!! Form::select('city',
+                                                                      $cities,
+                                                                      null,
+                                                                      ['class' => 'form-control']) !!}
                                                     <br>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-5 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    {!! Form::label('paid_internship', 'Is this internship with any payment?') !!}
-                                                    {!! Form::select('paid_internship',
-                                                                    [0 => 'No', 1 => 'Yes', 2 => 'Unknown'],
-                                                                    2,
-                                                                    ['class' => 'form-control']) !!}
 
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    {!! Form::label('credit_hours', 'Credit Hours Desired') !!}
+                                                    {!! Form::label('street', 'Street') !!}
+                                                    {!! Form::text('street', null, ['class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="dates">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text">Tell us more about the internship's <b>location</b></h4>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group">
 
-                                                    <div class="input-group">
-                                                        {!! Form::select('credit_hours',
-                                                                          $credit_hours,
-                                                                          '0',
-                                                                          ['class' => 'form-control']) !!}
-                                                        <span class="input-group-addon">credits</span>
-                                                    </div>
+                                                    {!! Form::label('country', 'Country') !!}
+                                                    {!! Form::select('country',
+                                                                      $countries,
+                                                                      null,
+                                                                      ['class' => 'form-control']) !!}
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    {!! Form::label('state', 'State/Province') !!}
+                                                    {!! Form::select('state',
+                                                                      $states,
+                                                                      null,
+                                                                      ['class' => 'form-control']) !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group">
+
+                                                    {!! Form::label('city', 'City') !!}
+                                                    {!! Form::select('city',
+                                                                      $cities,
+                                                                      null,
+                                                                      ['class' => 'form-control']) !!}
+                                                    <br>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    {!! Form::label('street', 'Street') !!}
+                                                    {!! Form::text('street', null, ['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                         </div>
