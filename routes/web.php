@@ -85,18 +85,20 @@ Route::get('/logout', function (){
 	Auth::logout();
 	return redirect('/');
 });
+
+Route::get('/test_css_blade', ['as' => 'css_blade', 'uses' => 'TestFeatureController@cssBlade']);
 Route::get('/test_search', array('as' => 'search', 'uses' => 'TestAutocompleteController@search'));
 Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAutocompleteController@autocomplete'));
 
-Route::group(['prefix' => 'test', 'middleware' => ['auth', 'checkRole:student']], function (){
-	Route::get('abc', function (){
-		echo "hahaha yoho";
-		exit();
-	});
-	Route::get('test', function (){
-		return view('test.test');
-	});
-	Route::get('bcd', function (){
-		return view('welcome');
-	});
-});
+//Route::group(['prefix' => 'test', 'middleware' => ['auth', 'checkRole:student']], function (){
+//	Route::get('abc', function (){
+//		echo "hahaha yoho";
+//		exit();
+//	});
+//	Route::get('test', function (){
+//		return view('test.test');
+//	});
+//	Route::get('bcd', function (){
+//		return view('welcome');
+//	});
+//});
