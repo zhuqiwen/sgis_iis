@@ -53,7 +53,7 @@ class TravelWarning
 	public static function updateIfOutOfDate()
 	{
 		$a_record = WarnedCountry::first();
-		if(is_null($a_record))
+		if(!is_null($a_record))
         {
             date_default_timezone_set('America/New_York');
             $now = date('Y-m-d');
