@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+<?php
+$credit_hours = [
+        '0' => '0',
+        '1' => '1',
+        '2' => '2',
+        '3' => '3',
+];
+?>
 @section('content')
 
     {{--<link rel="stylesheet" href="/css/test/test.css">--}}
@@ -26,120 +33,123 @@
 
                                 <div class="wizard-header">
                                     <h3>
-                                        <b>LIST</b> YOUR BOAT <br>
-                                        <small>This information will let us know more about your boat.</small>
+                                        <b>SGIS Internship Application</b> <br>
+                                        <small>Tell us about your internship.</small>
                                     </h3>
                                 </div>
                                 <div class="wizard-navigation">
                                     <ul>
-                                        <li><a href="#details" data-toggle="tab">Details</a></li>
-                                        <li><a href="#captain" data-toggle="tab">Captain</a></li>
-                                        <li><a href="#description" data-toggle="tab">Description</a></li>
-                                        <li><a href="#details" data-toggle="tab">Details</a></li>
-                                        <li><a href="#captain" data-toggle="tab">Captain</a></li>
-                                        <li><a href="#description" data-toggle="tab">Description</a></li>
+                                        <li><a href="#basics" data-toggle="tab">Basics</a></li>
+                                        <li><a href="#location" data-toggle="tab">Location</a></li>
+                                        <li><a href="#dates" data-toggle="tab">Dates</a></li>
+                                        <li><a href="#budgets" data-toggle="tab">Budgets</a></li>
+                                        <li><a href="#work" data-toggle="tab">Work</a></li>
+                                        <li><a href="#thoughts" data-toggle="tab">Thoughts</a></li>
                                     </ul>
                                 </div>
                                 <div class="tab-content">
                                     <!-- 6 cards/panes -->
-                                    <!-- basic[year, term, paid?, credit hour]-->
+                                    <!-- basics[year, term, paid?, credit hour]-->
                                     <!-- location[country, state, city, street]-->
                                     <!-- dates[departure, return, start, end]-->
                                     <!-- budgets[airfare, living cost per day, accommodation]-->
                                     <!-- work[hours per week, schedule, duties]-->
                                     <!-- thoughts[goals, cultural reasons, challenge]-->
-                                    <div class="tab-pane" id="details">
+                                    <div class="tab-pane" id="basics">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <h4 class="info-text"> Let's start with the basic details</h4>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>What city is your boat in?</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Where is your boat located?">
+                                                    {!! Form::label('year', 'Which academic year?') !!}
+                                                    {!! Form::select('year',
+                                                    ['2018' => '2018', '2019'=> '2019'],
+                                                    '2018',
+                                                    ['class' => 'form-control']) !!}
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>Boat Type</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected="">- boat type -</option>
-                                                        <option>Power</option>
-                                                        <option>Sail</option>
-                                                        <option>Paddle</option>
-                                                    </select>
+                                                    {!! Form::label('term', 'Which Term?') !!}
+                                                    {!! Form::select('term',
+                                                    ['Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'],
+                                                    'Summer',
+                                                    ['class' => 'form-control']) !!}
+                                                    <br>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Year Manufacture</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected="">- year -</option>
-                                                        <option>2008</option>
-                                                        <option>2009</option>
-                                                        <option>2010</option>
-                                                        <option>2011</option>
-                                                        <option>2012</option>
-                                                        <option>2013</option>
-                                                        <option>2014</option>
-                                                    </select>
+                                                    {!! Form::label('paid_internship', 'Is this internship with any payment?') !!}
+                                                    {!! Form::select('paid_internship',
+                                                                    [0 => 'No', 1 => 'Yes', 2 => 'Unknown'],
+                                                                    2,
+                                                                    ['class' => 'form-control']) !!}
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>Daily Price</label>
+                                                    {!! Form::label('credit_hours', 'Credit Hours Desired') !!}
+
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control">
-                                                        <span class="input-group-addon">$</span>
+                                                        {!! Form::select('credit_hours',
+                                                                          $credit_hours,
+                                                                          '0',
+                                                                          ['class' => 'form-control']) !!}
+                                                        <span class="input-group-addon">credits</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="tab-pane" id="basic">
+                                    <div class="tab-pane" id="location">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <h4 class="info-text"> Let's start with the basic details</h4>
+                                                <h4 class="info-text">Tell us more about the internship's location</h4>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>What city is your boat in?</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Where is your boat located?">
+                                                    {!! Form::label('year', 'Which academic year?') !!}
+                                                    {!! Form::select('year',
+                                                    ['2018' => '2018', '2019'=> '2019'],
+                                                    '2018',
+                                                    ['class' => 'form-control']) !!}
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>Boat Type</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected="">- boat type -</option>
-                                                        <option>Power</option>
-                                                        <option>Sail</option>
-                                                        <option>Paddle</option>
-                                                    </select>
+                                                    {!! Form::label('term', 'Which Term?') !!}
+                                                    {!! Form::select('term',
+                                                    ['Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'],
+                                                    'Summer',
+                                                    ['class' => 'form-control']) !!}
+                                                    <br>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Year Manufacture</label>
-                                                    <select class="form-control">
-                                                        <option disabled="" selected="">- year -</option>
-                                                        <option>2008</option>
-                                                        <option>2009</option>
-                                                        <option>2010</option>
-                                                        <option>2011</option>
-                                                        <option>2012</option>
-                                                        <option>2013</option>
-                                                        <option>2014</option>
-                                                    </select>
+                                                    {!! Form::label('paid_internship', 'Is this internship with any payment?') !!}
+                                                    {!! Form::select('paid_internship',
+                                                                    [0 => 'No', 1 => 'Yes', 2 => 'Unknown'],
+                                                                    2,
+                                                                    ['class' => 'form-control']) !!}
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>Daily Price</label>
+                                                    {!! Form::label('credit_hours', 'Credit Hours Desired') !!}
+
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control">
-                                                        <span class="input-group-addon">$</span>
+                                                        {!! Form::select('credit_hours',
+                                                                          $credit_hours,
+                                                                          '0',
+                                                                          ['class' => 'form-control']) !!}
+                                                        <span class="input-group-addon">credits</span>
                                                     </div>
                                                 </div>
                                             </div>
