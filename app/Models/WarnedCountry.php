@@ -11,7 +11,7 @@ class WarnedCountry extends Model
 {
     protected $table = 'warned_countries';
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'type',
