@@ -17,12 +17,10 @@ class CreateWarnedCountriesTable extends Migration
 
         Schema::create('warned_countries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->boolean('warning')->nullable()->default(null);
-            $table->string('warning_type')->nullable()->default(null);
-            $table->date('warning_date')->nullable()->default(null);
-            $table->timestamps();
-
+            $table->string('type');
+            $table->date('date');
+	        $table->string('country');
+	        $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

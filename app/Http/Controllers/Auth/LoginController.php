@@ -65,26 +65,4 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function getCountryWarningData($url)
-    {
-        $dom = new \DOMDocument();
-        $dom->loadHTMLFile($url);
-        $tbody = $dom->getElementsByTagName('tbody')->item(0);
-        $data = [];
-        foreach ($tbody->childNodes as $tr)
-        {
-            $row = [];
-            foreach ($tr->childNodes as $td)
-            {
-                $row['type'] = $td->item(0)->nodeValue;
-                $row['date'] = gmdate('Y-m-d', $td->item(1)->nodeValue);
-                $row['country'] = explode(' ', $td->item(2)->nodeValue)[0];
-            }
-            array_push($data, $row);
-
-        }
-
-        return $data;
-    }
-
 }

@@ -177,6 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+	    App\Providers\HelperServiceProvider::class,
 	    Collective\Html\HtmlServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
 
@@ -230,6 +231,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'TravelWarning' => App\Helpers\TravelWarning::class,
     ],
 
 ];

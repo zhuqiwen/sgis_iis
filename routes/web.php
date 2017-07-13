@@ -35,6 +35,7 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 		return view('intern.student.home');
 	});
 	Route::get('/application/create', function (){
+		TravelWarning::updateIfOutOfDate();
 		return view('intern.student.application.create');
 	});
 	Route::post('/application/create', 'InternApplicationController@create');
