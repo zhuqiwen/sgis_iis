@@ -52,13 +52,18 @@ class TravelWarning
 	 */
 	public static function updateIfOutOfDate()
 	{
-		date_default_timezone_set('America/New_York');
-		$now = date('Y-m-d');
-		$last_update = date('Y-m-d', strtotime(WarnedCountry::first()->created_at));
+		$a_record = WarnedCountry::first();
+		if(is_null($a_record))
+        {
+            date_default_timezone_set('America/New_York');
+            $now = date('Y-m-d');
+            $last_update = date('Y-m-d', strtotime($a_record->created_at));
 
-		if($now > $last_update)
-		{
-			self::truncateAndRefillWarnedCountry();
-		}
+            if($now > $last_update)
+            {
+                self::truncateAndRefillWarnedCountry();
+            }
+        }
+
 	}
 }
