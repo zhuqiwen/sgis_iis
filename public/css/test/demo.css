@@ -20,3 +20,7 @@
     margin-top: 10px;
     width: 60px
 }
+
+.card.wizard-card{
+    background: rgba(255,255,255,0.7);
+}

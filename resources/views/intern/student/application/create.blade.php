@@ -2,12 +2,10 @@
 <?php
 $user_id = Auth::user()->id;
 
-//$organization_id = (int)session('data')['org_id'];
-$organization_id = 198155;
+$organization_id = (int)session('data')['org_id'];
 
 
-//$supervisor_id = (int)session('data')['supervisor_id'];
-$supervisor_id = 198155;
+$supervisor_id = (int)session('data')['supervisor_id'];
 
 $credit_hours = [
         '0' => '0',

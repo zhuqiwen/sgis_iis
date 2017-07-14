@@ -11,7 +11,7 @@ $org_id = session('org_id');
 
 
 
-    <div class="image-container set-full-height" style="background-image: url('/img/wizard-city.jpg')">
+    <div class="image-container set-full-height" style="background-image: url('/img/wizard-japan.jpg')">
         <!--   Big container   -->
         <div class="container">
             <div class="row">

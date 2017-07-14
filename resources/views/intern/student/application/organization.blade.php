@@ -44,7 +44,7 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
 
 
 
-    <div class="image-container set-full-height" style="background-image: url('/img/wizard-city.jpg')">
+    <div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">
         <!--   Big container   -->
         <div class="container">
             <div class="row">
