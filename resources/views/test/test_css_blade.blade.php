@@ -20,6 +20,11 @@ $cities = [
         'city 1' => 'city 1',
         'city 2' => 'city 2',
 ];
+$work_schedule_guide = 'please briefly describe your anticipated work schedule';
+$duties_guide = 'Provide a detailed description of the internship experience and your specific duties';
+$reasons_guide = 'Explain why this internship/volunteer opportunity was chosen (i.e., how will it help you in your educational and career goals)';
+$culture_guide = 'If it is an internship abroad, explain how you will interact with the host culture';
+$challenge_guide = 'Detail any challenges you expect to face during  the internship and explain how you intend to face these challenges';
 ?>
 @section('content')
 
@@ -122,7 +127,7 @@ $cities = [
                                     <div class="tab-pane" id="location">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <h4 class="info-text">Tell us more about the internship's <b>location</b></h4>
+                                                <h4 class="info-text"><b>Where</b> is the internship</h4>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
@@ -169,93 +174,145 @@ $cities = [
                                     <div class="tab-pane" id="dates">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <h4 class="info-text">Tell us more about the internship's <b>location</b></h4>
+                                                <h4 class="info-text">Great! <b>When?</b> </h4>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-
-                                                    {!! Form::label('country', 'Country') !!}
-                                                    {!! Form::select('country',
-                                                                      $countries,
-                                                                      null,
-                                                                      ['class' => 'form-control']) !!}
+                                                    {!! Form::label('depart_date', 'Departure date') !!}
+                                                    {!! Form::date('depart_date',
+                                                                    \Carbon\Carbon::now(),
+                                                                    ['class' => 'form-control']) !!}
 
 
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    {!! Form::label('state', 'State/Province') !!}
-                                                    {!! Form::select('state',
-                                                                      $states,
-                                                                      null,
-                                                                      ['class' => 'form-control']) !!}
+                                                    {!! Form::label('return_date', 'Return date') !!}
+                                                    {!! Form::date('return_date',
+                                                                    \Carbon\Carbon::now(),
+                                                                    ['class' => 'form-control']) !!}
 
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
 
-                                                    {!! Form::label('city', 'City') !!}
-                                                    {!! Form::select('city',
-                                                                      $cities,
-                                                                      null,
-                                                                      ['class' => 'form-control']) !!}
+                                                    {!! Form::label('start_date', 'Start date') !!}
+                                                    {!! Form::date('start_date',
+                                                                    \Carbon\Carbon::now(),
+                                                                    ['class' => 'form-control']) !!}
                                                     <br>
 
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    {!! Form::label('street', 'Street') !!}
-                                                    {!! Form::text('street', null, ['class' => 'form-control']) !!}
+                                                    {!! Form::label('end_date', 'End date') !!}
+                                                    {!! Form::date('end_date',
+                                                                    \Carbon\Carbon::now(),
+                                                                    ['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane" id="captain">
-                                        <h4 class="info-text">Do you include a captain? </h4>
+                                    <div class="tab-pane" id="budgets">
                                         <div class="row">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="col-sm-4 col-sm-offset-2">
-                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Renters you approve will be able to take this boat">
-                                                        <input type="radio" name="job" value="Design">
-                                                        <div class="icon">
-                                                            <i class="fa fa-life-ring"></i>
-                                                        </div>
-                                                        <h6>No Captain</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you or a certified captain will be included.">
-                                                        <input type="radio" name="job" value="Code">
-                                                        <div class="icon">
-                                                            <i class="fa fa-male"></i>
-                                                        </div>
-                                                        <h6>Includes Captain</h6>
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text"><b>How much</b> would you expect to spend?</h4>
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-4">
+                                                <div class="form-group">
+                                                    {!! Form::label('budget_airfare', 'Airfare') !!}
+                                                    <div class="input-group">
+                                                        {!! Form::number('budget_airfare', '0', ['class' => 'form-control']) !!}
+                                                        <span class="input-group-addon">$</span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-4 col-sm-offset-4">
+                                                <div class="form-group">
+                                                    {!! Form::label('budget_living_per_day', 'Daily Living') !!}
+                                                    <div class="input-group">
+                                                        {!! Form::number('budget_living_per_day', '0', ['class' => 'form-control']) !!}
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-4">
+                                                <div class="form-group">
+                                                    {!! Form::label('budget_accommodation', 'Accommodation') !!}
+                                                    <div class="input-group">
+                                                        {!! Form::number('budget_accommodation', '0', ['class' => 'form-control']) !!}
+                                                        <span class="input-group-addon">$</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="description">
+                                    <div class="tab-pane" id="work">
                                         <div class="row">
-                                            <h4 class="info-text"> Drop us a small description </h4>
-                                            <div class="col-sm-6 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    <label>Boat description</label>
-                                                    <textarea class="form-control" placeholder="" rows="9">
-                                            </textarea>
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text">Would you tell us more about your <b>work schedule</b></h4>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        {!! Form::label('work_hours_per_week', 'Work hours per week') !!}
+                                                        <div class="input-group">
+                                                            {!! Form::number('work_hours_per_week', '0', ['class' => 'form-control']) !!}
+                                                            <span class="input-group-addon">hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        {!! Form::label('work_schedule', 'Work schedule details ') !!}
+                                                        {!! Form::textarea('work_schedule',$work_schedule_guide, ['class' => 'form-control', 'rows' => 5]) !!}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-5">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        {!! Form::label('description', 'Expected experience and duties') !!}
+                                                        {!! Form::textarea('description', $duties_guide, ['class' => 'form-control', 'rows' => 9]) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="thoughts">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text">
+                                                    What's your <b>thoughts</b> on this internship?
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Example</label>
-                                                    <p class="description">"The boat really nice name is recognized as being a really awesome boat. We use it every sunday when we go fishing and we catch a lot. It has some kind of magic shield around it."</p>
+                                                    {!! Form::label('reasons', 'Reasons') !!}
+                                                    {!! Form::textarea('reasons', $reasons_guide, ['class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    {!! Form::label('cultural_interaction', 'Cultural interaction') !!}
+                                                    {!! Form::textarea('cultural_interaction', $culture_guide, ['class' => 'form-control']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    {!! Form::label('challenges', 'Challenges') !!}
+                                                    {!! Form::textarea('challenges', $challenge_guide, ['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <!-- end of cards definitions -->
 
