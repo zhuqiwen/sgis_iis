@@ -1,5 +1,14 @@
 @extends('layouts.app')
 <?php
+$user_id = Auth::user()->id;
+
+//$organization_id = (int)session('data')['org_id'];
+$organization_id = 198155;
+
+
+//$supervisor_id = (int)session('data')['supervisor_id'];
+$supervisor_id = 198155;
+
 $credit_hours = [
         '0' => '0',
         '1' => '1',
@@ -28,7 +37,6 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
 ?>
 @section('content')
 
-    {{--<link rel="stylesheet" href="/css/test/test.css">--}}
     <link rel="stylesheet" href="/css/test/bootstrap.min.css">
     <link rel="stylesheet" href="/css/test/demo.css">
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
@@ -47,6 +55,14 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                         <div class="card wizard-card" data-color="azzure" id="wizard">
                             {{--<form action="" method="">--}}
                             {!! Form::open(['action' => 'InternApplicationController@prepareLiability']) !!}
+                            {!! Form::hidden('user_id', $user_id) !!}
+                            {!! Form::hidden('organization_id', $organization_id) !!}
+                            {!! Form::hidden('supervisor_id', $supervisor_id) !!}
+                            {!! Form::hidden('is_approved', 0) !!}
+                            {!! Form::hidden('is_submitted', 0) !!}
+
+                            {{--//temporarily set to false--}}
+                            {!! Form::hidden('country_warning', 0) !!}
 
                             <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
 
@@ -296,19 +312,19 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
                                                     {!! Form::label('reasons', 'Reasons') !!}
-                                                    {!! Form::textarea('reasons', $reasons_guide, ['class' => 'form-control']) !!}
+                                                    {!! Form::textarea('reasons', $reasons_guide, ['class' => 'form-control', 'rows' => '3']) !!}
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     {!! Form::label('cultural_interaction', 'Cultural interaction') !!}
-                                                    {!! Form::textarea('cultural_interaction', $culture_guide, ['class' => 'form-control']) !!}
+                                                    {!! Form::textarea('cultural_interaction', $culture_guide, ['class' => 'form-control', 'rows' => '3']) !!}
                                                 </div>
                                             </div>
                                             <div class="col-sm-10 col-sm-offset-1">
                                                 <div class="form-group">
                                                     {!! Form::label('challenges', 'Challenges') !!}
-                                                    {!! Form::textarea('challenges', $challenge_guide, ['class' => 'form-control']) !!}
+                                                    {!! Form::textarea('challenges', $challenge_guide, ['class' => 'form-control', 'rows' => '3']) !!}
                                                 </div>
                                             </div>
                                         </div>
@@ -321,7 +337,8 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                 <div class="wizard-footer">
                                     <div class="pull-right">
                                         <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
-                                        <input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />
+                                        {{--<input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />--}}
+                                        {!! Form::submit('Go to release liability', ['class' => 'btn btn-finish btn-fill btn-info btn-wd btn-sm', 'name' => 'finish']) !!}
                                     </div>
                                     <div class="pull-left">
                                         <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
