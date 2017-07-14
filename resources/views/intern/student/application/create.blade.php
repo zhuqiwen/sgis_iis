@@ -77,7 +77,7 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                     <li><a href="#dates" data-toggle="tab">Dates</a></li>
                                     <li><a href="#budgets" data-toggle="tab">Budgets</a></li>
                                     <li><a href="#work" data-toggle="tab">Work</a></li>
-                                    <li><a href="#thoughts" data-toggle="tab">Thoughts</a></li>
+                                    <li><a href="#value" data-toggle="tab">Value</a></li>
                                 </ul>
                             </div>
                             <div class="tab-content">
@@ -87,7 +87,7 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                 <!-- dates[departure, return, start, end]-->
                                 <!-- budgets[airfare, living cost per day, accommodation]-->
                                 <!-- work[hours per week, schedule, duties]-->
-                                <!-- thoughts[goals, cultural reasons, challenge]-->
+                                <!-- value[goals, cultural reasons, challenge]-->
                                 <div class="tab-pane" id="basics">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -117,8 +117,8 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                             <div class="form-group">
                                                 {!! Form::label('paid_internship', 'Is this internship with any payment?') !!}
                                                 {!! Form::select('paid_internship',
-                                                                [0 => 'No', 1 => 'Yes', 2 => 'Unknown'],
-                                                                2,
+                                                                [0 => 'No', 1 => 'Yes'],
+                                                                1,
                                                                 ['class' => 'form-control']) !!}
 
                                             </div>
@@ -236,7 +236,7 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                         <div class="col-sm-12">
                                             <h4 class="info-text"><b>How much</b> would you expect to spend?</h4>
                                         </div>
-                                        <div class="col-sm-4 col-sm-offset-4">
+                                        <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
                                                 {!! Form::label('budget_airfare', 'Airfare') !!}
                                                 <div class="input-group">
@@ -245,20 +245,39 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 col-sm-offset-4">
+                                        <div class="col-sm-5">
                                             <div class="form-group">
-                                                {!! Form::label('budget_living_per_day', 'Daily Living') !!}
+                                                {!! Form::label('budget_housing', 'Housing in total') !!}
                                                 <div class="input-group">
-                                                    {!! Form::number('budget_living_per_day', '0', ['class' => 'form-control']) !!}
+                                                    {!! Form::number('budget_housing', '0', ['class' => 'form-control']) !!}
                                                     <span class="input-group-addon">$</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 col-sm-offset-4">
+                                        <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
-                                                {!! Form::label('budget_accommodation', 'Accommodation') !!}
+                                                {!! Form::label('budget_meals', 'Meals in total') !!}
                                                 <div class="input-group">
-                                                    {!! Form::number('budget_accommodation', '0', ['class' => 'form-control']) !!}
+                                                    {!! Form::number('budget_meals', '0', ['class' => 'form-control']) !!}
+                                                    <span class="input-group-addon">$</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                {!! Form::label('budget_transportation', 'Transportation in total') !!}
+                                                <div class="input-group">
+                                                    {!! Form::number('budget_transportation', '0', ['class' => 'form-control']) !!}
+                                                    <span class="input-group-addon">$</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                {!! Form::label('budget_others', 'Other costs(i.e. visa fee)') !!}
+                                                <div class="input-group">
+                                                    {!! Form::number('budget_others', '0', ['class' => 'form-control']) !!}
                                                     <span class="input-group-addon">$</span>
                                                 </div>
                                             </div>
@@ -300,11 +319,11 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                     </div>
                                 </div>
 
-                                <div class="tab-pane" id="thoughts">
+                                <div class="tab-pane" id="value">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4 class="info-text">
-                                                What's your <b>thoughts</b> on this internship?
+                                                What's the <b>value</b> of this internship?
                                             </h4>
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-1">

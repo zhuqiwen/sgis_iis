@@ -23,8 +23,10 @@ class CreateInternApplicationsTable extends Migration
 		    $table->string('street');
 		    $table->integer('credit_hours');
 		    $table->integer('budget_airfare');
-		    $table->integer('budget_living_per_day');
-		    $table->integer('budget_accommodation');
+		    $table->integer('budget_housing');
+		    $table->integer('budget_meals');
+		    $table->integer('budget_transportation');
+		    $table->integer('budget_others');
 		    $table->date('depart_date');
 		    $table->date('return_date');
 		    $table->date('start_date');

@@ -28,4 +28,4 @@ shows info of student, such as
 
 
 
-<a href="application/organization">Create a new internship application</a>
+<a href="student/application/organization">Create a new internship application</a>
