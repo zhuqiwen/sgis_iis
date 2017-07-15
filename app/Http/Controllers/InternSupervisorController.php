@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InternSupervisor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,37 +12,33 @@ class InternSupervisorController extends Controller
     {
 	    // do the same as with organization controller
 
-	    $request->flash();
-
-	    $org_id = (int)$request->old('org_id');
-	    $phone = $request->old('supervisor_phone_country_code').$request->old('supervisor_phone');
-	    $first_name = $request->old('supervisor_first_name');
-	    $last_name =$request->old('supervisor_last_name');
-	    $prefix = $request->old('supervisor_prefix');
-	    $email = $request->old('supervisor_email');
 
 
 
-		$supervisor = DB::table('intern_supervisors')
-			->where('first_name', $first_name)
-			->where('last_name', $last_name)
-			->where('prefix', $prefix)
-			->where('email', $email)
-			->where('phone', $phone)
-			->where('organization_id', $org_id)
+
+
+		$supervisor = InternSupervisor::where('first_name', $request->input('first_name'))
+			->where('last_name', $request->input('last_name'))
+			->where('prefix', $request->input('prefix'))
+			->where('email', $request->input('email'))
+			->where('phone', $request->input('phone_country_code').$request->input('phone'))
+			->where('organization_id', $request->input('organization_id'))
 			->first();
+
 
 	    if(is_null($supervisor))
 	    {
-		    $supervisor_id = DB::table('intern_supervisors')
-			    ->insertGetId([
-				    'first_name' => $first_name,
-					'last_name' => $last_name,
-		            'prefix' => $prefix,
-					'email' => $email,
-					'phone' => $phone,
-					'organization_id' => $org_id,
-			    ]);
+//		    $supervisor_id = DB::table('intern_supervisors')
+//			    ->insertGetId([
+//				    'first_name' => $first_name,
+//					'last_name' => $last_name,
+//		            'prefix' => $prefix,
+//					'email' => $email,
+//					'phone' => $phone,
+//					'organization_id' => $org_id,
+//			    ]);
+		    $supervisor = InternSupervisor::create($request->except('_token'));
+		    $supervisor_id  = $supervisor->id;
 	    }
 	    else
 	    {
@@ -49,7 +46,7 @@ class InternSupervisorController extends Controller
 	    }
 
 	    $data = [
-	    	'org_id' => $org_id,
+	    	'org_id' => $request->input('organization_id'),
 		    'supervisor_id' => $supervisor_id,
 	    ];
 	    return redirect('/intern/student/application/create')

@@ -17,12 +17,6 @@ class InternOrganizationController extends Controller
 
 	    if(is_null($organization))
 	    {
-//		    //now this is a new record, store it using insertGetId.
-//		    $org_id =DB::table('intern_organizations')
-//			    ->insertGetId([
-//			    	'name' => $organization_name,
-//				    'url' => $organization_url,
-//			    ]);
 		    $new_organization = InternOrganization::create($request->except('_token'));
 		    $org_id = $new_organization->id;
 	    }

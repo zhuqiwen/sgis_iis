@@ -21,7 +21,7 @@ $org_id = session('org_id');
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="azzure" id="wizard">
                         {!! Form::open(['action' => 'InternSupervisorController@store']) !!}
-                        {!! Form::hidden('org_id', $org_id) !!}
+                        {!! Form::hidden('organization_id', $org_id) !!}
 
                         <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
 
@@ -45,43 +45,43 @@ $org_id = session('org_id');
                                         </div>
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
-                                                {!! Form::label('supervisor_first_name', 'First name') !!}
-                                                {!! Form::text('supervisor_first_name', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('first_name', 'First name') !!}
+                                                {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                {!! Form::label('supervisor_last_name', 'Last name') !!}
-                                                {!! Form::text('supervisor_last_name', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('last_name', 'Last name') !!}
+                                                {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
                                             </div>
                                         </div>
 
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
-                                                {!! Form::label('supervisor_prefix', 'prefix') !!}
-                                                {!! Form::text('supervisor_prefix', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('prefix', 'prefix') !!}
+                                                {!! Form::text('prefix', null, ['class' => 'form-control']) !!}
 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                {!! Form::label('supervisor_email', 'email') !!}
-                                                {!! Form::text('supervisor_email', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('email', 'email') !!}
+                                                {!! Form::text('email', null, ['class' => 'form-control']) !!}
                                             </div>
                                         </div>
 
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
-                                                {!! Form::label('supervisor_phone_country_code', 'phone: country code') !!}
-                                                {!! Form::text('supervisor_phone_country_code', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('phone_country_code', 'phone: country code') !!}
+                                                {!! Form::text('phone_country_code', null, ['class' => 'form-control']) !!}
 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                {!! Form::label('supervisor_phone', 'phone #') !!}
-                                                {!! Form::text('supervisor_phone', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('phone', 'phone #') !!}
+                                                {!! Form::text('phone', null, ['class' => 'form-control']) !!}
                                             </div>
                                         </div>
 
