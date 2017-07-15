@@ -80,5 +80,3 @@
     </div>
 </div>
 <!-- DivTable.com -->
-
-<a href="/test_pdf">download as PDF</a>

@@ -71,7 +71,7 @@ Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:in
 		return view('intern.admin.home');
 	});
 
-	Route::get('/application', 'InternApplicationController@indexApplicationToBeApproved');
+	Route::get('/application/', 'InternApplicationController@indexApplicationToBeApproved');
 });
 
 Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum_admin']], function (){
@@ -90,15 +90,7 @@ Route::get('/test_css_blade', ['as' => 'css_blade', 'uses' => 'TestFeatureContro
 Route::get('/test_search', array('as' => 'search', 'uses' => 'TestAutocompleteController@search'));
 Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAutocompleteController@autocomplete'));
 
-//Route::group(['prefix' => 'test', 'middleware' => ['auth', 'checkRole:student']], function (){
-//	Route::get('abc', function (){
-//		echo "hahaha yoho";
-//		exit();
-//	});
-//	Route::get('test', function (){
-//		return view('test.test');
-//	});
-//	Route::get('bcd', function (){
-//		return view('welcome');
-//	});
-//});
+Route::get('/test_pdf', 'TestFeatureController@pdf');
+Route::get('/test', function (){
+	return view('test.test');
+});

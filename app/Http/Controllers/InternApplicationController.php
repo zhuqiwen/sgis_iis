@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class InternApplicationController extends Controller
 {
@@ -60,14 +61,11 @@ class InternApplicationController extends Controller
 		if($user->hasRole('intern_admin'))
 		{
 			$applications = InternApplication::where('is_approved', 0)
+				->where('is_submitted', 0)
 				->where('deleted_at', NULL)
 				->whereNotNull('liability_release_form_signed')
 				->get();
 			return view('intern/admin/application/index')->withApplications($applications);
-		}
-		else
-		{
-			return redirect('/');
 		}
 	}
 }

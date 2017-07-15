@@ -180,6 +180,8 @@ return [
 	    App\Providers\HelperServiceProvider::class,
 	    Collective\Html\HtmlServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
+	    Barryvdh\DomPDF\ServiceProvider::class,
+
 
 
     ],
@@ -232,6 +234,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'TravelWarning' => App\Helpers\TravelWarning::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

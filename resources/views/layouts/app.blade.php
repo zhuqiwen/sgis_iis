@@ -86,6 +86,13 @@
             </div>
         </nav>
 
+        @if(Session::has('invalid_user'))
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {!! session('invalid_user') !!}
+            </div>
+
+        @endif
         @yield('content')
     </div>
 

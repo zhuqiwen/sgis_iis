@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CheckRole
 {
@@ -17,7 +19,10 @@ class CheckRole
     {
 	    if(!$request->user()->hasRole($role))
 	    {
-		    return redirect('/');
+
+		    Session::flash('invalid_user', 'Sorry. You don\'t have the access to this resource. Please login as a valid user. ');
+		    Auth::logout();
+		    return redirect('/login');
 	    }
         return $next($request);
     }
