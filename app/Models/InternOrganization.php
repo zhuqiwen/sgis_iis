@@ -15,10 +15,11 @@ class InternOrganization extends Model
 
     protected $fillable = [
         'name',
-        'url'
+        'url',
+	    'type',
     ];
 
     protected $guarded = [];
 
-        
+
 }

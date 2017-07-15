@@ -2,38 +2,13 @@
 <?php
 $user_id = Auth::user()->id;
 
-//$organization_id = (int)session('data')['org_id'];
-$organization_id = 198155;
 
-
-//$supervisor_id = (int)session('data')['supervisor_id'];
-$supervisor_id = 198155;
-
-$credit_hours = [
-        '0' => '0',
-        '1' => '1',
-        '2' => '2',
-        '3' => '3',
+$organization_types = [
+        'Government' => 'Government',
+        'NGO' => 'NGO',
+        'Industry' => 'industry',
+        'Other' => 'Other',
 ];
-
-$countries = [
-        'China' => 'China',
-        'United Kingdom' => 'United Kingdom',
-];
-
-$states = [
-        'state 1' => 'state 1',
-        'state 2' => 'state 2',
-];
-$cities = [
-        'city 1' => 'city 1',
-        'city 2' => 'city 2',
-];
-$work_schedule_guide = 'please briefly describe your anticipated work schedule';
-$duties_guide = 'Provide a detailed description of the internship experience and your specific duties';
-$reasons_guide = 'Explain why this internship/volunteer opportunity was chosen (i.e., how will it help you in your educational and career goals)';
-$culture_guide = 'If it is an internship abroad, explain how you will interact with the host culture';
-$challenge_guide = 'Detail any challenges you expect to face during  the internship and explain how you intend to face these challenges';
 ?>
 @section('content')
 
@@ -78,21 +53,27 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                         </div>
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <div class="form-group">
-                                                {!! Form::label('organization_name', 'Organization name') !!}
-                                                {!! Form::text('organization_name', null, ['class' => 'form-control']) !!}
+                                                {!! Form::label('name', 'Organization name') !!}
+                                                {!! Form::text('name', 'Please do not use any abbreviation, such as IBM', ['class' => 'form-control']) !!}
 
                                             </div>
                                         </div>
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <div class="form-group">
                                                 {{--here need to check if the url is legal--}}
-                                                {!! Form::label('organization_url', 'Organization Website URL') !!}
-                                                {!! Form::text('organization_url', 'https://', ['class' => 'form-control']) !!}
+                                                {!! Form::label('url', 'Organization Website URL') !!}
+                                                {!! Form::text('url', 'https://', ['class' => 'form-control']) !!}
                                                 <br>
                                             </div>
                                         </div>
-                                        {{--TODO--}}
-                                        {{--We will need organization type --}}
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <div class="form-group">
+                                                {{--here need to check if the url is legal--}}
+                                                {!! Form::label('type', 'What type the organization is?') !!}
+                                                {!! Form::select('type', $organization_types, NULL, ['class' => 'form-control']) !!}
+                                                <br>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

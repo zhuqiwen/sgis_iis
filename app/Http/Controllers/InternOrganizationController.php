@@ -10,29 +10,21 @@ class InternOrganizationController extends Controller
 {
     public function store(Request $request)
     {
-	    //here check if the organization already exists in DB
-	    //if it does, then return id directory to view
-	    //if not, then insert first and then pass id to view
-
-	    //I am Going To Use the first idea
-	    $request->flash();
-
-	    $organization_name = $request->old('organization_name');
-	    $organization_url = $request->old('organization_url');
-
-	    //now check if the above is already in DB
-	    $organization = InternOrganization::where('name', $organization_name)
-		    ->where('url', $organization_url)
+	    $organization = InternOrganization::where('name', $request->input('name'))
+		    ->where('url', $request->input('url'))
+		    ->where('type', $request->input('type'))
 		    ->first();
 
 	    if(is_null($organization))
 	    {
-		    //now this is a new record, store it using insertGetId.
-		    $org_id =DB::table('intern_organizations')
-			    ->insertGetId([
-			    	'name' => $organization_name,
-				    'url' => $organization_url,
-			    ]);
+//		    //now this is a new record, store it using insertGetId.
+//		    $org_id =DB::table('intern_organizations')
+//			    ->insertGetId([
+//			    	'name' => $organization_name,
+//				    'url' => $organization_url,
+//			    ]);
+		    $new_organization = InternOrganization::create($request->except('_token'));
+		    $org_id = $new_organization->id;
 	    }
 	    else
 	    {
