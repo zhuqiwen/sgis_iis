@@ -22,6 +22,7 @@
 </head>
 <body>
     <div id="app" style="background-image: url('/img/wizard-europe.jpg')">
+    {{--<div id="app">--}}
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -96,8 +97,9 @@
     </div>
 
     <!-- Scripts -->
+    <script src="/js/test/jquery-2.2.4.min.js"></script>
+
     <script src="/js/app.js"></script>
     <script src="/js/test/bootstrap.min.js"></script>
-
 </body>
 </html>

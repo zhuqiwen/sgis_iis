@@ -19,7 +19,8 @@ $organization_types = [
 
 
 
-    <div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">
+    {{--<div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">--}}
+    <div class="image-container set-full-height">
         <!--   Big container   -->
         <div class="container">
             <div class="row">
