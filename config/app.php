@@ -234,6 +234,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'TravelWarning' => App\Helpers\TravelWarning::class,
+        'HTMLSnippet' => App\Helpers\HTMLSnippet::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
