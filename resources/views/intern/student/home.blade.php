@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <?php
 $user = Auth::user();
 $applications = \App\Models\InternApplication::where('user_id', $user->id)->get();
@@ -29,3 +31,4 @@ shows info of student, such as
 
 
 <a href="student/application/organization">Create a new internship application</a>
+@endsection

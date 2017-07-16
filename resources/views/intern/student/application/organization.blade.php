@@ -106,7 +106,8 @@ $organization_types = [
     </div>
 
 
-    <script src="/js/test/jquery-1.10.2.js"></script>
+    {{--<script src="/js/test/jquery-1.10.2.js"></script>--}}
+    <script src="/js/test/jquery-2.2.4.min.js"></script>
     <script src="/js/test/bootstrap.min.js"></script>
     <script src="/js/test/jquery.validate.min.js"></script>
     <script src="/js/test/jquery.bootstrap.wizard.js"></script>

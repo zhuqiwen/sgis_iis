@@ -21,7 +21,7 @@
     </script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="background-image: url('/img/wizard-europe.jpg')">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -69,7 +69,7 @@
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();
-                                                     console.log("sfdsaf");">
+                                                    ">
                                             Logout
                                         </a>
 
@@ -77,7 +77,6 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    <li>fsjk</li>
                                 </ul>
                             </li>
                         @endif
@@ -87,7 +86,7 @@
         </nav>
 
         @if(Session::has('invalid_user'))
-            <div class="alert alert-warning alert-dismissible" role="alert">
+            <div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 {!! session('invalid_user') !!}
             </div>
@@ -98,5 +97,7 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/js/test/bootstrap.min.js"></script>
+
 </body>
 </html>
