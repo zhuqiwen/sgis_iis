@@ -21,7 +21,7 @@ $applications = \App\Models\InternApplication::where('user_id', $user->id)->get(
     <div class="image-container set-full-height">
         <!--   Big container   -->
         <div class="container"  style="min-height: 100%;">
-            <div class="row">
+            <div class="row" style="margin-top: 10%">
                 <div class="col-sm-12">
 
                     {{--shows info of student, such as--}}
@@ -58,14 +58,14 @@ $applications = \App\Models\InternApplication::where('user_id', $user->id)->get(
                     {{--<a href="student/application/organization">Create a new internship application</a>--}}
 
 
-                    <a href="internship_manage.html"><div class="col-md-4 col-md-offset-1 float-card">
+                    <a href="internship_manage.html"><div id="float-card" class="col-md-5 float-card">
                             <h3>
                                 Student Internship Management
                             </h3>
                             <p>
                                 Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. </p>
                         </div></a>
-                    <a href="alum_manage.html"><div class="col-md-4 col-md-offset-2 float-card">
+                    <a href="alum_manage.html"><div id="float-card" class="col-md-5 col-md-offset-2 float-card">
                             <h3>
                                 Alum Management
                             </h3>
@@ -77,7 +77,7 @@ $applications = \App\Models\InternApplication::where('user_id', $user->id)->get(
 
                 </div>
             </div> <!-- row -->
-            <div class="row" style="margin-top: 10%;">
+            <div class="row" style="margin-top: 5%;">
                 <div class="col-sm-12">
 
                     {{--shows info of student, such as--}}
@@ -114,14 +114,14 @@ $applications = \App\Models\InternApplication::where('user_id', $user->id)->get(
                     {{--<a href="student/application/organization">Create a new internship application</a>--}}
 
 
-                    <a href="internship_manage.html"><div class="col-md-4 col-md-offset-1 float-card">
+                    <a href="internship_manage.html"><div id="float-card" class="col-md-5 float-card">
                             <h3>
                                 Student Internship Management
                             </h3>
                             <p>
                                 Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. </p>
                         </div></a>
-                    <a href="alum_manage.html"><div class="col-md-4 col-md-offset-2 float-card">
+                    <a href="alum_manage.html"><div id="float-card" class="col-md-5 col-md-offset-2 float-card">
                             <h3>
                                 Alum Management
                             </h3>
