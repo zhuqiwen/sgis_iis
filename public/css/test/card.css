@@ -21,6 +21,11 @@ body {
     background: rgba(255, 255, 255, 0.8);
 }
 
+a{
+    color: black;
+}
+
+
 @media screen and (min-width: 1024px) {
     #float-card{
         height:250px;
