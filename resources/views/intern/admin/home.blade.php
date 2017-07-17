@@ -10,8 +10,8 @@
         generateCardRow(
             '10%',
             [
-                ['href' => 'href1', 'title' => 'Approve Applications', 'text' => 'text1'],
-                ['href' => 'href2', 'title' => 'AAAAA', 'text' => 'text2']
+                ['href' => 'href1', 'title' => 'to Manage Internship Applications', 'text' => 'text1'],
+                ['href' => 'href2', 'title' => 'to Manage Scholarships', 'text' => 'text2']
             ]
         ) !!}
 
@@ -19,8 +19,7 @@
         generateCardRow(
             '5%',
             [
-                ['href' => 'href3', 'title' => 'BBBBBB', 'text' => 'text3'],
-                ['href' => 'href4', 'title' => 'CCCCCC', 'text' => 'text4']
+                ['href' => 'href3', 'title' => 'Reports and Visualizations', 'text' => 'text3'],
             ]
         ) !!}
 

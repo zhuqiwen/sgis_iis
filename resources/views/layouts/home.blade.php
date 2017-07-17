@@ -9,10 +9,12 @@
 
 
 
-    <link rel="stylesheet" href="/css/test/bootstrap.min.css">
+    {{--<link rel="stylesheet" href="/css/test/bootstrap.min.css">--}}
     <link rel="stylesheet" href="/css/test/demo.css">
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
     <link rel="stylesheet" href="/css/test/card.css">
+    <link rel="stylesheet" href="/css/test/rotating-card.css">
+
 
 
 
