@@ -95,3 +95,7 @@ Route::get('/test_pdf', 'TestFeatureController@pdf');
 Route::get('/test', function (){
 	return view('test.test');
 });
+
+Route::get('/test_ajax', function(){
+    return random_int(10,100);
+});
