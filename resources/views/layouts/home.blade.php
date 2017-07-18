@@ -10,13 +10,8 @@
 
 
     {{--<link rel="stylesheet" href="/css/test/bootstrap.min.css">--}}
-    <link rel="stylesheet" href="/css/test/demo.css">
+    {{--<link rel="stylesheet" href="/css/test/demo.css">--}}
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
-    <link rel="stylesheet" href="/css/test/card.css">
-    <link rel="stylesheet" href="/css/test/rotating-card.css">
-
-
-
 
     {{--<div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">--}}
     <div class="image-container set-full-height">

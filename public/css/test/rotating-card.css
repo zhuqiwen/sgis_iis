@@ -45,6 +45,7 @@ body {
     -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
     position: relative;
+
 }
 
 /* hide back of pane during swap */
@@ -56,8 +57,15 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #FFF;
+    /*background-color: #FFF;*/
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+}
+
+.front-text {
+    text-align: left;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 /* front pane, placed above back */
@@ -83,15 +91,27 @@ body {
 
 
 .card{
-    background: none repeat scroll 0 0 #FFFFFF;
+    /*background: none repeat scroll 0 0;*/
     border-radius: 4px;
     color: #444444;
+    background-color: rgba(255, 255, 255, 0.0);
+
 }
 .card-container, .front, .back {
     width: 100%;
-    height: 420px;
+    height: 250px;
     border-radius: 4px;
+    text-align: center;
 }
+
+/*.card .front .front-title {*/
+    /*position: relative;*/
+    /*top: 20%;*/
+    /*margin-top: -50px;*/
+/*}*/
+
+
+
 .card .cover{
     height: 105px;
     overflow: hidden;
@@ -294,6 +314,29 @@ pre.prettyprint{
 .navbar-default .navbar-brand-logo .brand{
     color: #555;
 }
+
+
+/* float card effect*/
+
+.float-card {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    margin-top: 10%;
+}
+
+
+
+a{
+    color: black;
+}
+
+.float-card:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.5), 0 10px 10px rgba(0,0,0,0.44);
+}
+
+/*end of float card*/
 
 
 /*       Fix bug for IE      */

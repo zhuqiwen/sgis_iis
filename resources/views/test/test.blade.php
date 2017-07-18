@@ -2,149 +2,80 @@
 
 <link rel="stylesheet" href="/css/app.css">
 <link rel="stylesheet" href="/css/test/rotating-card.css">
+{{--<link rel="stylesheet" href="/css/test/card.css">--}}
 
 <div class="container">
     <div class="row">
-        <h1 class="title">
-            This is our awesome team
-            <br>
-            <small>Present your team in an interesting way</small>
-        </h1>
-        <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-12">
             <div class="col-md-5">
                 <div class="card-container">
                     <div class="card">
                         <div class="front">
-                            <div class="cover">
-                                <img src="images/rotating_card_thumb2.png"/>
+                            <div class="front-title">
+
+                                <h3>Internship Applications</h3>
                             </div>
-                            <div class="user">
-                                <img class="img-circle" src="images/rotating_card_profile3.png"/>
-                            </div>
-                            <div class="content">
-                                <div class="main">
-                                    <h3 class="name">John Marvel</h3>
-                                    <p class="profession">CEO</p>
-                                    <p class="text-center">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
-                                </div>
-                                <div class="footer">
-                                    <i class="fa fa-mail-forward"></i> Auto Rotation
-                                </div>
+                            <div class="front-text">
+                                <p>some description of this functionality</p>
                             </div>
                         </div> <!-- end front panel -->
                         <div class="back">
-                            <div class="header">
-                                <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                            </div>
-                            <div class="content">
-                                <div class="main">
-                                    <h4 class="text-center">Job Description</h4>
-                                    <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
+                            <div class="col-sm-12">
+                                <a href="#">
+                                    <div class="col-sm-6 float-card" id="float-card">
+                                        <div class="back-title" >
 
-                                    <div class="stats-container">
-                                        <div class="stats">
-                                            <h4>235</h4>
-                                            <p>
-                                                Followers
-                                            </p>
-                                        </div>
-                                        <div class="stats">
-                                            <h4>114</h4>
-                                            <p>
-                                                Following
-                                            </p>
-                                        </div>
-                                        <div class="stats">
-                                            <h4>35</h4>
-                                            <p>
-                                                Projects
-                                            </p>
+                                            <h3>Title 1-1</h3>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-                            <div class="footer">
-                                <div class="social-links text-center">
-                                    <a href="http://creative-tim.com" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
-                                    <a href="http://creative-tim.com" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
-                                    <a href="http://creative-tim.com" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
-                                </div>
+                                </a>
+                                <a href="#">
+                                    <div class="col-sm-6 float-card" id="float-card">
+                                        <div class="back-title">
+                                            <h3>title 1-2</h3>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         </div> <!-- end back panel -->
                     </div> <!-- end card -->
                 </div> <!-- end card-container -->
-            </div> <!-- end col sm 3 -->
-            <!--         <div class="col-sm-1"></div> -->
+            </div> <!-- end col md 5 -->
             <div class="col-md-5 col-md-offset-2">
-                <div class="card-container manual-flip">
+                <div class="card-container">
                     <div class="card">
                         <div class="front">
-                            <div class="cover">
-                                <img src="images/rotating_card_thumb.png"/>
+                            <div class="front-title">
+
+                                <h3>Internship Applications</h3>
                             </div>
-                            <div class="user">
-                                <img class="img-circle" src="images/rotating_card_profile2.png"/>
-                            </div>
-                            <div class="content">
-                                <div class="main">
-                                    <h3 class="name">Andrew Mike</h3>
-                                    <p class="profession">Web Developer</p>
-                                    <p class="text-center">"Lamborghini Mercy <br>Your chick she so thirsty <br>I'm in that two seat Lambo"</p>
-                                </div>
-                                <div class="footer">
-                                    <button class="btn btn-simple" onclick="rotateCard(this)">
-                                        <i class="fa fa-mail-forward"></i> Manual Rotation
-                                    </button>
-                                </div>
+                            <div class="front-text">
+                                <p>some description of this functionality</p>
                             </div>
                         </div> <!-- end front panel -->
                         <div class="back">
-                            <div class="header">
-                                <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                            </div>
-                            <div class="content">
-                                <div class="main">
-                                    <h4 class="text-center">Job Description</h4>
-                                    <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
+                            <div class="col-sm-12">
+                                <a href="#">
+                                    <div class="col-sm-6 float-card" id="float-card">
+                                        <div class="back-title" >
 
-                                    <div class="stats-container">
-                                        <div class="stats">
-                                            <h4>235</h4>
-                                            <p>
-                                                Followers
-                                            </p>
-                                        </div>
-                                        <div class="stats">
-                                            <h4>114</h4>
-                                            <p>
-                                                Following
-                                            </p>
-                                        </div>
-                                        <div class="stats">
-                                            <h4>35</h4>
-                                            <p>
-                                                Projects
-                                            </p>
+                                            <h3>Title 1-1</h3>
                                         </div>
                                     </div>
+                                </a>
+                                <a href="#">
+                                    <div class="col-sm-6 float-card" id="float-card">
+                                        <div class="back-title" >
 
-                                </div>
-                            </div>
-                            <div class="footer">
-                                <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
-                                    <i class="fa fa-reply"></i> Back
-                                </button>
-                                <div class="social-links text-center">
-                                    <a href="http://creative-tim.com" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
-                                    <a href="http://creative-tim.com" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
-                                    <a href="http://creative-tim.com" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
-                                </div>
+                                            <h3>title 1-2</h3>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         </div> <!-- end back panel -->
                     </div> <!-- end card -->
                 </div> <!-- end card-container -->
-            </div> <!-- end col sm 3 -->
+            </div> <!-- end col md 5 -->
         </div> <!-- end col-sm-10 -->
     </div> <!-- end row -->
     {{--<div class="space-200"></div>--}}
