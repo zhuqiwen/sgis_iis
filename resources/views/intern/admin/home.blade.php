@@ -3,6 +3,8 @@
 {{--<a href="application/approve">To approve internship applications</a>--}}
 {{--<a href="application/approve">To review internship evaluations</a>--}}
 
+{{--TODO--}}
+{{--need to improve float cards' height--}}
 
 @extends('layouts.home')
 @section('card_rows')
