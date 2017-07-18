@@ -71,7 +71,8 @@ Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:in
 		return view('intern.admin.home');
 	});
 
-	Route::get('/application/', 'InternApplicationController@indexApplicationToBeApproved');
+	Route::get('application/to_be_approved', 'InternApplicationController@indexApplicationToBeApproved');
+
 });
 
 Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum_admin']], function (){

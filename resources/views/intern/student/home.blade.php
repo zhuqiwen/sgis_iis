@@ -6,7 +6,7 @@
         generateCardRow(
             '10%',
             [
-                ['href' => 'href1', 'title' => 'Create Internship Application', 'text' => 'text1'],
+                ['href' => 'student/application/organization', 'title' => 'Create Internship Application', 'text' => 'text1'],
                 ['href' => 'href2', 'title' => 'Internship Journal & Evaluation', 'text' => 'text2']
             ]
         ) !!}

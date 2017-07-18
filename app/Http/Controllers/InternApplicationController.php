@@ -7,6 +7,7 @@ use App\User;
 use App\Models\InternApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Sabberworm\CSS\Value\String;
 
 class InternApplicationController extends Controller
 {
@@ -67,5 +68,21 @@ class InternApplicationController extends Controller
 				->get();
 			return view('intern/admin/application/index')->withApplications($applications);
 		}
+	}
+
+    public function getTypesOf($field_name, $conditions = [])
+    {
+        $types = InternApplication::select($field_name);
+
+        if (empty($conditions))
+        {
+            //TODO
+            //need to make this query more generic
+            foreach ($conditions as $field => $value)
+            {
+                $types = $types->where($field, $value);
+            }
+        }
+        return $types->distinct()->get();
 	}
 }
