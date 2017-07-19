@@ -66,9 +66,28 @@
                                         Group By <span class="caret"></span>
                                     </a>
 
-
-
                                     <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a id="groupByYear" class="approve_group_by" href="#">
+
+                                                Internship Year
+                                            </a>
+
+                                        </li>
+                                        <li>
+                                            <a id="groupByTerm" class="approve_group_by" href="#">
+
+                                                Academic Term
+                                            </a>
+
+                                        </li>
+                                        <li>
+                                            <a id="groupByCredit_hours" class="approve_group_by" href="#">
+
+                                                Desired Credits
+                                            </a>
+
+                                        </li>
                                         <li>
                                             <a id="groupByCountry" class="approve_group_by" href="#">
 
