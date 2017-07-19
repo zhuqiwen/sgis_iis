@@ -60,28 +60,6 @@
                                 <li><a href="{{ url('/register') }}">Register</a></li>
                             @endif
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->first_name }} <span class="caret"></span>
-                                </a>
-
-
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();
-                                                    ">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
                             @if(Request::path() === 'intern/admin/application/to_approve')
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -92,15 +70,51 @@
 
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a id="groupByCountry" href="#">
+                                            <a id="groupByCountry" class="approve_group_by" href="#">
 
                                                 Country
+                                            </a>
+
+                                        </li>
+                                        <li>
+                                            <a id="groupByPaid_internship" class="approve_group_by" href="#">
+
+                                                Payment
+                                            </a>
+
+                                        </li>
+                                        <li>
+                                            <a id="groupByOrganization_type" class="approve_group_by" href="#">
+
+                                                Organization Type
                                             </a>
 
                                         </li>
                                     </ul>
                                 </li>
                             @endif
+                            <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ Auth::user()->first_name }} <span class="caret"></span>
+                                    </a>
+
+
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ url('/logout') }}"
+                                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();
+                                                    ">
+                                                Logout
+                                            </a>
+
+                                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
                         @endif
                     </ul>
                 </div>

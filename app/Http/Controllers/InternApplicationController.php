@@ -70,16 +70,9 @@ class InternApplicationController extends Controller
 		}
 	}
 
-    public function getTypesOf(Request $request)
+    public function getValuesOf($field, array $conditions)
     {
-	    $conditions = [];
-	    if ($request->ajax())
-	    {
-		    $field_name = $request->field_name;
-	    }
-
-
-        $types = InternApplication::select($field_name);
+	    $values = InternApplication::select($field);
 
         if (!empty($conditions))
         {
@@ -87,9 +80,42 @@ class InternApplicationController extends Controller
             //need to make this query more generic
             foreach ($conditions as $field => $value)
             {
-                $types = $types->where($field, $value);
+                $values = $values->where($field, $value);
             }
         }
-        return $types->distinct()->get();
+        return $values->distinct()->get();
+	}
+
+    public function getGroupedApplications(Request $request)
+    {
+        $data = new InternApplication();
+        if($request->has('is_submitted'))
+        {
+            $data = $data->where('is_submitted', $request->is_submitted);
+        }
+
+        if($request->has('is_approved'))
+        {
+            $data = $data->where('is_approved', $request->is_approved);
+        }
+
+        if($request->has('deleted_at'))
+        {
+            $data = $data->where('deleted_at', $request->deleted_at);
+        }
+
+        if($request->field == 'organization_type')
+        {
+
+            $data = $data->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id');
+            $data = $data->select('intern_organizations.type as org_type', 'intern_applications.*');
+
+            return $data->get()->groupBy('org_type');
+        }
+
+        return $data->get()->groupBy($request->field);
+
+
+
 	}
 }

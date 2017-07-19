@@ -114,4 +114,4 @@ Route::get('/test_tab_list', function (){
 //    ];
 //});
 
-Route::get('/test_ajax', 'InternApplicationController@getTypesOf');
+Route::get('/test_ajax', 'InternApplicationController@getGroupedApplications');

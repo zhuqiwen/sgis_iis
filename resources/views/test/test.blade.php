@@ -42,14 +42,15 @@
 <script>
     $(document).ready(function(){
         $(function(){
-            $("#groupByCountry").click(function (e) {
+            $(".approve_group_by").click(function (e) {
                 e.preventDefault();
+                var value = this.id.replace('groupBy', '').toLowerCase();
                 console.log("jo");
                 var get_url = '/test_ajax';
                 $.ajax({
                     type: 'GET',
                     url: get_url,
-                    data: {'field_name': 'country'},
+                    data: {'field': value},
                     success: function (returned_data) {
                         console.log('success');
                         console.log(returned_data);
