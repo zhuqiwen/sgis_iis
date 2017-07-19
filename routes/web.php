@@ -71,7 +71,11 @@ Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:in
 		return view('intern.admin.home');
 	});
 
-	Route::get('application/to_be_approved', 'InternApplicationController@indexApplicationToBeApproved');
+//	Route::get('application/to_be_approved', 'InternApplicationController@indexApplicationToBeApproved');
+	Route::get('application/to_approve', function (){
+//		return view('intern.admin.application.to_be_approved');
+		return view('test.test');
+	});
 
 });
 
@@ -93,9 +97,19 @@ Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAu
 
 Route::get('/test_pdf', 'TestFeatureController@pdf');
 Route::get('/test', function (){
-	return view('test.test');
+	return view('test.test_multiple_sections');
+});
+Route::get('/test_tab_list', function (){
+	return view('test.test_list_tab');
 });
 
+
+
 Route::get('/test_ajax', function(){
-    return random_int(10,100);
+    return [
+    	'China' => 'china',
+    	'Japan' => 'japan',
+    	'UK' => 'uk',
+    	'US' => 'us',
+    ];
 });
