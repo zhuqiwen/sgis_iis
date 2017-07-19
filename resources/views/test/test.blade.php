@@ -13,11 +13,13 @@
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
                     <ul id="tabs" class="nav nav-tabs">
-
+                        <li class="active"><a href="#default" data-toggle="tab"></a></li>
                     </ul>
                 </div>
                 <div class="panel-body">
                     <div id="tab-contents" class="tab-content">
+                        <div class="tab-pane fade in active" id="default">default view when first loaded</div>
+
 
                     </div>
                 </div>
