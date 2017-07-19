@@ -49,6 +49,7 @@
                 $.ajax({
                     type: 'GET',
                     url: get_url,
+                    data: {'field_name': 'country'},
                     success: function (returned_data) {
                         console.log('success');
                         console.log(returned_data);
@@ -62,12 +63,12 @@
                             if (cnt == 0)
                             {
                                 tabs += '<li class="active"><a href="#' + key + '" data-toggle="tab">' + key + '</a></li>';
-                                contents += '<div class="tab-pane fade in active" id="' + key + '">' + returned_data[key] + '</div>';
+//                                contents += '<div class="tab-pane fade in active" id="' + key + '">' + returned_data[key] + '</div>';
                             }
                             else
                             {
                                 tabs += '<li><a href="#'+key+'" data-toggle="tab">'+key+'</a></li>';
-                                contents += '<div class="tab-pane fade" id="' + key + '">' + returned_data[key] + '</div>';
+//                                contents += '<div class="tab-pane fade" id="' + key + '">' + returned_data[key] + '</div>';
 
                             }
                             cnt ++;

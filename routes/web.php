@@ -105,11 +105,13 @@ Route::get('/test_tab_list', function (){
 
 
 
-Route::get('/test_ajax', function(){
-    return [
-    	'China' => 'china',
-    	'Japan' => 'japan',
-    	'UK' => 'uk',
-    	'US' => 'us',
-    ];
-});
+//Route::get('/test_ajax', function(){
+//    return [
+//    	'China' => 'china',
+//    	'Japan' => 'japan',
+//    	'UK' => 'uk',
+//    	'US' => 'us',
+//    ];
+//});
+
+Route::get('/test_ajax', 'InternApplicationController@getTypesOf');

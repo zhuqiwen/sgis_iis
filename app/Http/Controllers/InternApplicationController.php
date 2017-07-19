@@ -70,11 +70,18 @@ class InternApplicationController extends Controller
 		}
 	}
 
-    public function getTypesOf($field_name, $conditions = [])
+    public function getTypesOf(Request $request)
     {
+	    $conditions = [];
+	    if ($request->ajax())
+	    {
+		    $field_name = $request->field_name;
+	    }
+
+
         $types = InternApplication::select($field_name);
 
-        if (empty($conditions))
+        if (!empty($conditions))
         {
             //TODO
             //need to make this query more generic
