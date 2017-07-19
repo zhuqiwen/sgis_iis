@@ -82,6 +82,25 @@
                                     </li>
                                 </ul>
                             </li>
+                            @if(Request::path() === 'intern/admin/application/to_approve')
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        Group By <span class="caret"></span>
+                                    </a>
+
+
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a id="groupByCountry" href="#">
+
+                                                Country
+                                            </a>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif
                         @endif
                     </ul>
                 </div>
