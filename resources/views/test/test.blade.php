@@ -54,13 +54,13 @@
             $(".approve_group_by").click(function (e) {
                 e.preventDefault();
                 var value = this.id.replace('groupBy', '').toLowerCase();
-                $("#current-grouper").html('Application Grouped by ' + this.text);
+                $("#current-grouper").html('Application Grouped by ' + '<u>' + this.text + '</u>');
                 console.log("jo");
                 var get_url = '/test_ajax';
                 $.ajax({
                     type: 'GET',
                     url: get_url,
-                    data: {'field': value},
+                    data: {'field': value, 'is_approved': 0, 'is_submitted': 1},
                     success: function (returned_data) {
                         console.log('success');
                         console.log(returned_data);
