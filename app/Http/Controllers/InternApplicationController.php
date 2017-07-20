@@ -58,16 +58,7 @@ class InternApplicationController extends Controller
 
 	public function indexApplicationToBeApproved()
 	{
-		$user = Auth::user();
-		if($user->hasRole('intern_admin'))
-		{
-			$applications = InternApplication::where('is_approved', 0)
-				->where('is_submitted', 0)
-				->where('deleted_at', NULL)
-				->whereNotNull('liability_release_form_signed')
-				->get();
-			return view('intern/admin/application/index')->withApplications($applications);
-		}
+		return view('intern.admin.application.to_be_approved');
 	}
 
     public function getValuesOf($field, array $conditions)
@@ -104,18 +95,21 @@ class InternApplicationController extends Controller
             $data = $data->where('deleted_at', $request->deleted_at);
         }
 
+        // join User to get names and other information
+        $data = $data->join('users', 'intern_applications.user_id', '=', 'users.id');
+
         if($request->field == 'organization_type')
         {
 
             $data = $data->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id');
-            $data = $data->select('intern_organizations.type as org_type', 'intern_applications.*');
+            $data = $data->select('intern_organizations.type AS org_type', 'users.first_name', 'users.last_name', 'intern_applications.*');
 
             return $data->get()->groupBy('org_type');
         }
 
-        return $data->get()->groupBy($request->field);
+	    $data = $data->select('users.first_name', 'users.last_name', 'intern_applications.*');
 
 
-
+	    return $data->get()->groupBy($request->field);
 	}
 }

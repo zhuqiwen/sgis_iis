@@ -3,14 +3,23 @@
 
 <link href="/css/test/bootstrap.min.css" rel="stylesheet">
 <link href="/css/test/tab_list.css" rel="stylesheet">
+<link href="/css/test/card.css" rel="stylesheet">
 
-
+<style>
+    #group-title {
+        text-align: center;
+    }
+</style>
 
 
 <div class="container">
     <div class="row" style="margin-top: 10%;">
         <div class="col-md-12">
             <div class="panel with-nav-tabs panel-default">
+                <div id="group-title">
+                    <h3 id="current-grouper">Applications to be approved</h3>
+                </div>
+
                 <div class="panel-heading">
                     <ul id="tabs" class="nav nav-tabs">
                         <li class="active"><a href="#default" data-toggle="tab"></a></li>
@@ -45,6 +54,7 @@
             $(".approve_group_by").click(function (e) {
                 e.preventDefault();
                 var value = this.id.replace('groupBy', '').toLowerCase();
+                $("#current-grouper").html('Application Grouped by ' + this.text);
                 console.log("jo");
                 var get_url = '/test_ajax';
                 $.ajax({
@@ -59,23 +69,49 @@
                         var contents = '';
 
                         var cnt = 0;
-                        for (key in returned_data)
+                        for (var tab in returned_data)
                         {
+                            var original_tab = tab;
+                            tab = tab.replace(' ','-');
                             if (cnt == 0)
                             {
-                                tabs += '<li class="active"><a href="#' + key + '" data-toggle="tab">' + key + '</a></li>';
-//                                contents += '<div class="tab-pane fade in active" id="' + key + '">' + returned_data[key] + '</div>';
+                                tabs += '<li class="active"><a href="#' + tab + '" data-toggle="tab">' + tab + '</a></li>';
+                                contents += '<div class="tab-pane fade in active" id="' + tab + '">'
+                                            + '<div class="row">'
+                                            + '<div class="col-md-12">';
                             }
                             else
                             {
-                                tabs += '<li><a href="#'+key+'" data-toggle="tab">'+key+'</a></li>';
-//                                contents += '<div class="tab-pane fade" id="' + key + '">' + returned_data[key] + '</div>';
+                                tabs += '<li><a href="#'+tab+'" data-toggle="tab">'+tab+'</a></li>';
+                                contents += '<div class="tab-pane fade" id="' + tab + '">'
+                                        + '<div class="row">'
+                                        + '<div class="col-md-12">';
 
                             }
+                            var inner_cnt = 0;
+                            console.log(returned_data[original_tab]);
+                            for (var application in returned_data[original_tab])
+                            {
+                                console.log('aha');
+                                console.log(application);
+                                application = returned_data[original_tab][application];
+                                contents += '<div class="col-md-4" style="margin-top: 5%;">'
+                                        + '<a href="#">'
+                                        + '<div id="float-card" class="col-md-10 col-md-offset-1 float-card">'
+                                        + '<div class="title"><h3>'
+                                        + application.last_name + ', ' + application.first_name
+                                        + '</h3></div>'
+                                        + '<div class="text"><p> Text'
+                                        + inner_cnt
+                                        + '</p></div></div></a></div>'
+                                inner_cnt ++;
+                            }
+                            contents += '</div></div></div>';
                             cnt ++;
                         }
                         $("#tabs").html(tabs);
                         $("#tab-contents").html(contents);
+
                     }
 
                 });
