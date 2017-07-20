@@ -97,17 +97,24 @@ class InternApplicationController extends Controller
 
         // join User to get names and other information
         $data = $data->join('users', 'intern_applications.user_id', '=', 'users.id');
+        $data = $data->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id');
+        $data = $data->select(
+            'intern_organizations.type AS org_type',
+            'intern_organizations.name As org_name',
+            'intern_organizations.url As org_url',
+            'users.first_name',
+            'users.last_name',
+            'users.iuid',
+            'intern_applications.*'
+        );
 
         if($request->field == 'organization_type')
         {
 
-            $data = $data->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id');
-            $data = $data->select('intern_organizations.type AS org_type', 'users.first_name', 'users.last_name', 'intern_applications.*');
-
             return $data->get()->groupBy('org_type');
         }
 
-	    $data = $data->select('users.first_name', 'users.last_name', 'intern_applications.*');
+//	    $data = $data->select('users.first_name', 'users.last_name', 'intern_applications.*');
 
 
 	    return $data->get()->groupBy($request->field);

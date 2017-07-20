@@ -96,13 +96,32 @@
                                 console.log(application);
                                 application = returned_data[original_tab][application];
                                 contents += '<div class="col-md-4" style="margin-top: 5%;">'
-                                        + '<a href="#">'
+                                        + '<a href="#" style="text-decoration: none">'
                                         + '<div id="float-card" class="col-md-10 col-md-offset-1 float-card">'
-                                        + '<div class="title"><h3>'
+                                        + '<div class="title"><h4>'
                                         + application.last_name + ', ' + application.first_name
-                                        + '</h3></div>'
-                                        + '<div class="text"><p> Text'
-                                        + inner_cnt
+                                        + '<br/><small>IUID: ' + application.iuid + '</small>'
+                                        + '</h4></div>'
+                                        + '<hr style="color: black; background-color: black; height: 1px; margin: 0 0;">'
+                                        + '<div class="text">'
+                                        + '<p><strong>Internship Address:</strong></p>'
+                                        + '<p>'
+                                        + application.street + ', '
+                                        + application.city + ','
+                                        + '</p><p>'
+                                        + application.state + ', '
+                                        + application.country
+                                        + '</p>'
+                                        + '<p><strong>Internship Organization:</strong></p>'
+                                        + '<p>'
+                                        + application.org_name
+                                        + '</p>'
+                                        + '<p><strong>Internship Date:</strong></p>'
+                                        + '<p>From '
+                                        + application.start_date
+                                        + ' To '
+                                        + application.end_date
+                                        + '</p>'
                                         + '</p></div></div></a></div>'
                                 inner_cnt ++;
                             }
