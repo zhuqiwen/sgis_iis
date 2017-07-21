@@ -93,10 +93,16 @@ Route::get('/test_search', array('as' => 'search', 'uses' => 'TestAutocompleteCo
 Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAutocompleteController@autocomplete'));
 
 Route::get('/test_pdf', 'TestFeatureController@pdf');
+
 Route::get('/test', function (){
 //	return view('test.test_multiple_sections');
 	return view('test.test');
 });
+
+Route::get('/test', 'InternApplicationController@indexApplicationToBeApproved');
+
+
+
 Route::get('/test_tab_list', function (){
 	return view('test.test_list_tab');
 });

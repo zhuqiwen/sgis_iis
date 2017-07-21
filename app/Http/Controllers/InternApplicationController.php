@@ -51,6 +51,8 @@ class InternApplicationController extends Controller
 	{
 		$application = InternApplication::find($request->input('application_id'));
 		$application->is_submitted = 1;
+		$application->submitted_date = date('Y-m-d H:i:s');
+		$application->submitted_by = $request->input('signature');
 		$application->save();
 		return view('intern.student.application.submitted')->withApplication($application);
 
@@ -58,20 +60,22 @@ class InternApplicationController extends Controller
 
 	public function indexApplicationToBeApproved()
 	{
-//		$applications = InternApplication::join('users', 'intern_applications.user_id', '=', 'users.id')
-//			->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id')
-//			->select(
-//			'intern_organizations.type AS org_type',
-//			'intern_organizations.name As org_name',
-//			'intern_organizations.url As org_url',
-//			'users.first_name',
-//			'users.last_name',
-//			'users.iuid',
-//			'intern_applications.*')
-//			->orderBy('intern_applications.')
-//			->get();
-//
+		$applications = InternApplication::join('users', 'intern_applications.user_id', '=', 'users.id')
+			->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id')
+			->select(
+			'intern_organizations.type AS org_type',
+			'intern_organizations.name As org_name',
+			'intern_organizations.url As org_url',
+			'users.first_name',
+			'users.last_name',
+			'users.iuid',
+			'intern_applications.*')
+			->orderBy('intern_applications.submitted_date', 'ASC')
+			->orderBy('users.first_name', 'ASC')
+			->get();
+
 //		return view('intern.admin.application.to_be_approved')->withApplications($applications);
+		return view('test.test')->withApplications($applications);
 	}
 
     public function getValuesOf($field, array $conditions)

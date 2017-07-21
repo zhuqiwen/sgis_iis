@@ -49,7 +49,8 @@ class CreateInternApplicationsTable extends Migration
 		    $table->boolean('is_approved')->default(FALSE);
 		    $table->date('approved_date')->nullable()->default(NULL);
 		    $table->boolean('is_submitted')->default(FALSE);
-		    $table->boolean('submitted_date')->nullable()->default(NULL);
+		    $table->date('submitted_date')->nullable()->default(NULL);
+		    $table->text('submitted_by')->nullable()->default(NULL);
 		    $table->boolean('country_warning')->default(FALSE);
 		    $table->timestamps();
 		    $table->softDeletes();

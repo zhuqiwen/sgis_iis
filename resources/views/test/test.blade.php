@@ -20,14 +20,27 @@
                     <h3 id="current-grouper">Applications to be approved</h3>
                 </div>
 
+
                 <div class="panel-heading">
                     <ul id="tabs" class="nav nav-tabs">
-                        <li class="active"><a href="#default" data-toggle="tab"></a></li>
+                        <li class="active"><a href="#default" data-toggle="tab">most recently submitted first</a></li>
                     </ul>
                 </div>
                 <div class="panel-body">
                     <div id="tab-contents" class="tab-content">
-                        <div class="tab-pane fade in active" id="default">default view when first loaded</div>
+                        <div class="tab-pane fade in active" id="default">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <?php
+                                        foreach ($applications as $application)
+                                            {
+                                                \app\Helpers\HTMLSnippet::generateFloatCard($application);
+                                            }
+                                    ?>
+
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -73,6 +86,20 @@
                         {
                             var original_tab = tab;
                             tab = tab.replace(' ','-');
+
+                            // for paid/non-paid use string instead of 1/0
+                            if (value == 'paid_internship')
+                            {
+                                if (tab == 1)
+                                {
+                                    tab = 'Paid';
+                                }
+                                else if(tab == 0)
+                                {
+                                    tab = 'Non-Paid';
+                                }
+                            }
+                            // by default, the first tab and content pane are active
                             if (cnt == 0)
                             {
                                 tabs += '<li class="active"><a href="#' + tab + '" data-toggle="tab">' + tab + '</a></li>';
@@ -122,7 +149,7 @@
                                         + ' To '
                                         + application.end_date
                                         + '</p>'
-                                        + '</p></div></div></a></div>'
+                                        + '</p></div></div></a></div>';
                                 inner_cnt ++;
                             }
                             contents += '</div></div></div>';
