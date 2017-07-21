@@ -152,9 +152,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/js/test/jquery-2.2.4.min.js"></script>
+    {{--<script src="/js/test/jquery-2.2.4.min.js"></script>--}}
 
     <script src="/js/app.js"></script>
-    <script src="/js/test/bootstrap.min.js"></script>
+    {{--<script src="/js/test/bootstrap.min.js"></script>--}}
 </body>
 </html>

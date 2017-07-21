@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use app\Helpers\HTMLSnippet;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
@@ -74,8 +75,8 @@ class InternApplicationController extends Controller
 			->orderBy('users.first_name', 'ASC')
 			->get();
 
-//		return view('intern.admin.application.to_be_approved')->withApplications($applications);
-		return view('test.test')->withApplications($applications);
+		return view('intern.admin.application.to_be_approved')->withApplications($applications);
+//		return view('test.test')->withApplications($applications);
 	}
 
     public function getValuesOf($field, array $conditions)
@@ -135,5 +136,90 @@ class InternApplicationController extends Controller
 
 
 	    return $data->get()->groupBy($request->field);
+	}
+
+	public function ajaxGetGroupedApplicationCards(Request $request)
+	{
+
+		$application_groups = new InternApplication();
+		if($request->has('is_submitted'))
+		{
+			$application_groups = $application_groups->where('is_submitted', $request->is_submitted);
+		}
+
+		if($request->has('is_approved'))
+		{
+			$application_groups = $application_groups->where('is_approved', $request->is_approved);
+		}
+
+		if($request->has('deleted_at'))
+		{
+			$application_groups = $application_groups->where('deleted_at', $request->deleted_at);
+		}
+
+		// join User to get names and other information
+		$application_groups = $application_groups->join('users', 'intern_applications.user_id', '=', 'users.id')
+			->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id')
+			->select(
+			'intern_organizations.type AS org_type',
+			'intern_organizations.name As org_name',
+			'intern_organizations.url As org_url',
+			'users.first_name',
+			'users.last_name',
+			'users.iuid',
+			'intern_applications.*'
+		);
+
+		if($request->field == 'organization_type')
+		{
+
+			$application_groups = $application_groups->get()->groupBy('org_type');
+		}
+		else
+		{
+			$application_groups = $application_groups->get()->groupBy($request->field);
+		}
+
+		$tabs = '';
+		$contents = '';
+		$out_cnt = 0;
+		foreach ($application_groups as $tab_name => $applications)
+		{
+			$tab_name = str_replace(' ', '_', $tab_name);
+			if ($out_cnt == 0)
+			{
+				$tabs .= HTMLSnippet::generateApplicationGroupTab($tab_name, TRUE);
+				$contents .=  '<div class="tab-pane fade in active" id="'.$tab_name.'">'
+					.'<div class="row">'
+					.'<div class="col-md-12">';
+
+
+			}
+			else
+			{
+				$tabs .= HTMLSnippet::generateApplicationGroupTab($tab_name, FALSE);
+				$contents .= '<div class="tab-pane fade" id="'.$tab_name.'">'
+								.'<div class="row">'
+									.'<div class="col-md-12">';
+
+
+			}
+
+
+			foreach ($applications as $key => $application)
+			{
+				$contents .= HTMLSnippet::generateFloatCardWithModal($application);
+
+			}
+
+
+			$contents .= '</div></div></div>';
+
+			$out_cnt ++;
+		}
+
+
+		return json_encode(['tabs' => $tabs, 'contents' => $contents]);
+
 	}
 }

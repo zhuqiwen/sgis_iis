@@ -99,7 +99,9 @@ Route::get('/test', function (){
 	return view('test.test');
 });
 
-Route::get('/test', 'InternApplicationController@indexApplicationToBeApproved');
+Route::get('/test', function (){
+	return view('test.test');
+});
 
 
 
@@ -122,4 +124,5 @@ Route::get('/test_card_in_div', function (){
 //    ];
 //});
 
-Route::get('/test_ajax', 'InternApplicationController@getGroupedApplications');
+//Route::get('/test_ajax', 'InternApplicationController@getGroupedApplications');
+Route::get('/test_ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');

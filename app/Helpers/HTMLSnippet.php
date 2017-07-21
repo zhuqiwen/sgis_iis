@@ -262,11 +262,11 @@ EOF;
 
 	}
 
-	public static function generateFloatCard($application)
+	public static function generateFloatCardWithModal($application)
 	{
 		$card = <<< EOF
 		<div class="col-md-4" style="margin-top: 5%;">
-            <a href="#" style="text-decoration: none">
+            <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title">
                         <h4>
@@ -286,11 +286,45 @@ EOF;
                     </div>
                 </div>
             </a>
+            <div id="myModalApplicationId_$application->id" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                      <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Some text in the modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                      </div>
+
+                </div>
+            </div>
+
         </div>
 EOF;
-		echo $card;
+		return $card;
 
 
+	}
+
+	public static function generateApplicationGroupTab($tab_name, $active = FALSE)
+	{
+		$original_tab_name = $tab_name;
+		$tab_name = str_replace(' ', '_', $tab_name);
+
+		if($active)
+		{
+			$li = '<li class="active">';
+		}
+		else
+		{
+			$li = '<li>';
+		}
+		return $li.'<a href="#'.$tab_name.'" data-toggle="tab">'.$original_tab_name.'</a></li>';
 	}
 
 
