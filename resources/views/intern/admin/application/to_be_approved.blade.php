@@ -24,7 +24,7 @@
 
 
     <div class="container">
-        <div class="row" style="margin-top: 10%;">
+        <div class="row" style="margin-top: 5%;">
             <div class="col-md-12" style="padding-bottom: 30px;">
                 <div class="panel with-nav-tabs panel-default">
                     <div id="group-title">
@@ -122,7 +122,11 @@
                     e.preventDefault();
                     ApplicationFolio.currentGroupByField = this.id.replace('groupBy', '').toLowerCase();
                     $("#current-grouper").html('Application Grouped by ' + '<u>' + this.text + '</u>');
-                    console.log("jo");
+                    if(ApplicationFolio.currentGroupByField == 'all')
+                    {
+                        $("#current-grouper").html('All applications to be approved');
+
+                    }
                     var data = {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1};
                     window.ajaxLoadGroupBy(ApplicationFolio.ajaxUrl, data);
                 });
@@ -168,12 +172,34 @@
             });
         });
 
+        $(document).on('click', '#float-card', function (e) {
+            var currentCardId = $(this).find('div:first').attr('id');
+            if (ApplicationFolio.Ids.has(currentCardId))
+            {
+                $('.removeFromFolio').show();
+                $('.addToFolio').hide();
+            }
+            else
+            {
+                $('.removeFromFolio').hide();
+                $('.addToFolio').show();
+            }
+        });
+
         $(document).on('click', '.addToFolio', function (e) {
-//            console.log(this.id);
+            console.log(ApplicationFolio.Ids);
             ApplicationFolio.Ids.add(this.id);
             //set the card as selected by showing font-awsome check icon
 
             $("#iconCheck_" + this.id).removeClass('hide');
+        });
+
+        $(document).on('click', '.removeFromFolio', function (e) {
+            console.log(ApplicationFolio.Ids);
+            ApplicationFolio.Ids.delete(this.id);
+            //set the card as selected by showing font-awsome check icon
+
+            $("#iconCheck_" + this.id).addClass('hide');
         });
     </script>
 

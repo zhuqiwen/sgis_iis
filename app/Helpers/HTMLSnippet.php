@@ -268,7 +268,7 @@ EOF;
 		<div class="col-md-4" style="margin-bottom: 5%;">
             <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
-                    <div class="title">
+                    <div class="title" id="$application->id">
 	                    <div class="row">
 	                        <div class="col-md-9">
 	                                <h4>
@@ -309,7 +309,8 @@ EOF;
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button id="$application->id" type="button" class="btn btn-default addToFolio" data-dismiss="modal">Select In To Approval Folio</button>
+                                <button id="$application->id" type="button" class="btn btn-info addToFolio" data-dismiss="modal">Select In To Approval Folio</button>
+                                <button id="$application->id" type="button" class="btn btn-danger removeFromFolio" data-dismiss="modal">Remove From Approval Folio</button>
                             </div>
                       </div>
 
@@ -327,6 +328,7 @@ EOF;
 	{
 		$original_tab_name = str_replace('_', ' ', $tab_name);
 //		$tab_name = str_replace(' ', '_', $tab_name);
+
 
 		if($active)
 		{
