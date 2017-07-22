@@ -271,7 +271,7 @@ EOF;
                     <div class="title" id="$application->id">
 	                    <div class="row">
 	                        <div class="col-md-9">
-	                                <h4>
+	                                <h4 id="applicant_name">
 	                                    $application->last_name, $application->first_name
 	                                    <br/><small>Application ID: $application->id</small>
 	                                </h4>

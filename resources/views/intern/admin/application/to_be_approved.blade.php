@@ -33,7 +33,7 @@
                                 <h3 id="current-grouper">Applications to be approved</h3>
                             </div>
                             <div class="col-md-3">
-                                <a class="btn btn-danger" id="submit_approval_folio" href="#">Approve Selected</a>
+                                <a class="btn btn-danger" id="submit_approval_folio" href="#">No application selected</a>
                             </div>
                         </div>
                     </div>
@@ -102,6 +102,8 @@
             });
         }
 
+
+
         $(document).ready(function(){
             $.ajaxSetup({
                 headers: {
@@ -109,12 +111,13 @@
                 }
             });
 
+
             $(function(){
                 //to store ids of applications to be approved
                 window.ApplicationFolio = {};
                 ApplicationFolio.Ids = new Set();
                 ApplicationFolio.ajaxUrl = '/test_ajax';
-                ApplicationFolio.currentGroupByField = 'All';
+                ApplicationFolio.currentGroupByField = 'all';
 //                console.log("hahaha");
 
 
@@ -191,7 +194,15 @@
             ApplicationFolio.Ids.add(this.id);
             //set the card as selected by showing font-awsome check icon
 
-            $("#iconCheck_" + this.id).removeClass('hide');
+            $('#iconCheck_' + this.id).removeClass('hide');
+            if (ApplicationFolio.Ids.size == 0)
+            {
+                $('#submit_approval_folio').text('No application selected');
+            }
+            else
+            {
+                $('#submit_approval_folio').text('Approve ' + ApplicationFolio.Ids.size + ' applications');
+            }
         });
 
         $(document).on('click', '.removeFromFolio', function (e) {
@@ -200,6 +211,14 @@
             //set the card as selected by showing font-awsome check icon
 
             $("#iconCheck_" + this.id).addClass('hide');
+            if (ApplicationFolio.Ids.size == 0)
+            {
+                $('#submit_approval_folio').text('No application selected');
+            }
+            else
+            {
+                $('#submit_approval_folio').text('Approve ' + ApplicationFolio.Ids.size + ' applications');
+            }
         });
     </script>
 
