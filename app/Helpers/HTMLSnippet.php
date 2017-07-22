@@ -265,24 +265,35 @@ EOF;
 	public static function generateFloatCardWithModal($application)
 	{
 		$card = <<< EOF
-		<div class="col-md-4" style="margin-top: 5%;">
+		<div class="col-md-4" style="margin-bottom: 5%;">
             <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title">
-                        <h4>
-                        $application->last_name, $application->first_name
-                        <br/><small>IUID: $application->iuid</small>
-                        </h4>
+	                    <div class="row">
+	                        <div class="col-md-9">
+	                                <h4>
+	                                    $application->last_name, $application->first_name
+	                                    <br/><small>Application ID: $application->id</small>
+	                                </h4>
+	                        </div>
+	                        <div id="iconCheck_$application->id" class="col-md-3 hide" style="margin-top:5%;">
+	                            <i class="fa fa-check fa-2x"></i>
+	                        </div>
+	                    </div>
                     </div>
                     <hr style="color: black; background-color: black; height: 1px; margin: 0 0;">
-                    <div class="text">                    
-                        <p><strong>Internship Address:</strong></p>
-                        <p>$application->street, $application->city,</p>
-                        <p>$application->state, $application->country</p>
-                        <p><strong>Internship Organization:</strong></p>
-                        <p>$application->org_name</p>
-                        <p><strong>Internship Date:</strong></p>
-                        <p>From $application->start_date To $application->end_date</p>
+                    <div class="text">
+                        <div class="row">
+	                        <div class="col-md-12">
+		                        <p><strong>Internship Address:</strong></p>
+		                        <p>$application->street, $application->city,</p>
+		                        <p>$application->state, $application->country</p>
+		                        <p><strong>Internship Organization:</strong></p>
+		                        <p>$application->org_name</p>
+		                        <p><strong>Internship Date:</strong></p>
+		                        <p>From $application->start_date To $application->end_date</p>
+		                    </div>
+	                    </div>
                     </div>
                 </div>
             </a>
@@ -297,7 +308,8 @@ EOF;
                                 <p>Some text in the modal.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="$application->id" type="button" class="btn btn-default addToFolio" data-dismiss="modal">Select In To Approval Folio</button>
                             </div>
                       </div>
 
@@ -313,8 +325,8 @@ EOF;
 
 	public static function generateApplicationGroupTab($tab_name, $active = FALSE)
 	{
-		$original_tab_name = $tab_name;
-		$tab_name = str_replace(' ', '_', $tab_name);
+		$original_tab_name = str_replace('_', ' ', $tab_name);
+//		$tab_name = str_replace(' ', '_', $tab_name);
 
 		if($active)
 		{

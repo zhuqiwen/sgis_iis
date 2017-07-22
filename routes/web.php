@@ -126,3 +126,4 @@ Route::get('/test_card_in_div', function (){
 
 //Route::get('/test_ajax', 'InternApplicationController@getGroupedApplications');
 Route::get('/test_ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
+Route::post('/test_ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');

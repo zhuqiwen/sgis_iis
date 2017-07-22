@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,6 +13,8 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
 
 
 
@@ -67,6 +70,13 @@
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a id="groupByAll" class="approve_group_by" href="#">
+
+                                                All
+                                            </a>
+
+                                        </li>
                                         <li>
                                             <a id="groupByYear" class="approve_group_by" href="#">
 

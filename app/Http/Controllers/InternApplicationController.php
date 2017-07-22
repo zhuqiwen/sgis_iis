@@ -59,24 +59,32 @@ class InternApplicationController extends Controller
 
 	}
 
-	public function indexApplicationToBeApproved()
+	private function getApplicationToBeApproved()
 	{
-		$applications = InternApplication::join('users', 'intern_applications.user_id', '=', 'users.id')
+		return $applications = InternApplication::where('intern_applications.is_approved', 0)
+			->where('intern_applications.is_submitted', 1)
+			->where('intern_applications.deleted_at', NULL)
+			->join('users', 'intern_applications.user_id', '=', 'users.id')
 			->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id')
 			->select(
-			'intern_organizations.type AS org_type',
-			'intern_organizations.name As org_name',
-			'intern_organizations.url As org_url',
-			'users.first_name',
-			'users.last_name',
-			'users.iuid',
-			'intern_applications.*')
+				'intern_organizations.type AS org_type',
+				'intern_organizations.name As org_name',
+				'intern_organizations.url As org_url',
+				'users.first_name',
+				'users.last_name',
+				'users.iuid',
+				'intern_applications.*')
+
 			->orderBy('intern_applications.submitted_date', 'ASC')
 			->orderBy('users.first_name', 'ASC')
 			->get();
+	}
+
+	public function indexApplicationToBeApproved()
+	{
+		$applications = $this->getApplicationToBeApproved();
 
 		return view('intern.admin.application.to_be_approved')->withApplications($applications);
-//		return view('test.test')->withApplications($applications);
 	}
 
     public function getValuesOf($field, array $conditions)
@@ -98,20 +106,40 @@ class InternApplicationController extends Controller
     public function getGroupedApplications(Request $request)
     {
         $data = new InternApplication();
+
         if($request->has('is_submitted'))
         {
-            $data = $data->where('is_submitted', $request->is_submitted);
+            $is_submitted = $request->is_submitted;
         }
+        else
+        {
+	        $is_submitted = 0;
+        }
+
 
         if($request->has('is_approved'))
         {
-            $data = $data->where('is_approved', $request->is_approved);
+	        $is_approved = $request->is_approved;
+        }
+        else
+        {
+	        $is_approved = 0;
         }
 
-        if($request->has('deleted_at'))
+	    if($request->has('deleted_at'))
         {
-            $data = $data->where('deleted_at', $request->deleted_at);
+            $deleted_at = $request->deleted_at;
         }
+        else
+        {
+	        $deleted_at = null;
+        }
+
+
+	    $data = $data->where('is_submitted', $is_submitted);
+	    $data = $data->where('is_approved', $is_approved);
+	    $data = $data->where('is_approved', $deleted_at);
+
 
         // join User to get names and other information
         $data = $data->join('users', 'intern_applications.user_id', '=', 'users.id');
@@ -140,6 +168,20 @@ class InternApplicationController extends Controller
 
 	public function ajaxGetGroupedApplicationCards(Request $request)
 	{
+		if($request->method() == 'POST')
+		{
+			return InternApplication::whereIn('id', $request->application_ids)
+				->update([
+					'is_approved' => 1,
+					'approved_date' => \Carbon\Carbon::now('America/New_York'),
+//					'approved_by' => Auth::user()->id,
+				]);
+		}
+
+
+
+		$tabs = '';
+		$contents = '';
 
 		$application_groups = new InternApplication();
 		if($request->has('is_submitted'))
@@ -180,20 +222,23 @@ class InternApplicationController extends Controller
 			$application_groups = $application_groups->get()->groupBy($request->field);
 		}
 
-		$tabs = '';
-		$contents = '';
+
 		$out_cnt = 0;
 		foreach ($application_groups as $tab_name => $applications)
 		{
+			if($request->field == 'all')
+			{
+				$tab_name = 'All';
+			}
+
 			$tab_name = str_replace(' ', '_', $tab_name);
 			if ($out_cnt == 0)
 			{
+				//
 				$tabs .= HTMLSnippet::generateApplicationGroupTab($tab_name, TRUE);
 				$contents .=  '<div class="tab-pane fade in active" id="'.$tab_name.'">'
-					.'<div class="row">'
-					.'<div class="col-md-12">';
-
-
+								.'<div class="row">'
+									.'<div class="col-md-12">';
 			}
 			else
 			{
@@ -201,8 +246,6 @@ class InternApplicationController extends Controller
 				$contents .= '<div class="tab-pane fade" id="'.$tab_name.'">'
 								.'<div class="row">'
 									.'<div class="col-md-12">';
-
-
 			}
 
 
