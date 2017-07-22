@@ -49,7 +49,7 @@
 
                         </ul>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="height: 70vh; overflow: scroll;">
                         <div id="tab-contents" class="tab-content">
 
                             <div class="tab-pane fade in active" id="default">
@@ -98,8 +98,20 @@
                     console.log(data.tabs);
                     $("#tabs").html(data.tabs);
                     $("#tab-contents").html(data.contents);
+                    showHomeLinkIfNoApplication();
+
                 }
             });
+        }
+        function showHomeLinkIfNoApplication() {
+            if ($('.container .float-card').length == 0)
+            {
+                $("#tab-contents").html('' +
+                        '<div style="align-content: center">' +
+                        '<p>No Application Needs To Be Approved. ' +
+                        '<a href="/home" style="text-decoration: underline;">Click Here</a> to go to Home screen</p>' +
+                        '</div>');
+            }
         }
 
 
@@ -111,10 +123,15 @@
                 }
             });
 
+            showHomeLinkIfNoApplication();
+
 
             $(function(){
                 //to store ids of applications to be approved
                 window.ApplicationFolio = {};
+                window.Applications = {};
+
+
                 ApplicationFolio.Ids = new Set();
                 ApplicationFolio.ajaxUrl = '/test_ajax';
                 ApplicationFolio.currentGroupByField = 'all';
@@ -133,6 +150,8 @@
                     var data = {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1};
                     window.ajaxLoadGroupBy(ApplicationFolio.ajaxUrl, data);
                 });
+
+
 
                 $("#submit_approval_folio").click(function (e) {
 //                    e.preventDefault();
@@ -161,6 +180,8 @@
                                             {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1}
                                     );
                                     ApplicationFolio.Ids.clear();
+                                    $('#submit_approval_folio').text('No application selected');
+
                                 }
                             });
 
