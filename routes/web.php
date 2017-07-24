@@ -35,13 +35,7 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 		return view('intern.student.home');
 	});
 
-	//this should be refined to be handled by InternApplicationController@create
-    //if $request->method is get
-    //end if $request->method is post
-//	Route::get('/application/create', function (){
-//		TravelWarning::updateIfOutOfDate();
-//		return view('intern.student.application.create');
-//	});
+
 
     Route::get('/application/create', 'InternApplicationController@create');
 
@@ -54,9 +48,7 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 	Route::post('/application/submit', 'InternApplicationController@submit');
 
 
-	Route::get('/application/organization', function (){
-		return view('intern.student.application.organization');
-	});
+	Route::get('/application/organization', 'InternOrganizationController@prepareForm');
 	Route::post('/application/organization', 'InternOrganizationController@store');
 
 	Route::get('/application/supervisor', 'InternSupervisorController@prepareForm');
@@ -129,3 +121,4 @@ Route::get('/test_card_in_div', function (){
 //Route::post('/test_ajax_country', 'CountryController@ajax');
 Route::get('/test_ajax_state', 'StateController@ajaxGetStateByCountryId');
 Route::get('/test_ajax_city', 'CityController@ajaxGetCityByStateId');
+Route::get('/test_ajax_organization', 'InternOrganizationController@ajaxGetSuggestions');

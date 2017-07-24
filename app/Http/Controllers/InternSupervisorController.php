@@ -10,13 +10,6 @@ class InternSupervisorController extends Controller
 {
     public function store(Request $request)
     {
-	    // do the same as with organization controller
-
-
-
-
-
-
 		$supervisor = InternSupervisor::where('first_name', $request->input('first_name'))
 			->where('last_name', $request->input('last_name'))
 			->where('prefix', $request->input('prefix'))
@@ -28,24 +21,14 @@ class InternSupervisorController extends Controller
 
 	    if(is_null($supervisor))
 	    {
-//		    $supervisor_id = DB::table('intern_supervisors')
-//			    ->insertGetId([
-//				    'first_name' => $first_name,
-//					'last_name' => $last_name,
-//		            'prefix' => $prefix,
-//					'email' => $email,
-//					'phone' => $phone,
-//					'organization_id' => $org_id,
-//			    ]);
 		    $supervisor = InternSupervisor::create($request->except('_token'));
-		    $supervisor_id  = $supervisor->id;
-	    }
-	    else
-	    {
-		    $supervisor_id = $supervisor->id;
-	    }
+		}
 
-	    $data = [
+        $supervisor_id  = $supervisor->id;
+
+
+
+        $data = [
 	    	'org_id' => $request->input('organization_id'),
 		    'supervisor_id' => $supervisor_id,
 	    ];

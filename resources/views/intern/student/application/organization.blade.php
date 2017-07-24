@@ -1,21 +1,13 @@
 @extends('layouts.app')
 <?php
 $user_id = Auth::user()->id;
-
-
-$organization_types = [
-        'Government' => 'Government',
-        'NGO' => 'NGO',
-        'Industry' => 'industry',
-        'Other' => 'Other',
-];
 ?>
 @section('content')
 
     <link rel="stylesheet" href="/css/test/bootstrap.min.css">
     <link rel="stylesheet" href="/css/test/demo.css">
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
-    {{--<link rel="stylesheet" href="/css/test/gsdk-base.css">--}}
+    <link rel="stylesheet" href="/css/test/awesomplete.css">
 
 
 
@@ -29,9 +21,7 @@ $organization_types = [
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="azzure" id="wizard">
-                        {{--<form action="" method="">--}}
                         {!! Form::open(['action' => 'InternOrganizationController@store']) !!}
-
                         <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
 
                             <div class="wizard-header">
@@ -55,7 +45,7 @@ $organization_types = [
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <div class="form-group">
                                                 {!! Form::label('name', 'Organization name') !!}
-                                                {!! Form::text('name', 'Please do not use any abbreviation, such as IBM', ['class' => 'form-control']) !!}
+                                                {!! Form::text('name', 'Please do not use any abbreviation, such as IBM', ['id' => 'input-org-name','class' => 'form-control']) !!}
 
                                             </div>
                                         </div>
@@ -63,7 +53,7 @@ $organization_types = [
                                             <div class="form-group">
                                                 {{--here need to check if the url is legal--}}
                                                 {!! Form::label('url', 'Organization Website URL') !!}
-                                                {!! Form::text('url', 'https://', ['class' => 'form-control']) !!}
+                                                {!! Form::text('url', 'https://', ['id' => 'input-org-url', 'class' => 'form-control']) !!}
                                                 <br>
                                             </div>
                                         </div>
@@ -113,4 +103,5 @@ $organization_types = [
     <script src="/js/test/jquery.validate.min.js"></script>
     <script src="/js/test/jquery.bootstrap.wizard.js"></script>
     <script src="/js/test/wizard.js"></script>
+    <script src="/js/test/awesomplete.js"></script>
 @endsection

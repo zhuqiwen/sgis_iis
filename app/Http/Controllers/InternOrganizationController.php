@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\DB;
 
 class InternOrganizationController extends Controller
 {
+    public function prepareForm()
+    {
+        $organization_types = [
+            'Government' => 'Government',
+            'NGO' => 'NGO',
+            'Industry' => 'industry',
+            'Other' => 'Other',
+        ];
+        return view('intern.student.application.organization')
+            ->withOrganizations(InternOrganization::all())
+            ->withOrganizationTypes($organization_types);
+    }
+
     public function store(Request $request)
     {
 	    $organization = InternOrganization::where('name', $request->input('name'))
@@ -27,5 +40,23 @@ class InternOrganizationController extends Controller
 
 
 	    return redirect('/intern/student/application/supervisor')->with('org_id', $org_id);
+    }
+
+    public function ajaxGetSuggestions(Request $request)
+    {
+
+        if($request->ajax() && $request->isMethod('GET'))
+        {
+            $organizations = new InternOrganization();
+
+
+//            foreach ($request->except('_token') as $key => $value)
+//            {
+//                $organizations = $organizations->where($key, 'LIKE', '%'.$value.'%');
+//            }
+
+        }
+        return json_encode($organizations->all());
+
     }
 }

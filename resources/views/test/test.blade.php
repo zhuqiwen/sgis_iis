@@ -78,20 +78,19 @@
             console.log('country id changed to: ' + id);
             $.ajax({
                 type: 'GET',
-                url: '/test_ajax_state',
-                data: {'country_id': id},
+                url: '/test_ajax_organization',
+                data: {'name': '*', 'url': '*'},
                 dataType: 'json',
                 success: function (returned_data) {
-                    console.log('state ajax');
                     console.log(returned_data);
-                    length = returned_data.length;
-
-                    for (var i = 0; i < length; i++)
-                    {
-                        obj = returned_data[i];
-                        state_list[obj.region]=obj.id;
-                    }
-                    state_suggestions.list = Object.keys(state_list);
+//                    length = returned_data.length;
+//
+//                    for (var i = 0; i < length; i++)
+//                    {
+//                        obj = returned_data[i];
+//                        state_list[obj.region]=obj.id;
+//                    }
+//                    state_suggestions.list = Object.keys(state_list);
                 }
             });
 
