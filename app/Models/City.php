@@ -11,11 +11,16 @@ class City extends Model
 {
     protected $table = 'cities';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
-        'state_id'
+        'country_id',
+        'region_id',
+        'city',
+        'latitude',
+        'longitude',
+        'time_zone',
+        'code'
     ];
 
     protected $guarded = [];

@@ -11,12 +11,24 @@ class Country extends Model
 {
     protected $table = 'countries';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'sort_name',
-        'name',
-        'phone_code'
+        'country',
+        'fips104',
+        'iso2',
+        'iso3',
+        'ison',
+        'internet',
+        'capital',
+        'map_reference',
+        'nationality_singular',
+        'nationality_plural',
+        'currency',
+        'currency_code',
+        'population',
+        'title',
+        'comment'
     ];
 
     protected $guarded = [];

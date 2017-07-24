@@ -15,9 +15,15 @@ class CreateCitiesTable extends Migration
 	{
 		Schema::create('cities', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name');
-			$table->integer('state_id')->unsigned();
-			$table->foreign('state_id')->references('id')->on('states');
+			$table->integer('country_id');
+			$table->integer('region_id');
+			$table->string('city');
+			$table->float('latitude');
+			$table->float('longitude');
+			$table->string('time_zone');
+			$table->string('code')->nullable()->default(NULL);
+			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

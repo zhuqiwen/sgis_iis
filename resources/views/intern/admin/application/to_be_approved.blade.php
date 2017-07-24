@@ -133,7 +133,7 @@
 
 
                 ApplicationFolio.Ids = new Set();
-                ApplicationFolio.ajaxUrl = '/test_ajax';
+                ApplicationFolio.ajaxUrl = '/intern/ajax';
                 ApplicationFolio.currentGroupByField = 'all';
 //                console.log("hahaha");
 

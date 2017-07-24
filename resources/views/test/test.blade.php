@@ -1,144 +1,115 @@
 @extends('layouts.app')
 @section('content')
 
-    <link href="/css/test/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/test/tab_list.css" rel="stylesheet">
-    <link href="/css/test/card.css" rel="stylesheet">
+
+<link href="/css/app.css" rel="stylesheet">
+<link href="/css/test/magicsuggest-min.css" rel="stylesheet">
+
+
+<?PHP
+        $data = \App\Models\Country::all();
+        $countries = [];
+        $index = 0;
+        foreach ($data as $country)
+            {
+                $index ++;
+                $countries[$index] = $country->country;
+            }
+
+
+
+        $states = [];
+        $cities = [];
+?>
+{!! Form::select('country',
+                $countries,
+                0,
+                ['id' => 'select_country']) !!}
+
+{!! Form::select('state',
+                $states,
+                0,
+                ['id' => 'select_state']) !!}
+
+{!! Form::select('city',
+                $cities,
+                0,
+                ['id' => 'select_city']) !!}
 
 
 
 
-    <div class="container">
-        <div class="row" style="margin-top: 10%;">
-            <div class="col-md-12">
-                <div class="panel with-nav-tabs panel-default">
-                    <div class="panel-heading">
-                        <ul id="tabs" class="nav nav-tabs">
-                            <li class="active"><a href="#default" data-toggle="tab"></a></li>
-                        </ul>
-                    </div>
-                    <div class="panel-body">
-                        <div id="tab-contents" class="tab-content">
-                            <div class="tab-pane fade in active" id="default">
-                                <div class="row">
+<script src="/js/app.js"></script>
+<script src="/js/test/magicsuggest-min.js"></script>
 
-                                    <div class="col-md-12">
+<script>
 
-                                        <div class="col-md-4" style="margin-top: 5%;">
-                                            <a href="#" data-toggle="modal" data-target="#myModal">
-                                                <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
-                                                    <div class="title">
-                                                        <h3>
-                                                            title_left
-                                                        </h3>
-                                                    </div>
-                                                    <div class="text">
-                                                        <p>
-                                                            text_left
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div id="myModal" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">Modal Header</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Some text in the modal.</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
+    $(document).ready(function () {
 
 
 
-                                        <div class="col-md-4" style="margin-top: 5%;">
-                                            <a href="#">
-                                                <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
-                                                    <div class="title">
-                                                        <h3>
-                                                            title_left
-                                                        </h3>
-                                                    </div>
-                                                    <div class="text">
-                                                        <p>
-                                                            text_left
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4" style="margin-top: 5%;">
-                                            <a href="#">
-                                                <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
-                                                    <div class="title">
-                                                        <h3>
-                                                            title_left
-                                                        </h3>
-                                                    </div>
-                                                    <div class="text">
-                                                        <p>
-                                                            text_left
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4" style="margin-top: 5%;">
-                                            <a href="#">
-                                                <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
-                                                    <div class="title">
-                                                        <h3>
-                                                            title_left
-                                                        </h3>
-                                                    </div>
-                                                    <div class="text">
-                                                        <p>
-                                                            text_left
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#select_country').change(function () {
+            //empty sub-level dropdowns
+            $('#select_state').html('');
+            $('#select_city').html('');
+            var id = $('#select_country').val();
+            $.ajax({
+                type: 'GET',
+                url: '/test_ajax_state',
+                data: {'country_id': id},
+                dataType: 'json',
+                success: function (returned_data) {
+                    console.log(returned_data);
+
+                    options = '';
+
+                    length = returned_data.length;
+                    for (var i = 0; i < length; i++)
+                    {
+                        obj = returned_data[i];
+                        options += '<option value=' + obj.id + '>' + obj.region + '</option>';
+                    }
 
 
+                    $('#select_state').html(options);
+                }
+            });
+
+        });
 
 
-                                    </div>
+        $('#select_state').change(function () {
+            $('#select_city').html('');
+            var id = $('#select_state').val();
+            $.ajax({
+                type: 'GET',
+                url: '/test_ajax_city',
+                data: {'state_id': id},
+                dataType: 'json',
+                success: function (returned_data) {
+                    console.log(returned_data);
 
-                                </div>
-                            </div>
+                    options = '';
 
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-    {{--<script src="/js/test/jquery-2.2.4.min.js"></script>--}}
-    {{--<script src="/js/test/bootstrap.min.js"></script>--}}
-    {{--<script src="/js/test/bootstrap.min.js"></script>--}}
+                    length = returned_data.length;
+                    for (var i = 0; i < length; i++)
+                    {
+                        obj = returned_data[i];
+                        options += '<option value=' + obj.id + '>' + obj.city + '</option>';
+                    }
 
 
+                    $('#select_city').html(options);
+                }
+            });
 
+        });
+    });
+</script>
 @endsection

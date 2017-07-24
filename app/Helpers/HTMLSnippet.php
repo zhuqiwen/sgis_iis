@@ -264,6 +264,7 @@ EOF;
 
 	public static function generateFloatCardWithModal($application)
 	{
+		$modal = self::generateApplicationModal($application);
 		$card = <<< EOF
 		<div class="col-md-4" style="margin-bottom: 5%;">
             <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
@@ -297,15 +298,48 @@ EOF;
                     </div>
                 </div>
             </a>
-            <div id="myModalApplicationId_$application->id" class="modal fade" role="dialog">
+            $modal
+
+        </div>
+EOF;
+		return $card;
+
+
+	}
+
+	private static function generateApplicationModal($application)
+	{
+		$modal =<<<EOF
+			<div id="myModalApplicationId_$application->id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                       <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Modal Header</h4>
+                                <h4 class="modal-title">$application->first_name $application->last_name 's Internship in $application->country</h4>
+                                <p>$application->credit_hours Credit Hours Desired</p>
                             </div>
                             <div class="modal-body">
-                                <p>Some text in the modal.</p>
+                                <div>
+                                <h4>Internship Location: <small>$application->street, $application->state, $application->country</small></h4> 
+                                <img src="http://via.placeholder.com/800x300">
+                                </div>
+                                <hr>
+                                <div>
+                                $application->term, in $application->year<br>
+                                plan to leave the States on $application->depart_date and return on $application->return_date<br>
+                                The internship starts on $application->start_date and ends on $application->end_date<br>
+                                </div>
+                                <hr>
+                                <div>
+                                $application->description<br>
+                                </div>
+                                <hr>
+                                <div>
+                                $application->reasons<br>
+                                </div>
+                                <hr>
+                                
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -317,9 +351,8 @@ EOF;
                 </div>
             </div>
 
-        </div>
 EOF;
-		return $card;
+		return $modal;
 
 
 	}

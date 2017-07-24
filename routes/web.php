@@ -80,7 +80,9 @@ Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum
 	// define sub uri's actions
 });
 
-
+//Ajax calls
+Route::get('/intern/ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
+Route::post('/intern/ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
 
 //following routes are for testing new features
 Route::get('/logout', function (){
@@ -94,10 +96,6 @@ Route::get('/test_autocomplete', array('as' => 'autocomplete', 'uses' => 'TestAu
 
 Route::get('/test_pdf', 'TestFeatureController@pdf');
 
-Route::get('/test', function (){
-//	return view('test.test_multiple_sections');
-	return view('test.test');
-});
 
 Route::get('/test', function (){
 	return view('test.test');
@@ -125,5 +123,6 @@ Route::get('/test_card_in_div', function (){
 //});
 
 //Route::get('/test_ajax', 'InternApplicationController@getGroupedApplications');
-Route::get('/test_ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
-Route::post('/test_ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
+//Route::post('/test_ajax_country', 'CountryController@ajax');
+Route::get('/test_ajax_state', 'StateController@ajaxGetStateByCountryId');
+Route::get('/test_ajax_city', 'CityController@ajaxGetCityByStateId');

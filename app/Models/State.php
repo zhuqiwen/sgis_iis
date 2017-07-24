@@ -11,11 +11,13 @@ class State extends Model
 {
     protected $table = 'states';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'name',
-        'country_id'
+        'country_id',
+        'region',
+        'code',
+        'admin_code'
     ];
 
     protected $guarded = [];

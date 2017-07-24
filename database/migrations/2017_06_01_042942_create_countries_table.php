@@ -15,9 +15,23 @@ class CreateCountriesTable extends Migration
     {
 	    Schema::create('countries', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('sort_name');
-		    $table->string('name');
-		    $table->integer('phone_code');
+		    $table->string('country');
+		    $table->string('fips104');
+		    $table->string('iso2');
+		    $table->string('iso3');
+		    $table->string('ison');
+		    $table->string('internet');
+		    $table->string('capital')->nullable()->default(NULL);
+		    $table->string('map_reference')->nullable()->default(NULL);
+		    $table->string('nationality_singular')->nullable()->default(NULL);
+		    $table->string('nationality_plural')->nullable()->default(NULL);
+		    $table->string('currency')->nullable()->default(NULL);
+		    $table->string('currency_code')->nullable()->default(NULL);
+		    $table->bigInteger('population')->nullable()->default(NULL);
+		    $table->string('title')->nullable()->default(NULL);
+		    $table->string('comment')->nullable()->default(NULL);
+		    $table->timestamps();
+		    $table->softDeletes();
         });
     }
 

@@ -63,7 +63,7 @@
                                 <li><a href="{{ url('/register') }}">Register</a></li>
                             @endif
                         @else
-                            @if(Request::path() === 'intern/admin/application/to_approve' || Request::path() == 'test')
+                            @if(Request::path() === 'intern/admin/application/to_approve')
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         Group By <span class="caret"></span>
