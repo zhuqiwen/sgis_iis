@@ -37,6 +37,11 @@
                 ['id' => 'select_city']) !!}
 
 
+{!! Form::text('test_input',
+                NULL,
+                ['id' => 'test_input']) !!}
+
+
 
 
 <script src="/js/app.js"></script>
@@ -110,6 +115,13 @@
             });
 
         });
+
+        $('#test_input').on('input', function () {
+           console.log($(this).val());
+        });
+
+
+
     });
 </script>
 @endsection
