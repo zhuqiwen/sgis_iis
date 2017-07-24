@@ -3,7 +3,7 @@
 
 
 <link href="/css/app.css" rel="stylesheet">
-<link href="/css/test/magicsuggest-min.css" rel="stylesheet">
+<link href="/css/test/awesomplete.css" rel="stylesheet">
 
 
 <?PHP
@@ -23,33 +23,43 @@
 ?>
 {!! Form::select('country',
                 $countries,
-                0,
-                ['id' => 'select_country']) !!}
+                null,
+                ['placeholder' => 'please select internship country', 'id' => 'select_country']) !!}
 
-{!! Form::select('state',
-                $states,
-                0,
-                ['id' => 'select_state']) !!}
+{{--{!! Form::select('state',--}}
+                {{--$states,--}}
+                {{--0,--}}
+                {{--['id' => 'select_state']) !!}--}}
 
-{!! Form::select('city',
-                $cities,
-                0,
-                ['id' => 'select_city']) !!}
+{!! Form::text('state',
+                null,
+                ['id' => 'input_state']) !!}
+
+{{--{!! Form::select('city',--}}
+                {{--$cities,--}}
+                {{--0,--}}
+                {{--['id' => 'select_city']) !!}--}}
 
 
-{!! Form::text('test_input',
-                NULL,
-                ['id' => 'test_input']) !!}
 
+{!! Form::text('city',
+                null,
+                ['id' => 'input_city']) !!}
 
 
 
 <script src="/js/app.js"></script>
-<script src="/js/test/magicsuggest-min.js"></script>
+<script src="/js/test/awesomplete.js"></script>
+
 
 <script>
 
     $(document).ready(function () {
+
+        var state_suggestions = new Awesomplete(document.getElementById('input_state'));
+        var city_suggestions = new Awesomplete(document.getElementById('input_city'));
+        var state_list = {};
+        var city_list = [];
 
 
 
@@ -61,63 +71,66 @@
 
         $('#select_country').change(function () {
             //empty sub-level dropdowns
-            $('#select_state').html('');
-            $('#select_city').html('');
+            $('#input_state').val('');
+            $('#input_city').val('');
+            state_list = {};
             var id = $('#select_country').val();
+            console.log('country id changed to: ' + id);
             $.ajax({
                 type: 'GET',
                 url: '/test_ajax_state',
                 data: {'country_id': id},
                 dataType: 'json',
                 success: function (returned_data) {
+                    console.log('state ajax');
                     console.log(returned_data);
-
-                    options = '';
-
                     length = returned_data.length;
+
                     for (var i = 0; i < length; i++)
                     {
                         obj = returned_data[i];
-                        options += '<option value=' + obj.id + '>' + obj.region + '</option>';
+                        state_list[obj.region]=obj.id;
                     }
-
-
-                    $('#select_state').html(options);
+                    state_suggestions.list = Object.keys(state_list);
                 }
             });
 
         });
 
 
-        $('#select_state').change(function () {
-            $('#select_city').html('');
-            var id = $('#select_state').val();
+        $('#input_state').focusout(function () {
+            city_list = [];
+            $('#input_city').val('');
+            var state =  $(this).val();
+            if(state.length > 0)
+            {
+                state = state[0].toUpperCase() + state.slice(1);
+            }
+
+            var id = state_list[state];
+            console.log(id);
+
             $.ajax({
                 type: 'GET',
                 url: '/test_ajax_city',
-                data: {'state_id': id},
+                data: {'region_id': id},
                 dataType: 'json',
                 success: function (returned_data) {
-                    console.log(returned_data);
-
-                    options = '';
-
                     length = returned_data.length;
                     for (var i = 0; i < length; i++)
                     {
                         obj = returned_data[i];
-                        options += '<option value=' + obj.id + '>' + obj.city + '</option>';
+                        city_list.push(obj.city);
                     }
 
 
-                    $('#select_city').html(options);
+                    console.log(city_list);
+                    city_suggestions.list = city_list;
                 }
             });
 
-        });
 
-        $('#test_input').on('input', function () {
-           console.log($(this).val());
+
         });
 
 

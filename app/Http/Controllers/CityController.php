@@ -10,9 +10,9 @@ class CityController extends Controller
     //
 	public function ajaxGetCityByStateId(Request $request)
 	{
-		$state_id = $request->state_id;
+		$region_id = $request->region_id;
 
-		$cities = City::where('region_id', $state_id)
+		$cities = City::where('region_id', $region_id)
 			->orderBy('city', 'ASC')->get();
 		return json_encode($cities);
 	}

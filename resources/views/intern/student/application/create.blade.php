@@ -14,19 +14,19 @@ $credit_hours = [
         '3' => '3',
 ];
 
-$countries = [
-        'China' => 'China',
-        'United Kingdom' => 'United Kingdom',
-];
-
-$states = [
-        'state 1' => 'state 1',
-        'state 2' => 'state 2',
-];
-$cities = [
-        'city 1' => 'city 1',
-        'city 2' => 'city 2',
-];
+//$countries = [
+//        'China' => 'China',
+//        'United Kingdom' => 'United Kingdom',
+//];
+//
+//$states = [
+//        'state 1' => 'state 1',
+//        'state 2' => 'state 2',
+//];
+//$cities = [
+//        'city 1' => 'city 1',
+//        'city 2' => 'city 2',
+//];
 $work_schedule_guide = 'please briefly describe your anticipated work schedule';
 $duties_guide = 'Provide a detailed description of the internship experience and your specific duties';
 $reasons_guide = 'Explain why this internship/volunteer opportunity was chosen (i.e., how will it help you in your educational and career goals)';
@@ -38,6 +38,8 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
     <link rel="stylesheet" href="/css/test/bootstrap.min.css">
     <link rel="stylesheet" href="/css/test/demo.css">
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
+    <link href="/css/test/awesomplete.css" rel="stylesheet">
+
     {{--<link rel="stylesheet" href="/css/test/gsdk-base.css">--}}
 
 
@@ -150,18 +152,24 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                                 {!! Form::select('country',
                                                                   $countries,
                                                                   null,
-                                                                  ['class' => 'form-control']) !!}
+                                                                  [
+                                                                  'placeholder' => 'please select internship country',
+                                                                  'id' => 'country-select',
+                                                                  'class' => 'form-control'
+                                                                  ]) !!}
 
 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                {!! Form::label('state', 'State/Province') !!}
-                                                {!! Form::select('state',
-                                                                  $states,
-                                                                  null,
-                                                                  ['class' => 'form-control']) !!}
+                                                {!! Form::label('state', 'State/Province/Region') !!}
+                                                {!! Form::text('state',
+                                                                null,
+                                                                [
+                                                                'id' => 'state-input',
+                                                                'class' => 'form-control'
+                                                                ]) !!}
 
                                             </div>
                                         </div>
@@ -169,18 +177,14 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                                             <div class="form-group">
 
                                                 {!! Form::label('city', 'City') !!}
-                                                {!! Form::select('city',
-                                                                  $cities,
-                                                                  null,
-                                                                  ['class' => 'form-control']) !!}
-                                                <br>
+                                                {!! Form::text('city', null, ['id' => 'city-input', 'class' => 'form-control']) !!}
 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 {!! Form::label('street', 'Street') !!}
-                                                {!! Form::text('street', null, ['class' => 'form-control']) !!}
+                                                {!! Form::text('street', null, ['class' => 'form-control', 'id' => 'street-input']) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -381,4 +385,92 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
     <script src="/js/test/jquery.validate.min.js"></script>
     <script src="/js/test/jquery.bootstrap.wizard.js"></script>
     <script src="/js/test/wizard.js"></script>
+    {{--<script src="/js/app.js"></script>--}}
+    <script src="/js/test/awesomplete.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var state_suggestions = new Awesomplete(document.getElementById('state-input'));
+            var city_suggestions = new Awesomplete(document.getElementById('city-input'));
+            var state_list = {};
+            var city_list = [];
+
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#country-select').change(function () {
+                //empty sub-level dropdowns
+                $('#state-input').val('');
+                $('#city-input').val('');
+                state_list = {};
+                var id = $('#country-select').val();
+                console.log('country id changed to: ' + id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/test_ajax_state',
+                    data: {'country_id': id},
+                    dataType: 'json',
+                    success: function (returned_data) {
+                        console.log('state ajax');
+                        console.log(returned_data);
+                        length = returned_data.length;
+
+                        for (var i = 0; i < length; i++)
+                        {
+                            obj = returned_data[i];
+                            state_list[obj.region]=obj.id;
+                        }
+                        state_suggestions.list = Object.keys(state_list);
+                    }
+                });
+
+            });
+
+
+            $('#state-input').focusout(function () {
+                city_list = [];
+                $('#city-input').val('');
+                var state =  $(this).val();
+                if(state.length > 0)
+                {
+                    state = state[0].toUpperCase() + state.slice(1);
+                }
+
+                var id = state_list[state];
+                console.log(id);
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/test_ajax_city',
+                    data: {'region_id': id},
+                    dataType: 'json',
+                    success: function (returned_data) {
+                        length = returned_data.length;
+                        for (var i = 0; i < length; i++)
+                        {
+                            obj = returned_data[i];
+                            city_list.push(obj.city);
+                        }
+
+
+                        console.log(city_list);
+                        city_suggestions.list = city_list;
+                    }
+                });
+
+
+
+            });
+
+
+
+        });
+    </script>
 @endsection

@@ -38,10 +38,13 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 	//this should be refined to be handled by InternApplicationController@create
     //if $request->method is get
     //end if $request->method is post
-	Route::get('/application/create', function (){
-		TravelWarning::updateIfOutOfDate();
-		return view('intern.student.application.create');
-	});
+//	Route::get('/application/create', function (){
+//		TravelWarning::updateIfOutOfDate();
+//		return view('intern.student.application.create');
+//	});
+
+    Route::get('/application/create', 'InternApplicationController@create');
+
 	Route::post('/application/create', 'InternApplicationController@create');
 
 	Route::post('/application/review_liability', 'InternApplicationController@prepareLiability');

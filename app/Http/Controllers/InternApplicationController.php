@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use app\Helpers\HTMLSnippet;
+use app\Helpers\TravelWarning;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
@@ -12,6 +13,24 @@ use Sabberworm\CSS\Value\String;
 
 class InternApplicationController extends Controller
 {
+
+    public function create(Request $request)
+    {
+        if($request->method() == 'GET')
+        {
+            $data = \App\Models\Country::all();
+            $countries = [];
+
+            foreach ($data as $country)
+            {
+                $countries[$country->id] = $country->country;
+            }
+
+            TravelWarning::updateIfOutOfDate();
+            return view('intern.student.application.create')->withCountries($countries);
+        }
+
+    }
 
 	public function prepareLiability(Request $request)
 	{

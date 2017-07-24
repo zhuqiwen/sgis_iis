@@ -1,5 +1,9 @@
 @extends('layouts.home')
 @section('card_rows')
+
+
+
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/test/card.css">
 
     {!! \app\Helpers\HTMLSnippet::
