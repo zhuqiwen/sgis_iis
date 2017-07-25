@@ -54,6 +54,9 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 	Route::get('/application/supervisor', 'InternSupervisorController@prepareForm');
 	Route::post('/application/supervisor', 'InternSupervisorController@store');
 
+
+    Route::get('/internship/assignment/', 'InternInternshipController@assignmentGuide');
+
 });
 
 Route::group(['prefix' => 'intern/supervisor', 'middleware' => ['auth', 'checkRole:supervisor']], function (){

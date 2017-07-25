@@ -15,9 +15,9 @@ class CreateInternReflectionsTable extends Migration
 	{
 		Schema::create('intern_reflections', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('application_id')->unsigned();
-			$table->foreign('application_id')->references('id')->on('intern_applications');
-			$table->text('reflection');
+            $table->integer('internship_id')->unsigned();
+            $table->foreign('internship_id')->references('id')->on('intern_internships');
+            $table->text('reflection');
 			$table->timestamps();
 			$table->softDeletes();
 		});

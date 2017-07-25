@@ -14,7 +14,7 @@ class InternReflection extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'application_id',
+        'internship_id',
         'reflection'
     ];
 

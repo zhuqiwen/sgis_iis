@@ -14,7 +14,7 @@ class InternJournal extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'application_id',
+        'internship_id',
         'journal'
     ];
 

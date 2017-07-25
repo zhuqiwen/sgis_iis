@@ -15,8 +15,8 @@ class CreateInternSiteEvaluationsTable extends Migration
     {
 	    Schema::create('intern_site_evaluations', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->integer('application_id')->unsigned();
-		    $table->foreign('application_id')->references('id')->on('intern_applications');
+		    $table->integer('internship_id')->unsigned();
+		    $table->foreign('internship_id')->references('id')->on('intern_internships');
 		    $table->text('how_did_locate');
 		    $table->text('site_description');
 		    $table->text('task_description');
@@ -24,9 +24,11 @@ class CreateInternSiteEvaluationsTable extends Migration
 		    $table->text('site_strength');
 		    $table->text('site_weakness');
 		    $table->text('gained_skills');
+		    $table->text('brief_comment');
 		    // the scale is 0-9
 		    $table->tinyInteger('willing_to_recommend');
 		    $table->boolean('is_submitted');
+
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

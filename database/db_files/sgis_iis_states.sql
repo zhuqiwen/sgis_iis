@@ -1,17 +1,17 @@
-drop table if exists states;
-
-CREATE TABLE states
-(
-    id INT(10) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    country_id INT(10) unsigned NOT NULL,
-    region VARCHAR(255) NOT NULL,
-    code VARCHAR(255) NOT NULL,
-    admin_code VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    deleted_at TIMESTAMP
-);
-TRUNCATE states;
+-- drop table if exists states;
+-- 
+-- CREATE TABLE states
+-- (
+--     id INT(10) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+--     country_id INT(10) unsigned NOT NULL,
+--     region VARCHAR(255) NOT NULL,
+--     code VARCHAR(255) NOT NULL,
+--     admin_code VARCHAR(255) NOT NULL,
+--     created_at TIMESTAMP,
+--     updated_at TIMESTAMP,
+--     deleted_at TIMESTAMP
+-- );
+-- TRUNCATE states;
 
 
 

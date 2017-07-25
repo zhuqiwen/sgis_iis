@@ -14,7 +14,7 @@ class InternSiteEvaluation extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'application_id',
+        'internship_id',
         'how_did_locate',
         'site_description',
         'task_description',

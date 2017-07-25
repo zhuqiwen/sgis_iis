@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use app\Helpers\HTMLSnippet;
 use app\Helpers\TravelWarning;
+use App\Models\InternInternship;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
@@ -189,12 +190,26 @@ class InternApplicationController extends Controller
 	{
 		if($request->method() == 'POST')
 		{
-			return InternApplication::whereIn('id', $request->application_ids)
+
+			$approved_applications = InternApplication::whereIn('id', $request->application_ids)
 				->update([
 					'is_approved' => 1,
 					'approved_date' => \Carbon\Carbon::now('America/New_York'),
 //					'approved_by' => Auth::user()->id,
 				]);
+
+			// create new internships for later use.
+			foreach ($approved_applications as $application)
+            {
+                InternInternship::create([
+                    'application_id' => $application->id,
+                    'case_closed' => 0,
+                    'x373_hours' => $application->credit_hours,
+                ]);
+            }
+
+            return $approved_applications;
+
 		}
 
 

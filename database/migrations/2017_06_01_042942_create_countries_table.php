@@ -30,6 +30,7 @@ class CreateCountriesTable extends Migration
 		    $table->bigInteger('population')->nullable()->default(NULL);
 		    $table->string('title')->nullable()->default(NULL);
 		    $table->string('comment')->nullable()->default(NULL);
+		    $table->string('phone_code')->nullable()->default(NULL);
 		    $table->timestamps();
 		    $table->softDeletes();
         });

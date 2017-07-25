@@ -15,8 +15,8 @@ class CreateInternJournalsTable extends Migration
 	{
 		Schema::create('intern_journals', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('application_id')->unsigned();
-			$table->foreign('application_id')->references('id')->on('intern_applications');
+            $table->integer('internship_id')->unsigned();
+            $table->foreign('internship_id')->references('id')->on('intern_internships');
 			$table->text('journal');
 			$table->timestamps();
 			$table->softDeletes();

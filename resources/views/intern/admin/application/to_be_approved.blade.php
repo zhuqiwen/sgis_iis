@@ -174,7 +174,8 @@
                                 data: post_data,
                                 success: function (returned_data) {
                                     console.log('this is returned data: '+returned_data);
-                                    alert(ApplicationFolio.Ids.size + ' applications successfully approved');
+//                                    alert(ApplicationFolio.Ids.size + ' applications successfully approved');
+                                    alert(returned_data.size + ' applications successfully approved');
                                     ajaxLoadGroupBy(
                                             ApplicationFolio.ajaxUrl,
                                             {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1}
@@ -184,14 +185,8 @@
 
                                 }
                             });
-
-
-
-
-
                         }
                     }
-//                    console.log(this.id);
                 });
             });
         });
