@@ -28,6 +28,7 @@
     <script src="/js/test/jquery.validate.min.js"></script>
     <script src="/js/test/jquery.bootstrap.wizard.js"></script>
     <script src="/js/test/wizard.js"></script>
+    <script src="/js/app.js"></script>
 @endsection
 
 

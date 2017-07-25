@@ -73,7 +73,7 @@
 
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
-                                                {!! Form::label('phone_country_code', 'phone: country code') !!}
+                                                {!! Form::label('phone_country_code', 'country code (country name)') !!}
                                                 {!! Form::text('phone_country_code', null, ['class' => 'form-control', 'id' => 'input_country_code']) !!}
 
                                             </div>
@@ -148,7 +148,7 @@
             for (var i = 0; i < country_codes_lenth; i++)
             {
                 var obj = country_codes[i];
-                country_code_list.push([obj.country + '--' + obj.phone_code, obj.phone_code])
+                country_code_list.push([obj.country + '\t\t' + obj.phone_code, obj.phone_code])
             }
 
 
@@ -162,6 +162,7 @@
             last_name_suggestions.list = last_name_list;
             prefix_suggestions.list = prefix_list;
             country_code_suggestions.list = country_code_list;
+            country_code_suggestions.maxItems = 5;
 
         });
     </script>
