@@ -104,4 +104,24 @@ $user_id = Auth::user()->id;
     <script src="/js/test/jquery.bootstrap.wizard.js"></script>
     <script src="/js/test/wizard.js"></script>
     <script src="/js/test/awesomplete.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var organizations = <?php echo json_encode($organizations); ?>;
+            console.log(organizations);
+            var org_name_list = [];
+            var org_url_list = [];
+            var lenth = organizations.length;
+            for (var i = 0; i < lenth; i++)
+            {
+                var obj = organizations[i];
+                org_name_list.push(obj.name);
+                org_url_list.push(obj.url);
+            }
+            var org_name_suggestions = new Awesomplete(document.getElementById('input-org-name'));
+            var org_url_suggestions = new Awesomplete(document.getElementById('input-org-url'));
+            org_name_suggestions.list = org_name_list;
+            org_url_suggestions.list = org_url_list;
+        });
+    </script>
 @endsection

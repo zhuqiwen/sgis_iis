@@ -16,6 +16,7 @@ class InternOrganizationController extends Controller
             'Industry' => 'industry',
             'Other' => 'Other',
         ];
+
         return view('intern.student.application.organization')
             ->withOrganizations(InternOrganization::all())
             ->withOrganizationTypes($organization_types);
