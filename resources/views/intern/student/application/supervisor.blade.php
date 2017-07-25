@@ -1,13 +1,13 @@
 @extends('layouts.app')
 <?php
-$org_id = session('org_id');
+//$org_id = session('org_id');
 ?>
 @section('content')
 
     <link rel="stylesheet" href="/css/test/bootstrap.min.css">
     <link rel="stylesheet" href="/css/test/demo.css">
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
-    {{--<link rel="stylesheet" href="/css/test/gsdk-base.css">--}}
+    <link rel="stylesheet" href="/css/test/awesomplete.css">
 
 
 
@@ -46,21 +46,21 @@ $org_id = session('org_id');
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
                                                 {!! Form::label('first_name', 'First name') !!}
-                                                {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
+                                                {!! Form::text('first_name', null, ['class' => 'form-control', 'id' => 'input_first_name']) !!}
 
                                             </div>
                                         </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 {!! Form::label('last_name', 'Last name') !!}
-                                                {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
+                                                {!! Form::text('last_name', null, ['class' => 'form-control', 'id' => 'input_last_name']) !!}
                                             </div>
                                         </div>
 
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
                                                 {!! Form::label('prefix', 'prefix') !!}
-                                                {!! Form::text('prefix', null, ['class' => 'form-control']) !!}
+                                                {!! Form::text('prefix', null, ['class' => 'form-control', 'id' => 'input_prefix']) !!}
 
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@ $org_id = session('org_id');
                                         <div class="col-sm-5 col-sm-offset-1">
                                             <div class="form-group">
                                                 {!! Form::label('phone_country_code', 'phone: country code') !!}
-                                                {!! Form::text('phone_country_code', null, ['class' => 'form-control']) !!}
+                                                {!! Form::text('phone_country_code', null, ['class' => 'form-control', 'id' => 'input_country_code']) !!}
 
                                             </div>
                                         </div>
@@ -123,4 +123,47 @@ $org_id = session('org_id');
     <script src="/js/test/jquery.validate.min.js"></script>
     <script src="/js/test/jquery.bootstrap.wizard.js"></script>
     <script src="/js/test/wizard.js"></script>
+    <script src="/js/test/awesomplete.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var supervisors = <?php echo json_encode($supervisors); ?>;
+            var country_codes = <?php echo json_encode($country_codes); ?>;
+            var first_name_list = [];
+            var last_name_list = [];
+            var prefix_list = [];
+            var country_code_list = [];
+
+            var supervisors_lenth = supervisors.length;
+            var country_codes_lenth = country_codes.length;
+
+            for (var i = 0; i < supervisors_lenth; i++)
+            {
+                var obj = supervisors[i];
+                first_name_list.push(obj.first_name);
+                last_name_list.push(obj.last_name);
+                prefix_list.push(obj.prefix);
+            }
+
+            for (var i = 0; i < country_codes_lenth; i++)
+            {
+                var obj = country_codes[i];
+                country_code_list.push([obj.country + '--' + obj.phone_code, obj.phone_code])
+            }
+
+
+            var first_name_suggestions = new Awesomplete(document.getElementById('input_first_name'));
+            var last_name_suggestions = new Awesomplete(document.getElementById('input_last_name'));
+            var prefix_suggestions = new Awesomplete(document.getElementById('input_prefix'));
+            var country_code_suggestions = new Awesomplete(document.getElementById('input_country_code'));
+
+
+            first_name_suggestions.list = first_name_list;
+            last_name_suggestions.list = last_name_list;
+            prefix_suggestions.list = prefix_list;
+            country_code_suggestions.list = country_code_list;
+
+        });
+    </script>
+
 @endsection

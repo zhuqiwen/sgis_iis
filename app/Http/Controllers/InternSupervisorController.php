@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\InternSupervisor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,8 +40,11 @@ class InternSupervisorController extends Controller
 
     public function prepareForm()
     {
+
 	    return view('intern.student.application.supervisor')
-		    ->with('org_id', session('org_id'));
+		    ->with('org_id', session('org_id'))
+		    ->withSupervisors(InternSupervisor::all())
+		    ->withCountryCodes(Country::all());
     }
 
 }
