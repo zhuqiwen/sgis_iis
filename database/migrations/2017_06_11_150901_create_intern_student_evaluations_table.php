@@ -43,11 +43,12 @@ class CreateInternStudentEvaluationsTable extends Migration
 			// to tell if an evaluation is a midterm or a final
 			$table->boolean('is_midterm');
 			// once the evaluation is submitted, NO ONE can update it anymore.
-			$table->boolean('is_submitted');
-			$table->date('submitted_at');
-			$table->date('sent_at');
-			$table->date('midterm_sent_at');
-			$table->date('midterm_submitted_at');
+            $table->date('due_date')->nullable()->default(null);
+			$table->date('submitted_at')->nullable()->default(null);
+			$table->date('sent_at')->nullable()->default(null);
+			$table->date('midterm_due_date')->nullable()->default(null);
+			$table->date('midterm_sent_at')->nullable()->default(null);
+			$table->date('midterm_submitted_at')->nullable()->default(null);
 			$table->timestamps();
 			$table->softDeletes();
 		});
