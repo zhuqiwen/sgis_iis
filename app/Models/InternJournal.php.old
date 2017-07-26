@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class InternReflection
+ * Class InternJournal
  */
-class InternReflection extends Model
+class InternJournal extends Model
 {
-    protected $table = 'intern_reflections';
+    protected $table = 'intern_journals';
 
     public $timestamps = true;
 
     protected $fillable = [
         'internship_id',
-        'reflection',
-        'due_date',
-        'is_submitted'
+        'journal'
     ];
 
     protected $guarded = [];

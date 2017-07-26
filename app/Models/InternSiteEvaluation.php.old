@@ -22,9 +22,7 @@ class InternSiteEvaluation extends Model
         'site_strength',
         'site_weakness',
         'gained_skills',
-        'brief_comment',
         'willing_to_recommend',
-        'due_date',
         'is_submitted'
     ];
 

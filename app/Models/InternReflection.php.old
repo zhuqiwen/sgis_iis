@@ -15,9 +15,7 @@ class InternReflection extends Model
 
     protected $fillable = [
         'internship_id',
-        'reflection',
-        'due_date',
-        'is_submitted'
+        'reflection'
     ];
 
     protected $guarded = [];

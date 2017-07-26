@@ -26,12 +26,7 @@ class InternStudentEvaluation extends Model
         'performance_rating',
         'development_rating',
         'is_midterm',
-        'due_date',
-        'submitted_at',
-        'sent_at',
-        'midterm_due_date',
-        'midterm_sent_at',
-        'midterm_submitted_at'
+        'is_submitted'
     ];
 
     protected $guarded = [];

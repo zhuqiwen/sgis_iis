@@ -15,7 +15,11 @@ class InternJournal extends Model
 
     protected $fillable = [
         'internship_id',
-        'journal'
+        'journal',
+        'serial_num',
+        'required_total_num',
+        'due_date',
+        'is_submitted'
     ];
 
     protected $guarded = [];
