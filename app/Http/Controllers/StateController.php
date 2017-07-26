@@ -14,7 +14,6 @@ class StateController extends Controller
 		$country_id = $request->country_id;
 
 		$states = State::where('country_id', $country_id)
-//			->where('admin_code', '<>', '')
 			->orderBy('region', 'ASC')->get();
 		return json_encode($states);
 

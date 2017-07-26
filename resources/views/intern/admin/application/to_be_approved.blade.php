@@ -107,7 +107,7 @@
             if ($('.container .float-card').length == 0)
             {
                 $("#tab-contents").html('' +
-                        '<div style="align-content: center">' +
+                        '<div style="text-align: center">' +
                         '<p>No Application Needs To Be Approved. ' +
                         '<a href="/home" style="text-decoration: underline;">Click Here</a> to go to Home screen</p>' +
                         '</div>');

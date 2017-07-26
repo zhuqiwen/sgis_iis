@@ -29,7 +29,7 @@
                             </div>
                             <div class="wizard-navigation">
                                 <ul>
-                                    <li><a href="#" data-toggle="tab">Select Internship and Assignment Type</a></li>
+                                    <li><a href="#internships" data-toggle="tab">Select Internship and Assignment Type</a></li>
                                 </ul>
                             </div>
                             <div class="tab-content">
@@ -42,7 +42,9 @@
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <div class="form-group">
                                                 {!! Form::label('internship', 'Please select an internship') !!}
-                                                {!! Form::select('internship', $internships, NULL, ['class' => 'form-control']) !!}
+                                                {!! Form::select('internship', $internship_options, NULL, ['class' => 'form-control', 'id' => 'internship-select']) !!}
+                                            </div>
+                                            <div id="internship-details">
                                             </div>
                                         </div>
                                         <div class="col-sm-8 col-sm-offset-2">
@@ -95,6 +97,36 @@
 
     <script>
         $(document).ready(function () {
+            var internships = <?php echo json_encode($internships)?>;
+            var option_detail_list = {};
+
+            for (var i = 0; i < internships.length; i++)
+            {
+                obj = internships[i];
+                option_detail_list[obj.internship_id] = '<p>Internship ID: '
+                        + obj.internship_id
+                        + '</p>'
+                        + '<p> Country: '
+                        + obj.internship_country
+                        + '</p>'
+                        + '<p> Organization: '
+                        + obj.organization_name
+                        + '</p>';
+            }
+
+
+
+            var default_item = $('#internship-select').val();
+            $('#internship-details').html(option_detail_list[default_item]);
+
+
+            $('#internship-select').change(function () {
+                var internship_id = $('#internship-select').val();
+                $('#internship-details').html(option_detail_list[internship_id]);
+
+
+            });
+
 
         });
     </script>

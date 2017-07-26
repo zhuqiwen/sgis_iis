@@ -46,7 +46,6 @@ class InternApplicationController extends Controller
 
 
 
-//		$application = InternApplication::create($request->except('_token'));
 		$application = InternApplication::create($data);
 
 		$student = User::find($request->input('user_id'));
