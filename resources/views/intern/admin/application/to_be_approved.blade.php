@@ -133,9 +133,9 @@
 
 
                 ApplicationFolio.Ids = new Set();
-                ApplicationFolio.ajaxUrl = '/intern/ajax';
+                ApplicationFolio.ajaxApprove = '/intern/application/to_approve/ajax';
+                ApplicationFolio.ajaxGroup = '/intern/application/to_group/ajax';
                 ApplicationFolio.currentGroupByField = 'all';
-//                console.log("hahaha");
 
 
                 $(".approve_group_by").click(function (e) {
@@ -148,7 +148,7 @@
 
                     }
                     var data = {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1};
-                    window.ajaxLoadGroupBy(ApplicationFolio.ajaxUrl, data);
+                    window.ajaxLoadGroupBy(ApplicationFolio.ajaxGroup, data);
                 });
 
 
@@ -170,14 +170,14 @@
                             post_data = {'application_ids': Array.from(ApplicationFolio.Ids)};
                             $.ajax({
                                 type: 'POST',
-                                url: ApplicationFolio.ajaxUrl,
+                                url: ApplicationFolio.ajaxApprove,
                                 data: post_data,
                                 success: function (returned_data) {
                                     console.log(returned_data);
 //                                    alert(ApplicationFolio.Ids.size + ' applications successfully approved');
                                     alert(returned_data.size + ' applications successfully approved');
                                     ajaxLoadGroupBy(
-                                            ApplicationFolio.ajaxUrl,
+                                            ApplicationFolio.ajaxGroup,
                                             {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1}
                                     );
                                     ApplicationFolio.Ids.clear();

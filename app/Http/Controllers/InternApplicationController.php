@@ -6,6 +6,7 @@ use app\Helpers\HTMLSnippet;
 use app\Helpers\TravelWarning;
 use App\Models\Country;
 use App\Models\InternInternship;
+use App\Models\InternReflection;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
@@ -194,42 +195,63 @@ class InternApplicationController extends Controller
 	    return $data->get()->groupBy($request->field);
 	}
 
-	public function ajaxGetGroupedApplicationCards(Request $request)
-	{
-		if($request->method() == 'POST')
-		{
+    public function ajaxApproveApplication(Request $request)
+    {
+        if($request->method() == 'POST')
+        {
 
-			InternApplication::whereIn('id', $request->application_ids)
-				->update([
-					'is_approved' => 1,
-					'approved_date' => \Carbon\Carbon::now('America/New_York'),
+            InternApplication::whereIn('id', $request->application_ids)
+                ->update([
+                    'is_approved' => 1,
+                    'approved_date' => \Carbon\Carbon::now('America/New_York'),
 //					'approved_by' => Auth::user()->id,
-				]);
+                ]);
 
-			$approved_applications = InternApplication::whereIn('id', $request->application_ids)
-				->where('is_approved', 1)
-				->where('is_submitted', 1)
-				->where('deleted_at', NULL)
-				->get();
 
-			// create new internships for later use.
-			foreach ($approved_applications as $application)
+
+            $approved_applications = InternApplication::whereIn('id', $request->application_ids)
+                ->where('is_approved', 1)
+                ->where('is_submitted', 1)
+                ->where('deleted_at', NULL)
+                ->get();
+
+            // create new internships, and their required documents
+            // such as journals, reflection, site_evaluation and student_evaluation,
+            // for later use.
+            foreach ($approved_applications as $application)
             {
 
-				// make sure one application generates only one internship record
-				InternInternship::updateOrCreate(
-					['application_id' => $application->id],
-					[
-						'case_closed' => 0,
-						'x373_hours' => $application->credit_hours,
-					]);
+                // make sure one application generates only one internship record
+                $internship = InternInternship::updateOrCreate(
+                    ['application_id' => $application->id],
+                    [
+                        'case_closed' => 0,
+                        'x373_hours' => $application->credit_hours,
+                    ]);
+
+                // reflection due date = application end date + 15days
+//                $reflection_due_date = $application
+//                InternReflection::updateOrCreate(
+//                    ['internship_id' => $internship->id],
+//                    [
+//                        ''
+//                    ]
+//                );
+
+                // set up new record for site evaluation
+                // set up new record for student evaluation, both final and midterm
+                // set up new record for journals
+
+
             }
 
             return $approved_applications;
 
-		}
+        }
+	}
 
-
+	public function ajaxGetGroupedApplicationCards(Request $request)
+	{
 
 		$tabs = '';
 		$contents = '';

@@ -17,7 +17,7 @@ class CreateInternJournalsTable extends Migration
 			$table->increments('id');
             $table->integer('internship_id')->unsigned();
             $table->foreign('internship_id')->references('id')->on('intern_internships');
-			$table->text('journal');
+			$table->text('journal')->nullable()->default(null);
 
 			$table->smallInteger('serial_num')->nullable()->default(null);
 			$table->smallInteger('required_total_num')->nullable()->default(null);

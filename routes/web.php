@@ -79,8 +79,8 @@ Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum
 });
 
 //Ajax calls
-Route::get('/intern/ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
-Route::post('/intern/ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
+Route::get('/intern/application/to_group/ajax', 'InternApplicationController@ajaxGetGroupedApplicationCards');
+Route::post('/intern/application/to_approve/ajax', 'InternApplicationController@ajaxApproveApplication');
 
 //following routes are for testing new features
 Route::get('/logout', function (){

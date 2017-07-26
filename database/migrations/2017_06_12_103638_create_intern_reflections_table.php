@@ -17,7 +17,7 @@ class CreateInternReflectionsTable extends Migration
 			$table->increments('id');
             $table->integer('internship_id')->unsigned();
             $table->foreign('internship_id')->references('id')->on('intern_internships');
-            $table->text('reflection');
+            $table->text('reflection')->nullable()->default(null);
             $table->date('due_date')->nullable()->default(null);
             $table->boolean('is_submitted')->nullable()->default(null);
 			$table->timestamps();
