@@ -12,7 +12,7 @@
             '10%',
             [
                 ['href' => 'student/application/organization', 'title' => 'Create Internship Application', 'text' => 'text1'],
-                ['href' => 'href2', 'title' => 'Internship Journal & Evaluation', 'text' => 'text2']
+                ['href' => 'student/internship/assignment', 'title' => 'Internship Journal & Evaluation', 'text' => 'text2']
             ]
         ) !!}
 

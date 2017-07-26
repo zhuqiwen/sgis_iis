@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use app\Helpers\HTMLSnippet;
 use app\Helpers\TravelWarning;
+use App\Models\Country;
 use App\Models\InternInternship;
 use Illuminate\Http\Request;
 use App\User;
@@ -38,7 +39,15 @@ class InternApplicationController extends Controller
 		$country_warning_data = $this->checkCountryWarning($request->intern_country);
 
 
-		$application = InternApplication::create($request->except('_token'));
+
+		$data = $request->except('_token');
+		$data['country'] = Country::where('country_id', $request->country)
+			->select('country')->first()->country;
+
+
+
+//		$application = InternApplication::create($request->except('_token'));
+		$application = InternApplication::create($data);
 
 		$student = User::find($request->input('user_id'));
 		$student_name = $student->last_name.', '.$student->first_name;
@@ -191,21 +200,30 @@ class InternApplicationController extends Controller
 		if($request->method() == 'POST')
 		{
 
-			$approved_applications = InternApplication::whereIn('id', $request->application_ids)
+			InternApplication::whereIn('id', $request->application_ids)
 				->update([
 					'is_approved' => 1,
 					'approved_date' => \Carbon\Carbon::now('America/New_York'),
 //					'approved_by' => Auth::user()->id,
 				]);
 
+			$approved_applications = InternApplication::whereIn('id', $request->application_ids)
+				->where('is_approved', 1)
+				->where('is_submitted', 1)
+				->where('deleted_at', NULL)
+				->get();
+
 			// create new internships for later use.
 			foreach ($approved_applications as $application)
             {
-                InternInternship::create([
-                    'application_id' => $application->id,
-                    'case_closed' => 0,
-                    'x373_hours' => $application->credit_hours,
-                ]);
+
+				// make sure one application generates only one internship record
+				InternInternship::updateOrCreate(
+					['application_id' => $application->id],
+					[
+						'case_closed' => 0,
+						'x373_hours' => $application->credit_hours,
+					]);
             }
 
             return $approved_applications;

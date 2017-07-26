@@ -19,19 +19,26 @@ class InternInternshipController extends Controller
         $user_id = Auth::user()->id;
         if($request->isMethod('GET'))
         {
+
+
             $internships = InternInternship::join('intern_applications', function ($join) use ($user_id)
                                             {
-                                                $join->on('intern_applications.user_id', $user_id);
+                                                $join->on('intern_applications.id', 'intern_internships.application_id');
                                                 $join->where('intern_applications.is_submitted', 1);
                                                 $join->where('intern_applications.is_approved', 1);
                                                 $join->where('intern_applications.deleted_at', null);
+                                                $join->where('intern_applications.user_id', $user_id);
                                             })
                 ->where('intern_internships.deleted_at', null)
                 ->where('intern_internships.case_closed', 0)
                 ->select('*')
                 ->get();
 
-            return $internships;
+	        $assignment_types = ['journal', 'reflection','site_evaluation'];
+
+            return view('intern.student.internship.journal_evaluation_entry')
+	            ->withInternships($internships)
+	            ->withAssignmentTypes($assignment_types);
 
         }
 
@@ -39,6 +46,6 @@ class InternInternshipController extends Controller
         {
 
         }
-        
+
     }
 }

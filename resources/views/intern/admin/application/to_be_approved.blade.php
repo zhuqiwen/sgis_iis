@@ -173,7 +173,7 @@
                                 url: ApplicationFolio.ajaxUrl,
                                 data: post_data,
                                 success: function (returned_data) {
-                                    console.log('this is returned data: '+returned_data);
+                                    console.log(returned_data);
 //                                    alert(ApplicationFolio.Ids.size + ' applications successfully approved');
                                     alert(returned_data.size + ' applications successfully approved');
                                     ajaxLoadGroupBy(

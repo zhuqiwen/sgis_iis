@@ -1,7 +1,5 @@
 @extends('layouts.app')
-<?php
-$user_id = Auth::user()->id;
-?>
+
 @section('content')
 
     <link rel="stylesheet" href="/css/test/bootstrap.min.css">
@@ -51,7 +49,7 @@ $user_id = Auth::user()->id;
                                             <div class="form-group">
                                                 {{--here need to check if the url is legal--}}
                                                 {!! Form::label('assignment_type', 'please select the type of this assignment') !!}
-                                                {!! Form::select('assignment_type', $assignment_type, NULL, ['class' => 'form-control']) !!}
+                                                {!! Form::select('assignment_type', $assignment_types, NULL, ['class' => 'form-control']) !!}
                                                 <br>
                                             </div>
                                         </div>

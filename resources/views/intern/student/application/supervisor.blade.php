@@ -148,7 +148,7 @@
             for (var i = 0; i < country_codes_lenth; i++)
             {
                 var obj = country_codes[i];
-                country_code_list.push([obj.country + '\t\t' + obj.phone_code, obj.phone_code])
+                country_code_list.push([obj.country + '        ' + obj.phone_code, obj.phone_code])
             }
 
 

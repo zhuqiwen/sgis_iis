@@ -21,10 +21,10 @@
                 [
                     'front_title' => 'Scholarships',
                     'front_text' => 'some text 2',
-                    'back_title_1' => 'Scholarship entry 1',
-                    'back_title_2' => '',
-                    'back_url_1' => '',
-                    'back_url_2' => ''
+                    'back_title_1' => 'Entry 1',
+                    'back_title_2' => 'Entry 2',
+                    'back_url_1' => '#',
+                    'back_url_2' => '#'
                 ],
             ]
         ) !!}
@@ -34,12 +34,20 @@
             '5%',
             [
                 [
-                    'front_title' => '',
-                    'front_text' => '',
+                    'front_title' => 'Statistics',
+                    'front_text' => 'some text',
+                    'back_title_1' => 'Reports',
+                    'back_title_2' => 'Visualizations',
+                    'back_url_1' => '#',
+                    'back_url_2' => '#'
+                ],
+                [
+                    'front_title' => 'Past Internships',
+                    'front_text' => 'some text',
                     'back_title_1' => '',
                     'back_title_2' => '',
-                    'back_url_1' => '',
-                    'back_url_2' => ''
+                    'back_url_1' => '#',
+                    'back_url_2' => '#'
                 ],
             ]
         ) !!}

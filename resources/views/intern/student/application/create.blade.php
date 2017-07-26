@@ -425,7 +425,7 @@ $challenge_guide = 'Detail any challenges you expect to face during  the interns
                         for (var i = 0; i < length; i++)
                         {
                             obj = returned_data[i];
-                            state_list[obj.region]=obj.id;
+                            state_list[obj.region]=obj.region_id;
                         }
                         state_suggestions.list = Object.keys(state_list);
                     }
