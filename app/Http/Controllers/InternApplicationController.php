@@ -6,6 +6,7 @@ use app\Helpers\HTMLSnippet;
 use app\Helpers\TravelWarning;
 use App\Models\Country;
 use App\Models\InternInternship;
+use App\Models\InternJournal;
 use App\Models\InternReflection;
 use App\Models\InternSiteEvaluation;
 use App\Models\InternStudentEvaluation;
@@ -202,12 +203,12 @@ class InternApplicationController extends Controller
     {
         if($request->method() == 'POST')
         {
-
+            $user_id = Auth::user()->id;
             InternApplication::whereIn('id', $request->application_ids)
                 ->update([
                     'is_approved' => 1,
-                    'approved_date' => \Carbon\Carbon::now('America/New_York'),
-//					'approved_by' => Auth::user()->id,
+                    'approved_date' => Carbon::now('America/New_York'),
+					'approved_by' => $user_id,
                 ]);
 
 
@@ -221,95 +222,110 @@ class InternApplicationController extends Controller
             // create new internships, and their required documents
             // such as journals, reflection, site_evaluation and student_evaluation,
             // for later use.
+            //	            // specify within how many days after end date should a doc be submitted.
+            $reflection_buffer = 15;
+            $site_evaluation_buffer = 15;
+            $student_evaluation_buffer = 15;
+
+            // every 7 days a journal should be submitted
+            $journal_period = 7;
             foreach ($approved_applications as $application)
             {
 
+                $start_date = Carbon::createFromFormat('Y-m-d', $application->start_date);
+                $end_date = Carbon::createFromFormat('Y-m-d', $application->end_date);
+
                 // make sure one application generates only one internship record
                 $internship = InternInternship::updateOrCreate(
-                    ['application_id' => $application->id],
+                    [
+                        'application_id' => $application->id,
+                        'x373_hours' => $application->credit_hours
+                    ],
                     [
                         'case_closed' => 0,
-                        'x373_hours' => $application->credit_hours,
-                    ]);
-
-				$internship_start_date = $application->start_date;
-				$internship_end_date = $application->end_date;
-
-	            // specify within how many days after end date should a doc be submitted.
-	            $reflection_buffer = 15;
-	            $site_evaluation_buffer = 15;
-	            $student_evaluation_buffer = 15;
-
-	            // every 7 days a journal should be submitted
-	            $journal_period = 7;
-
-
-                // reflection due date = application end date + buffer
-                $reflection_due_date = Carbon::createFromFormat('Y-m-d', $application->end_date)
-	                ->addDays($reflection_buffer)->toDateString();
-                InternReflection::updateOrCreate(
-                    ['internship_id' => $internship->id],
-                    [
-                        'due_date' => $reflection_due_date,
-                        'is_submitted' => 0,
+                        'case_closed_by' => $user_id,
                     ]
+                    );
+
+//				$internship_start_date = $application->start_date;
+//				$internship_end_date = $application->end_date;
+
+
+//
+//
+                // reflection due date = application end date + buffer
+                $reflection_due_date = $end_date->addDays($reflection_buffer)->toDateString();
+                InternReflection::updateOrCreate(
+                    [
+                        'internship_id' => $internship->id,
+                        'due_date' => $reflection_due_date,
+
+                    ],
+                    ['is_submitted' => 0]
                 );
 
                 // set up new record for site evaluation
-	            $site_evaluation_due_date = Carbon::createFromFormat('Y-m-d', $application->end_date)
-		            ->addDays($site_evaluation_buffer)->toDateString();
+	            $site_evaluation_due_date = $end_date->addDays($site_evaluation_buffer)->toDateString();
 	            InternSiteEvaluation::updateOrCreate(
-		            ['internship_id' => $internship->id],
 		            [
-		            	'due_date' => $site_evaluation_due_date,
-			            'is_submitted' => 0
-		            ]
+		                'internship_id' => $internship->id,
+                        'due_date' => $site_evaluation_due_date,
+                    ],
+                    ['is_submitted' => 0,]
 	            );
 
 	            // set up new record for student evaluation, both final and midterm
 
-	            $student_evaluation_date = Carbon::createFromFormat('Y-m-d', $application->end_date)
-		            ->addDays($student_evaluation_buffer)->toDateString();
 
-	            $student__midterm_evaluation_date = Carbon::createFromFormat('Y-m-d', $application->end_date)
-		            ->addDays($student_evaluation_buffer)->toDateString();
 
-	            $start_date = Carbon::createFromFormat('Y-m-d', $application->start_date);
-	            $end_date = Carbon::createFromFormat('Y-m-d', $application->end_date);
+
 	            $half_period = $start_date->diffInDays($end_date) / 2;
-	            $student__midterm_evaluation_date = Carbon::createFromFormat('Y-m-d', $application->end_date)
-		            ->addDays($half_period)->toDateString();
+	            $student_midterm_evaluation_date = $start_date->addDays($half_period)->toDateString();
+	            $student_evaluation_date = $end_date->addDays($student_evaluation_buffer)->toDateString();
 
 	            // final eval
 	            InternStudentEvaluation::updateOrCreate(
 		            [
 		            	'internship_id' => $internship->id,
-			            'is_midterm' => 0
+                        'due_date' => $student_evaluation_date,
 		            ],
-		            [
-			            'due_date' => $student_evaluation_date,
-		            ]
+                    ['is_midterm' => 0,]
 	            );
 
 	            InternStudentEvaluation::updateOrCreate(
 		            [
 			            'internship_id' => $internship->id,
-			            'is_midterm' => 1
+                        'due_date' => $student_midterm_evaluation_date,
 		            ],
-		            [
-			            'midterm_due_date' => $student__midterm_evaluation_date,
-		            ]
+                    ['is_midterm' => 1,]
 	            );
 
 
-//                // set up new record for journals
-//	            $total_num_required = strtotime($application->end_date) - strtotime($application->start_date);
-////	            $total_num_required =
+////                // set up new record for journals
+//                $num_days = $start_date->diffInDays($end_date);
+//                $rounds = $num_days / $journal_period;
+//
+//                for($i = 0; $i < $rounds; $i++)
+//                {
+//                    InternJournal::updaOrCreate(
+//                        [
+//                            'internship_id' => $internship->id,
+//                            'serial_num' => $i + 1,
+//                            'required_total_num' => $rounds,
+//                            'due_date' => Carbon::createFromFormat('Y-m-d', $application->start_date)
+//                                ->addDays($period * ($i + 1))->toDateString(),
+//
+//                        ],
+//                        ['is_submitted' => 0,]
+//                    );
+//                }
+
 
 
             }
 
             return $approved_applications;
+//            return $internship;
 
         }
 	}

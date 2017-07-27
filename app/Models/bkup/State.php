@@ -14,7 +14,6 @@ class State extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'region_id',
         'country_id',
         'region',
         'code',

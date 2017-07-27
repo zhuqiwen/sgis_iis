@@ -46,9 +46,6 @@ class CreateInternStudentEvaluationsTable extends Migration
             $table->date('due_date')->nullable()->default(null);
 			$table->date('submitted_at')->nullable()->default(null);
 			$table->date('sent_at')->nullable()->default(null);
-			$table->date('midterm_due_date')->nullable()->default(null);
-			$table->date('midterm_sent_at')->nullable()->default(null);
-			$table->date('midterm_submitted_at')->nullable()->default(null);
 			$table->timestamps();
 			$table->softDeletes();
 		});

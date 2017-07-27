@@ -41,13 +41,7 @@ class InternApplication extends Model
         'supervisor_id',
         'paid_internship',
         'liability_release_form_signed',
-        'liability_release_signed_date',
         'is_approved',
-        'approved_date',
-        'approved_by',
-        'is_submitted',
-        'submitted_date',
-        'submitted_by',
         'country_warning'
     ];
 

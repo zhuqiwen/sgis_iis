@@ -5,20 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class State
+ * Class City
  */
-class State extends Model
+class City extends Model
 {
-    protected $table = 'states';
+    protected $table = 'cities';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'region_id',
         'country_id',
-        'region',
-        'code',
-        'admin_code'
+        'region_id',
+        'city',
+        'latitude',
+        'longitude',
+        'time_zone',
+        'code'
     ];
 
     protected $guarded = [];

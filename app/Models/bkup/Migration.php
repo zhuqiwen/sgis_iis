@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class WarnedCountry
+ * Class Migration
  */
-class WarnedCountry extends Model
+class Migration extends Model
 {
-    protected $table = 'warned_countries';
+    protected $table = 'migrations';
 
     public $timestamps = false;
 
     protected $fillable = [
-        'type',
-        'date',
-        'country',
-        'update_at'
+        'migration',
+        'batch'
     ];
 
     protected $guarded = [];

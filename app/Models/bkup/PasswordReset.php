@@ -5,20 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class State
+ * Class PasswordReset
  */
-class State extends Model
+class PasswordReset extends Model
 {
-    protected $table = 'states';
+    protected $table = 'password_resets';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'region_id',
-        'country_id',
-        'region',
-        'code',
-        'admin_code'
+        'email',
+        'token'
     ];
 
     protected $guarded = [];

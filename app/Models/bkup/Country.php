@@ -28,9 +28,7 @@ class Country extends Model
         'currency_code',
         'population',
         'title',
-        'comment',
-        'phone_code',
-        'country_id'
+        'comment'
     ];
 
     protected $guarded = [];

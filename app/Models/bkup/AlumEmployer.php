@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class State
+ * Class AlumEmployer
  */
-class State extends Model
+class AlumEmployer extends Model
 {
-    protected $table = 'states';
+    protected $table = 'alum_employers';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'region_id',
-        'country_id',
-        'region',
-        'code',
-        'admin_code'
+        'name',
+        'web_address',
+        'type_id'
     ];
 
     protected $guarded = [];

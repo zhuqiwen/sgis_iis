@@ -16,8 +16,7 @@ class WarnedCountry extends Model
     protected $fillable = [
         'type',
         'date',
-        'country',
-        'update_at'
+        'country'
     ];
 
     protected $guarded = [];
