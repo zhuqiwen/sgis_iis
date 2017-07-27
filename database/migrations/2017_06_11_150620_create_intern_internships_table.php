@@ -22,6 +22,7 @@ class CreateInternInternshipsTable extends Migration
 			$table->tinyInteger('x373_hours')->nullable()->default(null);
 			$table->string('x373_grade')->nullable()->default(null);
 			$table->boolean('case_closed')->nullable()->default(null);
+			$table->integer('closed_by')->unsigned();
 			$table->timestamps();
 			$table->softDeletes();
 		});

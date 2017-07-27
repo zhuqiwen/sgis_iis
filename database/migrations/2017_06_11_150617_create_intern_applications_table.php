@@ -48,9 +48,10 @@ class CreateInternApplicationsTable extends Migration
 		    $table->date('liability_release_signed_date')->nullable()->default(NULL);
 		    $table->boolean('is_approved')->default(FALSE);
 		    $table->date('approved_date')->nullable()->default(NULL);
+		    $table->integer('approved_by')->unsigned()->nullable()->default(NULL);
 		    $table->boolean('is_submitted')->default(FALSE);
 		    $table->date('submitted_date')->nullable()->default(NULL);
-		    $table->text('submitted_by')->nullable()->default(NULL);
+		    $table->string('submitted_by')->nullable()->default(NULL);
 		    $table->boolean('country_warning')->default(FALSE);
 		    $table->timestamps();
 		    $table->softDeletes();
