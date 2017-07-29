@@ -254,7 +254,7 @@ class InternApplicationController extends Controller
 //
 //
                 // reflection due date = application end date + buffer
-                $reflection_due_date = $end_date->addDays($reflection_buffer)->toDateString();
+                $reflection_due_date = $end_date->copy()->addDays($reflection_buffer)->toDateString();
                 InternReflection::updateOrCreate(
                     [
                         'internship_id' => $internship->id,
@@ -265,7 +265,7 @@ class InternApplicationController extends Controller
                 );
 
                 // set up new record for site evaluation
-	            $site_evaluation_due_date = $end_date->addDays($site_evaluation_buffer)->toDateString();
+	            $site_evaluation_due_date = $end_date->copy()->addDays($site_evaluation_buffer)->toDateString();
 	            InternSiteEvaluation::updateOrCreate(
 		            [
 		                'internship_id' => $internship->id,
@@ -280,8 +280,8 @@ class InternApplicationController extends Controller
 
 
 	            $half_period = $start_date->diffInDays($end_date) / 2;
-	            $student_midterm_evaluation_date = $start_date->addDays($half_period)->toDateString();
-	            $student_evaluation_date = $end_date->addDays($student_evaluation_buffer)->toDateString();
+	            $student_midterm_evaluation_date = $start_date->copy()->addDays($half_period)->toDateString();
+	            $student_evaluation_date = $end_date->copy()->addDays($student_evaluation_buffer)->toDateString();
 
 	            // final eval
 	            InternStudentEvaluation::updateOrCreate(
