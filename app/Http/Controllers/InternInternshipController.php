@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use app\Helpers\HTMLSnippet;
 use app\Helpers\TravelWarning;
 use App\Models\InternInternship;
+use App\Models\InternJournal;
+use App\Models\InternReflection;
+use App\Models\InternStudentEvaluation;
+use App\Models\InternSiteEvaluation;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
@@ -71,5 +75,35 @@ class InternInternshipController extends Controller
 
         }
 
+    }
+
+    public function ajaxGetAvailableDocs(Request $request)
+    {
+        if($request->isMethod('GET'))
+        {
+            if($request->has('internship_id'))
+            {
+                $internship_id = $request->internship_id;
+
+                $journals = new InternJournal();
+                $journals = $journals->getAvailable($internship_id);
+
+                $reflection = new InternReflection();
+                $reflection = $reflection->getAvailable($internship_id);
+
+                $site_evaluation = new InternSiteEvaluation();
+                $site_evaluation = $site_evaluation->getAvailable($internship_id);
+
+                $student_evaluations = new InternStudentEvaluation();
+                $student_evaluations = $student_evaluations->getAvailable($internship_id);
+
+                return json_encode([
+                    'journals' => $journals,
+                    'reflection' => $reflection,
+                    'site_evaluation' => $site_evaluation,
+                    'student_evaluation' => $student_evaluations
+                ]);
+            }
+        }
     }
 }

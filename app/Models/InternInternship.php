@@ -26,17 +26,7 @@ class InternInternship extends Model
     protected $guarded = [];
 
 
-    /**
-     * @param $internship_id
-     * 4 docs:
-     *  journal
-     *  reflection
-     *  site_evaluation
-     *  student_evaluation
-     */
-    public function getAvailableDocs($internship_id)
-    {
-    }
+
 
         
 }

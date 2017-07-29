@@ -97,6 +97,25 @@
 
     <script>
         $(document).ready(function () {
+
+
+//            test ajax call
+
+            $.ajax({
+                type: 'GET',
+                url: '/test_ajax_get_available_docs',
+                data: {'internship_id': 2},
+                dataType: 'json',
+                success: function(returned_data){
+                    console.log(returned_data);
+                    console.log('fdfd');
+
+                }
+            });
+
+
+
+
             var internships = <?php echo json_encode($internships)?>;
             var option_detail_list = {};
 

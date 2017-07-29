@@ -125,3 +125,4 @@ Route::get('/test_card_in_div', function (){
 Route::get('/test_ajax_state', 'StateController@ajaxGetStateByCountryId');
 Route::get('/test_ajax_city', 'CityController@ajaxGetCityByStateId');
 Route::get('/test_ajax_organization', 'InternOrganizationController@ajaxGetSuggestions');
+Route::get('/test_ajax_get_available_docs', 'InternInternshipController@ajaxGetAvailableDocs');

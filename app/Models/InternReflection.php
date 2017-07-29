@@ -26,7 +26,7 @@ class InternReflection extends Model
     public function getAvailable($internship_id)
     {
         return $this->where('internship_id', $internship_id)
-            ->where('is_submitted', 0)
+            ->whereNull('submitted_at')
             ->get();
     }
 }

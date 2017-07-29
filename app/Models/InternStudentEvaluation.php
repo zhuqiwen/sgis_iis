@@ -40,7 +40,7 @@ class InternStudentEvaluation extends Model
     public function getAvailable($internship_id)
     {
         return $this->where('internship_id', $internship_id)
-            ->whereNot('submitted_at', null)
+            ->whereNull('submitted_at')
             ->get();
     }
 }
