@@ -301,31 +301,31 @@ class InternApplicationController extends Controller
 	            );
 
 
-////                // set up new record for journals
-//                $num_days = $start_date->diffInDays($end_date);
-//                $rounds = $num_days / $journal_period;
+//                // set up new record for journals
+                $num_days = $start_date->diffInDays($end_date);
+                $rounds = $num_days / $journal_period;
 //
-//                for($i = 0; $i < $rounds; $i++)
-//                {
-//                    InternJournal::updaOrCreate(
-//                        [
-//                            'internship_id' => $internship->id,
-//                            'serial_num' => $i + 1,
-//                            'required_total_num' => $rounds,
-//                            'due_date' => Carbon::createFromFormat('Y-m-d', $application->start_date)
-//                                ->addDays($period * ($i + 1))->toDateString(),
+                for($i = 0; $i < $rounds; $i++)
+                {
+                    InternJournal::updateOrCreate(
+                        [
+                            'internship_id' => $internship->id,
+                            'serial_num' => $i + 1,
+                            'required_total_num' => $rounds,
+                            'due_date' => $start_date->copy()
+                                ->addDays($journal_period * ($i + 1))->toDateString(),
 //
-//                        ],
-//                        ['is_submitted' => 0,]
-//                    );
-//                }
+                        ],
+                        ['is_submitted' => 0,]
+                    );
+                }
 
 
 
             }
 
             return $approved_applications;
-//            return $internship;
+//            return $rounds;
 
         }
 	}
