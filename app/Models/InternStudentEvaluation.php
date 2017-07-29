@@ -36,5 +36,11 @@ class InternStudentEvaluation extends Model
 
     protected $guarded = [];
 
-        
+
+    public function getAvailable($internship_id)
+    {
+        return $this->where('internship_id', $internship_id)
+            ->whereNot('submitted_at', null)
+            ->get();
+    }
 }

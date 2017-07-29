@@ -28,7 +28,7 @@ class CreateInternSiteEvaluationsTable extends Migration
 		    // the scale is 0-9
 		    $table->tinyInteger('willing_to_recommend')->nullable()->default(null);
 		    $table->date('due_date')->nullable()->default(null);
-		    $table->boolean('is_submitted')->nullable()->default(null);
+		    $table->date('submitted_at')->nullable()->default(null);
 
 		    $table->timestamps();
 		    $table->softDeletes();

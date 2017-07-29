@@ -41,7 +41,7 @@ class CreateInternStudentEvaluationsTable extends Migration
 			// Poor (bottom 50%)
 			$table->string('development_rating')->nullable()->default(null);
 			// to tell if an evaluation is a midterm or a final
-			$table->boolean('is_midterm');
+			$table->boolean('is_midterm')->default(0);
 			// once the evaluation is submitted, NO ONE can update it anymore.
             $table->date('due_date')->nullable()->default(null);
 			$table->date('submitted_at')->nullable()->default(null);

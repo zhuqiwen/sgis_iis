@@ -23,7 +23,7 @@ class CreateInternJournalsTable extends Migration
 			$table->smallInteger('required_total_num')->nullable()->default(null);
 
             $table->date('due_date')->nullable()->default(null);
-            $table->boolean('is_submitted')->nullable()->default(null);
+            $table->date('submitted_at')->nullable()->default(null);
 			$table->timestamps();
 			$table->softDeletes();
 		});

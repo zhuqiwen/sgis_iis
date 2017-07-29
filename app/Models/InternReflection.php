@@ -22,5 +22,11 @@ class InternReflection extends Model
 
     protected $guarded = [];
 
-        
+
+    public function getAvailable($internship_id)
+    {
+        return $this->where('internship_id', $internship_id)
+            ->where('is_submitted', 0)
+            ->get();
+    }
 }

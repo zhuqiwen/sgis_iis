@@ -246,11 +246,6 @@ class InternApplicationController extends Controller
                         'case_closed_by' => $user_id,
                     ]
                     );
-
-//				$internship_start_date = $application->start_date;
-//				$internship_end_date = $application->end_date;
-
-
 //
 //
                 // reflection due date = application end date + buffer
@@ -259,9 +254,9 @@ class InternApplicationController extends Controller
                     [
                         'internship_id' => $internship->id,
                         'due_date' => $reflection_due_date,
+                        'submitted_at' => null
 
-                    ],
-                    ['is_submitted' => 0]
+                    ]
                 );
 
                 // set up new record for site evaluation
@@ -270,8 +265,8 @@ class InternApplicationController extends Controller
 		            [
 		                'internship_id' => $internship->id,
                         'due_date' => $site_evaluation_due_date,
-                    ],
-                    ['is_submitted' => 0,]
+                        'submitted_at' => null
+                    ]
 	            );
 
 	            // set up new record for student evaluation, both final and midterm
@@ -289,15 +284,19 @@ class InternApplicationController extends Controller
 		            	'internship_id' => $internship->id,
                         'due_date' => $student_evaluation_date,
 		            ],
-                    ['is_midterm' => 0,]
+                    ['submitted_at' => null]
 	            );
 
+	            // midterm
 	            InternStudentEvaluation::updateOrCreate(
 		            [
 			            'internship_id' => $internship->id,
                         'due_date' => $student_midterm_evaluation_date,
 		            ],
-                    ['is_midterm' => 1,]
+                    [
+                        'is_midterm' => 1,
+                        'submitted_at' => null
+                    ]
 	            );
 
 
@@ -316,7 +315,7 @@ class InternApplicationController extends Controller
                                 ->addDays($journal_period * ($i + 1))->toDateString(),
 //
                         ],
-                        ['is_submitted' => 0,]
+                        ['submitted_at' => null]
                     );
                 }
 

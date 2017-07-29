@@ -19,7 +19,7 @@ class CreateInternReflectionsTable extends Migration
             $table->foreign('internship_id')->references('id')->on('intern_internships');
             $table->text('reflection')->nullable()->default(null);
             $table->date('due_date')->nullable()->default(null);
-            $table->boolean('is_submitted')->nullable()->default(null);
+            $table->date('submitted_at')->nullable()->default(null);
 			$table->timestamps();
 			$table->softDeletes();
 		});
