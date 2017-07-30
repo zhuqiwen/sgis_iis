@@ -18,7 +18,7 @@
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="azzure" id="wizard">
-                        {!! Form::open(['action' => 'InternOrganizationController@store']) !!}
+{{--                        {!! Form::open(['action' => 'InternOrganizationController@store']) !!}--}}
                         <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
 
                             <div class="wizard-header">
@@ -66,16 +66,14 @@
 
                             <div class="wizard-footer">
                                 <div class="pull-right">
-                                    <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
-                                    {!! Form::submit('Tell us about your supervisor in this organization', ['class' => 'btn btn-finish btn-fill btn-info btn-wd btn-sm', 'name' => 'finish']) !!}
+                                    {{--<input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />--}}
+                                    {!! Form::submit('Let\'s go', ['id' => 'lets_go', 'class' => 'btn btn-finish btn-fill btn-info btn-wd btn-sm']) !!}
                                 </div>
-                                <div class="pull-left">
-                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
                             {{--</form>--}}
-                            {!! Form::close() !!}
+{{--                            {!! Form::close() !!}--}}
                         </div>
                     </div> <!-- wizard container -->
                 </div>
@@ -97,9 +95,9 @@
 
     <script>
         function getAvailableAssignments(url, internship_id){
+            var type_id_separator = '-';
             $.ajax({
                 type: 'GET',
-//                url: '/test_ajax_get_available_docs',
                 url: url,
                 data: {'internship_id': internship_id},
                 dataType: 'json',
@@ -117,7 +115,7 @@
                             var assignment = doc_type + ': due on ' + returned_data[doc_type][j].due_date;
                             options += '<option value="'
                                 + doc_type
-                                + '_'
+                                + type_id_separator
                                 + returned_data[doc_type][j].id
                                 + '">'
                                 + assignment
@@ -130,6 +128,7 @@
                 }
             });
         }
+
         $(document).ready(function () {
 
 
@@ -172,6 +171,12 @@
 
                 getAvailableAssignments(url, internship_id)
 
+            });
+
+            $('#lets_go').click(function(){
+                console.log('let\'s go');
+                console.log('internship id: ' + $('#internship-select option:selected').val());
+                console.log('assignment: ' + $('#assignment-select option:selected').val());
             });
 
 
