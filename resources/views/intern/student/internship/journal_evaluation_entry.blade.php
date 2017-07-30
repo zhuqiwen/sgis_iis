@@ -66,7 +66,7 @@
 
                             <div class="wizard-footer">
                                 <div class="pull-right">
-                                    <a data-toggle="modal" href="#" class="btn btn-finish btn-fill btn-info btn-wd btn-sm disabled">Let's Go</a>
+                                    <a id="launch_modal" data-toggle="modal" href="#" class="btn btn-finish btn-fill btn-info btn-wd btn-sm">Let's Go</a>
                                     <?php
 
                                         echo $assignment_modals;
@@ -97,8 +97,7 @@
     <script src="/js/test/wizard.js"></script>
 
     <script>
-        function getAvailableAssignments(url, internship_id){
-            var type_id_separator = '-';
+        function getAvailableAssignments(url, internship_id, type_id_separator){
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -127,6 +126,8 @@
                     }
 
                     $('#assignment-select').html(options);
+                    var doc_type = $('#assignment-select option:selected').val().split(type_id_separator)[0];
+                    $('#launch_modal').attr('href', '#modal_' + doc_type)
 
 
                 }
@@ -137,8 +138,9 @@
 
 
             var url = '/test_ajax_get_available_docs';
+            var type_id_separator = '-';
 
-            getAvailableAssignments(url, $('#internship-select').val());
+            getAvailableAssignments(url, $('#internship-select').val(), type_id_separator);
 
 
 
@@ -173,8 +175,13 @@
                 $('#internship-details').html(option_detail_list[internship_id]);
 
 
-                getAvailableAssignments(url, internship_id)
+                getAvailableAssignments(url, internship_id, type_id_separator)
 
+            });
+
+            $('#assignment-select').change(function(){
+                var doc_type = $('#assignment-select option:selected').val().split(type_id_separator)[0];
+                $('#launch_modal').attr('href', '#modal_' + doc_type)
             });
 
             $('#lets_go').click(function(){

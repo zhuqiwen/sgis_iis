@@ -105,7 +105,7 @@ class InternInternshipController extends Controller
                 $student_evaluations = $student_evaluations->getAvailable($internship_id);
 
                 return json_encode([
-                    'journals' => $journals,
+                    'journal' => $journals,
                     'reflection' => $reflection,
                     'site_evaluation' => $site_evaluation,
                     'student_evaluation' => $student_evaluations
