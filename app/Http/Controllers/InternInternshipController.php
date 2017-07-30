@@ -61,12 +61,19 @@ class InternInternshipController extends Controller
 			        .$internship->internship_year;
 	        }
 
-	        $assignment_types = ['journal', 'reflection','site_evaluation'];
+	        $assignment_types = ['journal', 'reflection','site_evaluation', 'student_evaluation'];
+
+	        $modals = '';
+	        foreach ($assignment_types as $doc_type)
+            {
+                $modals .= HTMLSnippet::generateInternshipAssignmentModal($doc_type);
+            }
 
             return view('intern.student.internship.journal_evaluation_entry')
 	            ->withInternships($internships)
 	            ->withAssignmentTypes($assignment_types)
-	            ->withInternshipOptions($internship_options);
+	            ->withInternshipOptions($internship_options)
+                ->withAssignmentModals($modals);
 
         }
 

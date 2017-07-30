@@ -374,6 +374,36 @@ EOF;
 		return $li.'<a href="#'.$tab_name.'" data-toggle="tab">'.$original_tab_name.'</a></li>';
 	}
 
+	public static function generateInternshipAssignmentModal($doc_type, array $attributes = [])
+    {
+        $modal = <<<EOF
+           <!-- Modal -->
+              <div class="modal fade" id="modal_$doc_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4 class="modal-title">$doc_type</h4>
+                    </div>
+                    <div class="modal-body">
+                     $doc_type
+                    </div>
+                    <div class="modal-footer">Modal Footer Content
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+
+EOF;
+
+        return $modal;
+    }
+
+
+
+
 
 
 }
