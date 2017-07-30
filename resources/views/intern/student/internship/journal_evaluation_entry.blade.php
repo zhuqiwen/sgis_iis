@@ -51,7 +51,7 @@
                                             <div class="form-group">
                                                 {{--here need to check if the url is legal--}}
                                                 {!! Form::label('assignment_type', 'please select the type of this assignment') !!}
-                                                {!! Form::select('assignment_type', $assignment_types, NULL, ['class' => 'form-control']) !!}
+                                                {!! Form::select('assignment_type', $assignment_types, NULL, ['class' => 'form-control', 'id' => 'assignment-select']) !!}
                                                 <br>
                                             </div>
                                         </div>
@@ -96,22 +96,48 @@
     <script src="/js/test/wizard.js"></script>
 
     <script>
-        $(document).ready(function () {
-
-
-//            test ajax call
-
+        function getAvailableAssignments(url, internship_id){
             $.ajax({
                 type: 'GET',
-                url: '/test_ajax_get_available_docs',
-                data: {'internship_id': 2},
+//                url: '/test_ajax_get_available_docs',
+                url: url,
+                data: {'internship_id': internship_id},
                 dataType: 'json',
                 success: function(returned_data){
                     console.log(returned_data);
-                    console.log('fdfd');
+                    //populate the options
+                    var options = '';
+                    for (doc_type in returned_data)
+                    {
+
+                        var inner_length = returned_data[doc_type].length;
+                        for(var j = 0; j < inner_length; j++)
+                        {
+                            console.log(doc_type + ': ' + returned_data[doc_type][j].id);
+                            var assignment = doc_type + ': due on ' + returned_data[doc_type][j].due_date;
+                            options += '<option value="'
+                                + doc_type
+                                + '_'
+                                + returned_data[doc_type][j].id
+                                + '">'
+                                + assignment
+                                + '</option>';
+                        }
+                    }
+
+                    $('#assignment-select').html(options);
 
                 }
             });
+        }
+        $(document).ready(function () {
+
+
+            var url = '/test_ajax_get_available_docs';
+
+            getAvailableAssignments(url, $('#internship-select').val());
+
+
 
 
 
@@ -143,6 +169,8 @@
                 var internship_id = $('#internship-select').val();
                 $('#internship-details').html(option_detail_list[internship_id]);
 
+
+                getAvailableAssignments(url, internship_id)
 
             });
 
