@@ -375,16 +375,17 @@ EOF;
 
 	public static function generateInternshipAssignmentModal($doc_type, array $attributes = [])
     {
+        $action = '/test_assignment_post';
          switch ($doc_type)
          {
              case 'journal':
-                 $modal_body = 'Journal body';
+                 $modal_body = self::generateJournalForm($action);
                  break;
              case 'reflection':
-                 $modal_body = 'Reflection body';
+                 $modal_body = self::generateReflectionForm($action);
                  break;
              case 'site_evaluation':
-                 $modal_body = self::generateSiteEvaluationForm();
+                 $modal_body = self::generateSiteEvaluationForm($action);
                  break;
              case 'student_evaluation':
                  $modal_body = 'Student Evaluation body';
@@ -407,7 +408,9 @@ EOF;
                     </div>
                     <div class="modal-footer">Modal Footer Content
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                      <button type="submit" class="btn btn-primary">submit</button>
+                      </form>
                     </div>
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -418,10 +421,80 @@ EOF;
         return $modal;
     }
 
-    public static function generateSiteEvaluationForm()
+    public static function generateSiteEvaluationForm($action)
     {
+        $recommend_options = function ($max){
+            $options = '';
+            for($i = 0; $i < $max; $i++)
+            {
+                $options .= '<option value="' . $i . '">' . $i . '</option>';
+            }
+            return $options;
+        };
         // use 0 as a place holder fo internship_id
+        $form = <<<EOF
+        <form action="$action" method="post">
+        
+        <label for="how_did_locate">How did you locate this internship site?</label><br>
+        <textarea id="how_did_locate" name="how_did_locate"></textarea><br>
+        
+        <label for="site_description">please give a short description of the internship site</label><br>
+        <textarea id="site_description" name="site_description"></textarea><br>
+        
+        <label for="task_description">please shortly describe your tasks during the internship</label><br>
+        <textarea id="task_description" name="task_description"></textarea><br>
+        
+        <label for="fit_into_study">how does this internship fit into your academic study?</label><br>
+        <textarea id="fit_into_study" name="fit_into_study"></textarea><br>
+        
+        <label for="site_strength">what is the strength of the internship site?</label><br>
+        <textarea id="site_strength" name="site_strength"></textarea><br>
+        
+        <label for="site_weakness">what is the weakness?</label><br>
+        <textarea id="site_weakness" name="site_weakness"></textarea><br>
+        
+        <label for="gained_skills">what skills did you gain from this internship?</label><br>
+        <textarea id="gained_skills" name="gained_skills"></textarea><br>
+        
+        <label for="brief_comment">give a brief comment in general on the internship and it's site</label><br>
+        <textarea id="brief_comment" name="brief_comment"></textarea><br>
+        
+        <label for="willing_to_recommend">how much would you like to recommend this internship site?</label><br>
+        <select id="willing_to_recommend" name="willing_to_recommend">
+            {$recommend_options(9)}
+        </select>
+        
+     
 
+EOF;
+        return $form;
+
+
+    }
+
+    public static function generateJournalForm($action)
+    {
+        $form = <<<EOF
+        <form action="$action" method="post">
+        
+        <label for="journal">You can write or copy/paste in the following text area</label><br>
+        <textarea name="journal" id="journal"></textarea><br>
+
+EOF;
+        return $form;
+    }
+
+
+    public static function generateReflectionForm($action)
+    {
+        $form = <<<EOF
+        <form action="$action" method="post">
+        
+        <label for="reflection">You can write or copy/paste in the following text area</label><br>
+        <textarea name="reflection" id="reflection"></textarea><br>
+
+EOF;
+        return $form;
     }
 
 

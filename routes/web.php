@@ -109,6 +109,8 @@ Route::get('/test_card_in_div', function (){
 	return view('test.test_card_in_div');
 });
 
+Route::post('/test_assignment_post', 'InternInternshipController@assignmentSubmit');
+
 
 
 //Route::get('/test_ajax', function(){

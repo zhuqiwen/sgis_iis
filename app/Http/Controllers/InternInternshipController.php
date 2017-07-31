@@ -9,6 +9,7 @@ use App\Models\InternJournal;
 use App\Models\InternReflection;
 use App\Models\InternStudentEvaluation;
 use App\Models\InternSiteEvaluation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\InternApplication;
@@ -83,6 +84,37 @@ class InternInternshipController extends Controller
         }
 
     }
+
+    public function assignmentSubmit(Request $request)
+    {
+        if($request->isMethod('POST'))
+        {
+            switch ($request->assignment_type)
+            {
+                case 'journal':
+                    //
+                    $assignment = InternJournal::find($request->doc_id);
+                    break;
+                case 'reflection':
+                    //
+                    $assignment = InternReflection::find($request->doc_id);
+                    break;
+                case 'site_evaluation':
+                    //
+                    $assignment = InternSiteEvaluation::find($request->doc_id);
+                    break;
+                case 'student_evaluation':
+                    //
+                    $assignment = InternStudentEvaluation::find($request->doc_id);
+                    break;
+                default:
+                    //
+            }
+
+            $assignment->update($request->except('_token'));
+        }
+    }
+
 
     public function ajaxGetAvailableDocs(Request $request)
     {
