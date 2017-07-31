@@ -86,6 +86,7 @@ class InternInternshipController extends Controller
 
     public function ajaxGetAvailableDocs(Request $request)
     {
+        $user = Auth::user();
         if($request->isMethod('GET'))
         {
             if($request->has('internship_id'))
@@ -104,11 +105,20 @@ class InternInternshipController extends Controller
                 $student_evaluations = new InternStudentEvaluation();
                 $student_evaluations = $student_evaluations->getAvailable($internship_id);
 
+            }
+
+            if($user->isStudent())
+            {
                 return json_encode([
                     'journal' => $journals,
                     'reflection' => $reflection,
                     'site_evaluation' => $site_evaluation,
-                    'student_evaluation' => $student_evaluations
+                ]);
+            }
+            elseif ($user->isSupervisor())
+            {
+                return json_encode([
+                    'student_evaluation' =>$student_evaluations,
                 ]);
             }
         }

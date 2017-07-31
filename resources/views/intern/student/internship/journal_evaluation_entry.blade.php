@@ -127,18 +127,68 @@
 
                     $('#assignment-select').html(options);
                     var doc_type = $('#assignment-select option:selected').val().split(type_id_separator)[0];
-                    $('#launch_modal').attr('href', '#modal_' + doc_type)
+                    $('#launch_modal').attr('href', '#modal_' + doc_type);
+
+
+
 
 
                 }
             });
         }
 
+        function loadModalTitle(internship_id, internship_objs, doc_type)
+        {
+            var internship = internship_objs[internship_id];
+
+            $('.modal-title').html(
+                doc_type
+                + ' of internship (ID: '
+                + internship_id
+                + ') in '
+                + internship.internship_country
+                + ' in '
+                + internship.internship_year
+                + ' '
+                + internship.internship_term
+            );
+        }
+
+
         $(document).ready(function () {
 
 
             var url = '/test_ajax_get_available_docs';
             var type_id_separator = '-';
+
+            var internships = <?php echo json_encode($internships)?>;
+            var option_detail_list = {};
+            var internship_objs = [];
+
+            for (var i = 0; i < internships.length; i++)
+            {
+                obj = internships[i];
+                option_detail_list[obj.internship_id] = '<div class="row"><div class="col-md-6">'
+                    + '<p>Internship ID: '
+                    + obj.internship_id
+                    + '</p>'
+                    + '<p> Country: '
+                    + obj.internship_country
+                    + '</p>'
+                    + '<p> Organization: '
+                    + obj.organization_name
+                    + '</p>'
+                    + '</div>'
+                    + '<div class="col-md-6">'
+                    + '<p> Year: '
+                    + obj.internship_year
+                    + '</p>'
+                    + '<p> Term: '
+                    + obj.internship_term
+                    + '</p></div></div>';
+
+                internship_objs[obj.internship_id] = obj;
+            }
 
             getAvailableAssignments(url, $('#internship-select').val(), type_id_separator);
 
@@ -147,27 +197,16 @@
 
 
 
-            var internships = <?php echo json_encode($internships)?>;
-            var option_detail_list = {};
 
-            for (var i = 0; i < internships.length; i++)
-            {
-                obj = internships[i];
-                option_detail_list[obj.internship_id] = '<p>Internship ID: '
-                        + obj.internship_id
-                        + '</p>'
-                        + '<p> Country: '
-                        + obj.internship_country
-                        + '</p>'
-                        + '<p> Organization: '
-                        + obj.organization_name
-                        + '</p>';
-            }
 
 
 
             var default_item = $('#internship-select').val();
             $('#internship-details').html(option_detail_list[default_item]);
+
+            loadModalTitle(default_item, internship_objs, $('.modal-title').html());
+
+
 
 
             $('#internship-select').change(function () {
@@ -181,14 +220,39 @@
 
             $('#assignment-select').change(function(){
                 var doc_type = $('#assignment-select option:selected').val().split(type_id_separator)[0];
-                $('#launch_modal').attr('href', '#modal_' + doc_type)
+                $('#launch_modal').attr('href', '#modal_' + doc_type);
+
+                var internship_id = $('#internship-select option:selected').val();
+                var internship = internship_objs[internship_id];
+
+                console.log('before load: ' + $('.modal-title').html());
+
+                loadModalTitle(internship_id, internship_objs, doc_type);
+
+//                $('.modal-title').html(doc_type
+//                    + ' of internship (ID: '
+//                    + internship_id
+//                    + ') in '
+//                    + internship.internship_country
+//                    + ' in '
+//                    + internship.internship_year
+//                    + ' '
+//                    + internship.internship_term
+//                );
+
+                console.log('after load: ' + $('.modal-title').html());
+
+
+
+
             });
 
-            $('#lets_go').click(function(){
-                console.log('let\'s go');
-                console.log('internship id: ' + $('#internship-select option:selected').val());
-                console.log('assignment: ' + $('#assignment-select option:selected').val());
-            });
+//            $('#lets_go').click(function(){
+//                console.log('let\'s go');
+//                console.log('internship id: ' + $('#internship-select option:selected').val());
+//                console.log('assignment: ' + $('#assignment-select option:selected').val());
+//            });
+
 
 
         });
