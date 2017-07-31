@@ -18,7 +18,6 @@
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="azzure" id="wizard">
-{{--                        {!! Form::open(['action' => 'InternOrganizationController@store']) !!}--}}
                         <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
 
                             <div class="wizard-header">

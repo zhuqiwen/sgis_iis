@@ -8,7 +8,6 @@
 
 namespace app\Helpers;
 
-
 class HTMLSnippet
 {
 
@@ -376,6 +375,24 @@ EOF;
 
 	public static function generateInternshipAssignmentModal($doc_type, array $attributes = [])
     {
+         switch ($doc_type)
+         {
+             case 'journal':
+                 $modal_body = 'Journal body';
+                 break;
+             case 'reflection':
+                 $modal_body = 'Reflection body';
+                 break;
+             case 'site_evaluation':
+                 $modal_body = self::generateSiteEvaluationForm();
+                 break;
+             case 'student_evaluation':
+                 $modal_body = 'Student Evaluation body';
+                 break;
+             default:
+                 $modal_body = 'No assignment selected';
+         }
+
         $modal = <<<EOF
            <!-- Modal -->
               <div class="modal fade" id="modal_$doc_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -386,7 +403,7 @@ EOF;
                       <h4 class="modal-title">$doc_type</h4>
                     </div>
                     <div class="modal-body">
-                     $doc_type
+                     $modal_body
                     </div>
                     <div class="modal-footer">Modal Footer Content
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -399,6 +416,12 @@ EOF;
 EOF;
 
         return $modal;
+    }
+
+    public static function generateSiteEvaluationForm()
+    {
+        // use 0 as a place holder fo internship_id
+
     }
 
 
