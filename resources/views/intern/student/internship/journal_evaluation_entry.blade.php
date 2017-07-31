@@ -114,11 +114,12 @@
                         for(var j = 0; j < inner_length; j++)
                         {
                             console.log(doc_type + ': ' + returned_data[doc_type][j].id);
-                            var assignment = doc_type + ': due on ' + returned_data[doc_type][j].due_date;
+                            var doc = returned_data[doc_type][j];
+                            var assignment = doc_type + ' ' + doc.serial_num + ': due on ' + doc.due_date;
                             options += '<option value="'
                                 + doc_type
                                 + type_id_separator
-                                + returned_data[doc_type][j].id
+                                + doc.id
                                 + '">'
                                 + assignment
                                 + '</option>';
@@ -229,16 +230,7 @@
 
                 loadModalTitle(internship_id, internship_objs, doc_type);
 
-//                $('.modal-title').html(doc_type
-//                    + ' of internship (ID: '
-//                    + internship_id
-//                    + ') in '
-//                    + internship.internship_country
-//                    + ' in '
-//                    + internship.internship_year
-//                    + ' '
-//                    + internship.internship_term
-//                );
+
 
                 console.log('after load: ' + $('.modal-title').html());
 
@@ -247,11 +239,7 @@
 
             });
 
-//            $('#lets_go').click(function(){
-//                console.log('let\'s go');
-//                console.log('internship id: ' + $('#internship-select option:selected').val());
-//                console.log('assignment: ' + $('#assignment-select option:selected').val());
-//            });
+
 
 
 
