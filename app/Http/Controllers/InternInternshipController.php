@@ -176,4 +176,42 @@ class InternInternshipController extends Controller
             }
         }
     }
+
+    public function indexInternshipToBeClosed(Request $request)
+    {
+        $now = Carbon::now('America/New_York')->toDateString();
+        $internships = new InternInternship();
+
+        if($request->isMethod('GET'))
+        {
+            $internships = $internships
+                ->join('intern_applications AS a', function ($join) use ($now){
+                    $join->on('a.id', 'intern_internships.application_id');
+                    $join->whereNull('a.deleted_at');
+                    $join->where('a.end_date', '<', '2017-09-31');
+                    $join->whereNotNull('a.approved_by');
+                    $join->whereNotNull('a.approved_date');
+                    $join->where('a.is_approved', 1);
+                    $join->where('a.is_submitted', 1);
+                })
+                ->join('users', function($join){
+                    $join->on('users.id', 'a.user_id');
+                })
+                ->select('*')
+                ->whereNull('intern_internships.deleted_at')
+                ->where('case_closed', 0)
+                ->whereNull('closed_by')
+                ->get();
+
+
+//            dump($internships);
+//            exit();
+
+        return view('intern.admin.internship.to_close')
+            ->withInternships($internships);
+
+
+        }
+
+    }
 }

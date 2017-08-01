@@ -70,6 +70,7 @@ Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:in
 	});
 
 	Route::get('application/to_approve', 'InternApplicationController@indexApplicationToBeApproved');
+	Route::get('internship/to_close', 'InternInternshipController@indexInternshipToBeClosed');
 
 
 });

@@ -12,6 +12,7 @@ class HTMLSnippet
 {
 
 	/**
+     * Used for student's home
 	 * @param $margin_top in percent or px
 	 * @param array $href_title_text
 	 * [
@@ -97,6 +98,7 @@ EOF;
 	}
 
 	/**
+     * Used for internship admin's home
 	 * @param $margin_top
 	 * @param array $cards
 	 * [
@@ -306,9 +308,9 @@ EOF;
 
 	}
 
-	private static function generateApplicationModal($application)
-	{
-		$modal =<<<EOF
+    private static function generateApplicationModal($application)
+    {
+        $modal =<<<EOF
 			<div id="myModalApplicationId_$application->id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                       <div class="modal-content">
@@ -351,10 +353,178 @@ EOF;
             </div>
 
 EOF;
-		return $modal;
+        return $modal;
 
 
-	}
+    }
+
+    /**
+     * Used for closing internship cases
+     * @param $margin_top
+     * @param array $cards
+     */
+    public static function generateInternshipFloatCardWithModal($internship)
+    {
+        $modal = self::generateInternshipModal($internship);
+        $card = <<< EOF
+		<div class="col-md-4" style="margin-bottom: 5%;">
+            <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->id">
+                <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
+                    <div class="title" id="$internship->id">
+	                    <div class="row">
+	                        <div class="col-md-9">
+	                                <h4 id="applicant_name">
+	                                    $internship->last_name, $internship->first_name
+	                                    <br/><small>Internship ID: $internship->id</small>
+	                                    <br/><small>Application ID: $internship->application_id</small>
+	                                </h4>
+	                        </div>
+	                        <div id="iconCheck_$internship->id" class="col-md-3 hide" style="margin-top:5%;">
+	                            <i class="fa fa-check fa-2x"></i>
+	                        </div>
+	                    </div>
+                    </div>
+                    <hr style="color: black; background-color: black; height: 1px; margin: 0 0;">
+                    <div class="text">
+                        <div class="row">
+	                        <div class="col-md-12">
+		                        <p><strong>Internship Address:</strong></p>
+		                        <p>$internship->street, $internship->city,</p>
+		                        <p>$internship->state, $internship->country</p>
+		                        <p><strong>Internship Organization:</strong></p>
+		                        <p>$internship->org_name</p>
+		                        <p><strong>Internship Date:</strong></p>
+		                        <p>From $internship->start_date To $internship->end_date</p>
+		                    </div>
+	                    </div>
+                    </div>
+                </div>
+            </a>
+            $modal
+
+        </div>
+EOF;
+        return $card;
+
+
+    }
+
+    private static function generateInternshipModal($internship)
+    {
+        $modal =<<<EOF
+			<div id="myModalInternshipId_$internship->id" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                      <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">$internship->first_name $internship->last_name 's Internship in $internship->country</h4>
+                                <p>$internship->year, $internship->term</p>
+                            </div>
+                            <div class="modal-body">
+                                <div id="internship_details">
+                                    <div>
+                                    <h4>Internship Location: <small>$internship->street, $internship->state, $internship->country</small></h4> 
+                                    <img src="http://via.placeholder.com/800x300">
+                                    </div>
+                                    <hr>
+                                    <div>
+                                    $internship->term, in $internship->year<br>
+                                    plan to leave the States on $internship->depart_date and return on $internship->return_date<br>
+                                    The internship starts on $internship->start_date and ends on $internship->end_date<br>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                    $internship->description<br>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                    $internship->reasons<br>
+                                    </div>
+                                    <hr>
+                                </div> 
+                                <div id="internship_assignments">
+                                    <div class="panel-group" id="accordion">
+                                      <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                          <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                            Journals</a>
+                                          </h4>
+                                        </div>
+                                        <div id="collapse1" class="panel-collapse collapse in">
+                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                          commodo consequat.</div>
+                                        </div>
+                                      </div>
+                                      <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                          <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                            Reflection Paper</a>
+                                          </h4>
+                                        </div>
+                                        <div id="collapse2" class="panel-collapse collapse">
+                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                          commodo consequat.</div>
+                                        </div>
+                                      </div>
+                                      <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                          <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                            Site Evaluation</a>
+                                          </h4>
+                                        </div>
+                                        <div id="collapse3" class="panel-collapse collapse">
+                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                          commodo consequat.</div>
+                                        </div>
+                                      </div>
+                                      <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                          <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                            Supervisor's Evaluation of Student</a>
+                                          </h4>
+                                        </div>
+                                        <div id="collapse4" class="panel-collapse collapse">
+                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                          commodo consequat.</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div id="internship_for_sgis_use_only">
+                                SGIS's opinions
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button id="$internship->id" type="button" class="btn btn-info closeInternship" data-dismiss="modal">Close and Archive</button>
+                            </div>
+                      </div>
+
+                </div>
+            </div>
+
+EOF;
+        return $modal;
+
+
+    }
+
+
+
+
+
 
 	public static function generateApplicationGroupTab($tab_name, $active = FALSE)
 	{
@@ -488,7 +658,6 @@ EOF;
 EOF;
         return $form;
     }
-
 
     public static function generateReflectionForm($action)
     {
