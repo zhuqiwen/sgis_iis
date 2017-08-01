@@ -156,9 +156,17 @@
         </nav>
 
         @if(Session::has('invalid_user'))
-            <div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center">
+            <div class="alert alert-warning alert-dismissible fade in" role="alert" style="text-align: center">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 {!! session('invalid_user') !!}
+            </div>
+
+        @endif
+
+        @if(Session::has('flash_message'))
+            <div class="alert alert-success alert-dismissible fade in" role="alert" style="text-align: center">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {!! session('flash_message') !!}
             </div>
 
         @endif

@@ -129,6 +129,14 @@
                     var doc_type = $('#assignment-select option:selected').val().split(type_id_separator)[0];
                     $('#launch_modal').attr('href', '#modal_' + doc_type);
 
+                    // to load the default selected info into form
+                    var doc_id = $('#assignment-select option:selected').val().split(type_id_separator)[1];
+
+                    console.log('doc_type: ' + doc_type);
+                    console.log('doc_id: ' + doc_id);
+
+                    loadDocIdAndDocType(doc_id, doc_type);
+
 
 
 
@@ -154,8 +162,17 @@
             );
         }
 
+        function loadDocIdAndDocType(id, type)
+        {
+            $('input[name="doc_type"]').val(type);
+            $('input[name="doc_id"]').val(id);
+
+        }
+
 
         $(document).ready(function () {
+
+
 
 
             var url = '/test_ajax_get_available_docs';
@@ -209,6 +226,8 @@
 
 
 
+
+
             $('#internship-select').change(function () {
                 var internship_id = $('#internship-select').val();
                 $('#internship-details').html(option_detail_list[internship_id]);
@@ -220,6 +239,7 @@
 
             $('#assignment-select').change(function(){
                 var doc_type = $('#assignment-select option:selected').val().split(type_id_separator)[0];
+                var doc_id = $('#assignment-select option:selected').val().split(type_id_separator)[1];
                 $('#launch_modal').attr('href', '#modal_' + doc_type);
 
                 var internship_id = $('#internship-select option:selected').val();
@@ -228,6 +248,7 @@
                 console.log('before load: ' + $('.modal-title').html());
 
                 loadModalTitle(internship_id, internship_objs, doc_type);
+                loadDocIdAndDocType(doc_id, doc_type);
 
 
 

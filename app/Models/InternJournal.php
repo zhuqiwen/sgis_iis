@@ -19,7 +19,7 @@ class InternJournal extends Model
         'serial_num',
         'required_total_num',
         'due_date',
-        'is_submitted'
+        'submitted_at'
     ];
 
     protected $guarded = [];

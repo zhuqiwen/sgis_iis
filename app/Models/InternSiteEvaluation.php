@@ -25,7 +25,7 @@ class InternSiteEvaluation extends Model
         'brief_comment',
         'willing_to_recommend',
         'due_date',
-        'is_submitted'
+        'submitted_at'
     ];
 
     protected $guarded = [];

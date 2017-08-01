@@ -15,6 +15,7 @@ use App\User;
 use App\Models\InternApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use function Psy\debug;
 use Sabberworm\CSS\Value\String;
 
 class InternInternshipController extends Controller
@@ -89,30 +90,50 @@ class InternInternshipController extends Controller
     {
         if($request->isMethod('POST'))
         {
-            switch ($request->assignment_type)
+
+
+
+            $now = Carbon::now('America/New_York')->toDateString();
+            $doc_id = $request->doc_id;
+            $doc_type = $request->doc_type;
+
+            $request->request->add(['submitted_at' => $now]);
+
+
+
+
+            if($doc_type == 'journal')
             {
-                case 'journal':
-                    //
-                    $assignment = InternJournal::find($request->doc_id);
-                    break;
-                case 'reflection':
-                    //
-                    $assignment = InternReflection::find($request->doc_id);
-                    break;
-                case 'site_evaluation':
-                    //
-                    $assignment = InternSiteEvaluation::find($request->doc_id);
-                    break;
-                case 'student_evaluation':
-                    //
-                    $assignment = InternStudentEvaluation::find($request->doc_id);
-                    break;
-                default:
-                    //
+                $assignment = InternJournal::find($doc_id);
+
+            }
+            elseif ($doc_type == 'reflection')
+            {
+                $assignment = InternReflection::find($doc_id);
+
+            }
+            elseif ($doc_type == 'site_evaluation')
+            {
+                $assignment = InternSiteEvaluation::find($doc_id);
+
+            }
+            else
+            {
+                $assignment = InternStudentEvaluation::find($doc_id);
+
             }
 
-            $assignment->update($request->except('_token'));
+
+
+            if($assignment->update($request->except('_token')))
+            {
+                Session::flash('flash_message','Assignment submitted');
+            }
+
+
         }
+
+        return redirect('/home');
     }
 
 

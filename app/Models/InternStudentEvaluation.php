@@ -29,9 +29,6 @@ class InternStudentEvaluation extends Model
         'due_date',
         'submitted_at',
         'sent_at',
-        'midterm_due_date',
-        'midterm_sent_at',
-        'midterm_submitted_at'
     ];
 
     protected $guarded = [];

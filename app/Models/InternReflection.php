@@ -17,7 +17,7 @@ class InternReflection extends Model
         'internship_id',
         'reflection',
         'due_date',
-        'is_submitted'
+        'submitted_at'
     ];
 
     protected $guarded = [];

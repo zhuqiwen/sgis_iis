@@ -394,6 +394,8 @@ EOF;
                  $modal_body = 'No assignment selected';
          }
 
+         $csrf = csrf_field();
+
         $modal = <<<EOF
            <!-- Modal -->
               <div class="modal fade" id="modal_$doc_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -404,12 +406,16 @@ EOF;
                       <h4 class="modal-title">$doc_type</h4>
                     </div>
                     <div class="modal-body">
+                    <form action="$action" method="post" id="assignment-form">
+                    <input type="hidden" name="doc_id" value="">
+                    <input type="hidden" name="doc_type" value="">
                      $modal_body
                     </div>
                     <div class="modal-footer">Modal Footer Content
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                       <button type="submit" class="btn btn-primary">submit</button>
+                      $csrf
                       </form>
                     </div>
                   </div><!-- /.modal-content -->
@@ -433,7 +439,7 @@ EOF;
         };
         // use 0 as a place holder fo internship_id
         $form = <<<EOF
-        <form action="$action" method="post">
+        
         
         <label for="how_did_locate">How did you locate this internship site?</label><br>
         <textarea id="how_did_locate" name="how_did_locate"></textarea><br>
@@ -475,7 +481,6 @@ EOF;
     public static function generateJournalForm($action)
     {
         $form = <<<EOF
-        <form action="$action" method="post">
         
         <label for="journal">You can write or copy/paste in the following text area</label><br>
         <textarea name="journal" id="journal"></textarea><br>
@@ -488,7 +493,6 @@ EOF;
     public static function generateReflectionForm($action)
     {
         $form = <<<EOF
-        <form action="$action" method="post">
         
         <label for="reflection">You can write or copy/paste in the following text area</label><br>
         <textarea name="reflection" id="reflection"></textarea><br>
