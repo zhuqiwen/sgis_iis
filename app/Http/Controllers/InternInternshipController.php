@@ -204,8 +204,22 @@ class InternInternshipController extends Controller
                 ->get();
 
 
-//            dump($internships);
-//            exit();
+            foreach ($internships as $internship)
+            {
+                $internship_id = $internship->id;
+                $journals = new InternJournal();
+                $journals = $journals->where('internship_id', '=', $internship_id)->get();
+                $internship['journal'] = $journals;
+
+                $internship['reflection'] = InternReflection::where('internship_id', $internship_id)
+                    ->get();
+                $internship['site_evaluation'] = InternSiteEvaluation::where('internship_id', $internship_id)
+                    ->get();
+                $internship['student_evaluation'] = InternStudentEvaluation::where('internship_id', $internship_id)
+                    ->get();
+            }
+            dump($internships);
+            exit();
 
         return view('intern.admin.internship.to_close')
             ->withInternships($internships);
