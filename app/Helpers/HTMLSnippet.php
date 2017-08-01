@@ -368,14 +368,14 @@ EOF;
         $modal = self::generateInternshipModal($internship);
         $card = <<< EOF
 		<div class="col-md-4" style="margin-bottom: 5%;">
-            <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->id">
+            <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->internship_id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$internship->id">
 	                    <div class="row">
 	                        <div class="col-md-9">
 	                                <h4 id="applicant_name">
 	                                    $internship->last_name, $internship->first_name
-	                                    <br/><small>Internship ID: $internship->id</small>
+	                                    <br/><small>Internship ID: $internship->internship_id</small>
 	                                    <br/><small>Application ID: $internship->application_id</small>
 	                                </h4>
 	                        </div>
@@ -411,8 +411,9 @@ EOF;
 
     private static function generateInternshipModal($internship)
     {
+        $inner_journals = self::generateInternshipJournalInsideAccordion($internship->journal);
         $modal =<<<EOF
-			<div id="myModalInternshipId_$internship->id" class="modal fade" role="dialog">
+			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                       <div class="modal-content">
                             <div class="modal-header">
@@ -443,29 +444,35 @@ EOF;
                                     <hr>
                                 </div> 
                                 <div id="internship_assignments">
-                                    <div class="panel-group" id="accordion">
+                                    <div class="panel-group" id="accordion_$internship->internship_id">
                                       <div class="panel panel-default">
                                         <div class="panel-heading">
-                                          <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                            Journals</a>
-                                          </h4>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                  <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#journal_of_internship_$internship->internship_id">
+                                                    Journals</a>
+                                                  </h4>
+                                                </div> 
+                                                <div class="col-sm-1 col-sm-offset-5">
+                                                  <span>3/7</span>
+                                                </div> 
+                                            </div>  
                                         </div>
-                                        <div id="collapse1" class="panel-collapse collapse in">
-                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                          commodo consequat.</div>
+                                        <div id="journal_of_internship_$internship->internship_id" class="panel-collapse collapse">
+                                          <div class="panel-body">
+                                            $inner_journals
+                                          </div>
                                         </div>
                                       </div>
                                       <div class="panel panel-default">
                                         <div class="panel-heading">
                                           <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#reflection_of_internship_$internship->internship_id">
                                             Reflection Paper</a>
                                           </h4>
                                         </div>
-                                        <div id="collapse2" class="panel-collapse collapse">
+                                        <div id="reflection_of_internship_$internship->internship_id" class="panel-collapse collapse">
                                           <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
                                           minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -475,11 +482,11 @@ EOF;
                                       <div class="panel panel-default">
                                         <div class="panel-heading">
                                           <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#site_eval_of_intenship_$internship->internship_id">
                                             Site Evaluation</a>
                                           </h4>
                                         </div>
-                                        <div id="collapse3" class="panel-collapse collapse">
+                                        <div id="site_eval_of_intenship_$internship->internship_id" class="panel-collapse collapse">
                                           <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
                                           minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -489,11 +496,11 @@ EOF;
                                       <div class="panel panel-default">
                                         <div class="panel-heading">
                                           <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#student_eval_of_intenship_$internship->internship_id">
                                             Supervisor's Evaluation of Student</a>
                                           </h4>
                                         </div>
-                                        <div id="collapse4" class="panel-collapse collapse">
+                                        <div id="student_eval_of_intenship_$internship->internship_id" class="panel-collapse collapse">
                                           <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                                           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
                                           minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -519,6 +526,45 @@ EOF;
         return $modal;
 
 
+    }
+
+
+    private static function generateInternshipJournalInsideAccordion($journals)
+    {
+        $accordion = '<div class="panel-group" id="journal_accordion">';
+
+        foreach ($journals as $journal)
+        {
+            $journal_content = $journal->journal;
+            if(is_null($journal_content))
+            {
+                $journal_content = 'No Submission';
+            }
+            $accordion .= '<div class="panel panel-default">'
+                . '<div class="panel-heading">'
+                . '<h4 class="panel-title">'
+                . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
+                . $journal->id
+                . '">'
+                . 'Journal ' . $journal->serial_num . ' of ' . $journal->required_total_num
+                . '</a>'
+                . '</h4>'
+                . '</div>'
+                . '<div id="journal_'
+                . $journal->id
+                . '" class="panel-collapse collapse">'
+                . '<div class="panel-body">'
+                . $journal_content
+                . '</div>'
+                . '</div>'
+                . '</div>';
+        }
+        
+        $accordion .= '</div>';
+                                              
+
+        return $accordion;
+                                            
     }
 
 

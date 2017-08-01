@@ -197,20 +197,29 @@ class InternInternshipController extends Controller
                 ->join('users', function($join){
                     $join->on('users.id', 'a.user_id');
                 })
-                ->select('*')
+                // have to select the internship.id
+                    // eloquent makes up temp table for joins, so
+                    // the default id is not internship.id
+                ->select(
+                    'intern_internships.id AS internship_id',
+                    'intern_internships.*',
+                    'a.id AS application_id',
+                    'a.*',
+                    'users.*'
+                    )
                 ->whereNull('intern_internships.deleted_at')
                 ->where('case_closed', 0)
                 ->whereNull('closed_by')
+                ->orderBy('a.end_date', 'ASC')
                 ->get();
 
 
             foreach ($internships as $internship)
             {
-                $internship_id = $internship->id;
-                $journals = new InternJournal();
-                $journals = $journals->where('internship_id', '=', $internship_id)->get();
-                $internship['journal'] = $journals;
+                $internship_id = $internship->internship_id;
 
+                $internship['journal'] = InternJournal::where('internship_id', $internship_id)
+                    ->get();
                 $internship['reflection'] = InternReflection::where('internship_id', $internship_id)
                     ->get();
                 $internship['site_evaluation'] = InternSiteEvaluation::where('internship_id', $internship_id)
@@ -218,8 +227,10 @@ class InternInternshipController extends Controller
                 $internship['student_evaluation'] = InternStudentEvaluation::where('internship_id', $internship_id)
                     ->get();
             }
-            dump($internships);
-            exit();
+
+//            dump($internships);
+//            exit();
+
 
         return view('intern.admin.internship.to_close')
             ->withInternships($internships);
