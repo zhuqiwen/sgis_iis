@@ -436,7 +436,7 @@ EOF;
                                    
                                     <div>
                                     <h4>Internship Location: <small>$internship->street, $internship->state, $internship->country</small></h4> 
-                                    <img src="http://via.placeholder.com/800x300">
+                                    <div id="map_$internship->internship_id" style="height: 400px; width: 90%;"></div>
                                     </div>
                                     <div>
                                     $internship->term, in $internship->year<br>
@@ -480,6 +480,7 @@ EOF;
 
 
     }
+
 
     private static function generateInternshipJournalOutsideAccordion($internship)
     {
