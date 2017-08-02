@@ -428,21 +428,20 @@ EOF;
                             </div>
                             <div class="modal-body">
                                 <div id="internship_details">
+                                    <h4>Internship Details</h4>
+                                   
                                     <div>
                                     <h4>Internship Location: <small>$internship->street, $internship->state, $internship->country</small></h4> 
                                     <img src="http://via.placeholder.com/800x300">
                                     </div>
-                                    <hr>
                                     <div>
                                     $internship->term, in $internship->year<br>
                                     plan to leave the States on $internship->depart_date and return on $internship->return_date<br>
                                     The internship starts on $internship->start_date and ends on $internship->end_date<br>
                                     </div>
-                                    <hr>
                                     <div>
                                     $internship->description<br>
                                     </div>
-                                    <hr>
                                     <div>
                                     $internship->reasons<br>
                                     </div>
@@ -450,15 +449,17 @@ EOF;
                                 </div> 
                                 <div id="internship_assignments">
                                     <div class="panel-group" id="accordion_$internship->internship_id">
-
+                                        <h4>Internship Assignments</h4>
                                       $accordion_journal
                                       $accordion_reflection
                                       $accordion_site_evaluation
                                       $accordion_student_evaluation
                                       
                                     </div>
+                                    <hr>
                                 </div>
                                 <div id="internship_for_sgis_use_only">
+                                <h4>SGIS Opinions</h4>
                                 SGIS's opinions
                                 </div>
                             </div>
