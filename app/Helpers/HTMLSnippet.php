@@ -412,6 +412,19 @@ EOF;
     private static function generateInternshipModal($internship)
     {
         $inner_journals = self::generateInternshipJournalInsideAccordion($internship->journal);
+
+        $num_submitted_journals = 0;
+
+        $required_total_num_journals = sizeof($internship->journal);
+
+        for($i = 0; $i < sizeof($internship->journal); $i++)
+        {
+            if(!is_null($internship->journal[$i]->journal))
+            {
+                $num_submitted_journals ++;
+            }
+        }
+
         $modal =<<<EOF
 			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -455,7 +468,7 @@ EOF;
                                                   </h4>
                                                 </div> 
                                                 <div class="col-sm-1 col-sm-offset-5">
-                                                  <span>3/7</span>
+                                                  <span>$num_submitted_journals/$required_total_num_journals</span>
                                                 </div> 
                                             </div>  
                                         </div>
@@ -536,25 +549,43 @@ EOF;
         foreach ($journals as $journal)
         {
             $journal_content = $journal->journal;
+            $submission_mark = '<i class="fa fa-check" aria-hidden="true"></i>';
+
+            if($journal->submitted_at < $journal->due_date)
+            {
+                $submission_mark = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
+            }
+
             if(is_null($journal_content))
             {
                 $journal_content = 'No Submission';
+                $submission_mark = '<i class="fa fa-times" aria-hidden="true"></i>';
+
             }
+
+
             $accordion .= '<div class="panel panel-default">'
                 . '<div class="panel-heading">'
-                . '<h4 class="panel-title">'
-                . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
-                . $journal->id
-                . '">'
-                . 'Journal ' . $journal->serial_num . ' of ' . $journal->required_total_num
-                . '</a>'
-                . '</h4>'
+                . '<div class="row">'
+                    . '<div class="col-sm-6">'
+                        . '<h4 class="panel-title">'
+                            . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
+                            . $journal->id
+                            . '">'
+                            . 'Journal ' . $journal->serial_num . ' of ' . $journal->required_total_num
+                            . '</a>'
+                        . '</h4>'
+                    . '</div>'
+                    . '<div class="col-sm-1 col-sm-offset-5">'
+                      . $submission_mark
+                    . '</div>'
                 . '</div>'
                 . '<div id="journal_'
                 . $journal->id
                 . '" class="panel-collapse collapse">'
                 . '<div class="panel-body">'
                 . $journal_content
+                . '</div>'
                 . '</div>'
                 . '</div>'
                 . '</div>';
