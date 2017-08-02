@@ -136,6 +136,69 @@ class InternInternshipController extends Controller
         return redirect('/home');
     }
 
+    public function indexInternshipToBeClosed(Request $request)
+    {
+        $now = Carbon::now('America/New_York')->toDateString();
+        $internships = new InternInternship();
+
+        if($request->isMethod('GET'))
+        {
+            $internships = $internships
+                ->join('intern_applications AS a', function ($join) use ($now){
+                    $join->on('a.id', 'intern_internships.application_id');
+                    $join->whereNull('a.deleted_at');
+                    $join->where('a.end_date', '<', '2017-09-31');
+                    $join->whereNotNull('a.approved_by');
+                    $join->whereNotNull('a.approved_date');
+                    $join->where('a.is_approved', 1);
+                    $join->where('a.is_submitted', 1);
+                })
+                ->join('users', function($join){
+                    $join->on('users.id', 'a.user_id');
+                })
+                // have to select the internship.id
+                // eloquent makes up temp table for joins, so
+                // the default id is not internship.id
+                ->select(
+                    'intern_internships.id AS internship_id',
+                    'intern_internships.*',
+                    'a.id AS application_id',
+                    'a.*',
+                    'users.*'
+                )
+                ->whereNull('intern_internships.deleted_at')
+                ->where('case_closed', 0)
+                ->whereNull('closed_by')
+                ->orderBy('a.end_date', 'ASC')
+                ->get();
+
+
+            foreach ($internships as $internship)
+            {
+                $internship_id = $internship->internship_id;
+
+                $internship['journal'] = InternJournal::where('internship_id', $internship_id)
+                    ->get();
+                $internship['reflection'] = InternReflection::where('internship_id', $internship_id)
+                    ->get();
+                $internship['site_evaluation'] = InternSiteEvaluation::where('internship_id', $internship_id)
+                    ->get();
+                $internship['student_evaluation'] = InternStudentEvaluation::where('internship_id', $internship_id)
+                    ->get();
+
+            }
+
+//            dump($internships);
+//            exit();
+
+
+            return view('intern.admin.internship.to_close')
+                ->withInternships($internships);
+
+
+        }
+
+    }
 
     public function ajaxGetAvailableDocs(Request $request)
     {
@@ -177,67 +240,19 @@ class InternInternshipController extends Controller
         }
     }
 
-    public function indexInternshipToBeClosed(Request $request)
+
+    public function ajaxCloseInternship(Request $request)
     {
-        $now = Carbon::now('America/New_York')->toDateString();
-        $internships = new InternInternship();
-
-        if($request->isMethod('GET'))
+        $user = Auth::user();
+        if($request->isMethod('POST'))
         {
-            $internships = $internships
-                ->join('intern_applications AS a', function ($join) use ($now){
-                    $join->on('a.id', 'intern_internships.application_id');
-                    $join->whereNull('a.deleted_at');
-                    $join->where('a.end_date', '<', '2017-09-31');
-                    $join->whereNotNull('a.approved_by');
-                    $join->whereNotNull('a.approved_date');
-                    $join->where('a.is_approved', 1);
-                    $join->where('a.is_submitted', 1);
-                })
-                ->join('users', function($join){
-                    $join->on('users.id', 'a.user_id');
-                })
-                // have to select the internship.id
-                    // eloquent makes up temp table for joins, so
-                    // the default id is not internship.id
-                ->select(
-                    'intern_internships.id AS internship_id',
-                    'intern_internships.*',
-                    'a.id AS application_id',
-                    'a.*',
-                    'users.*'
-                    )
-                ->whereNull('intern_internships.deleted_at')
-                ->where('case_closed', 0)
-                ->whereNull('closed_by')
-                ->orderBy('a.end_date', 'ASC')
-                ->get();
-
-
-            foreach ($internships as $internship)
-            {
-                $internship_id = $internship->internship_id;
-
-                $internship['journal'] = InternJournal::where('internship_id', $internship_id)
-                    ->get();
-                $internship['reflection'] = InternReflection::where('internship_id', $internship_id)
-                    ->get();
-                $internship['site_evaluation'] = InternSiteEvaluation::where('internship_id', $internship_id)
-                    ->get();
-                $internship['student_evaluation'] = InternStudentEvaluation::where('internship_id', $internship_id)
-                    ->get();
-
-            }
-
-//            dump($internships);
-//            exit();
-
-
-        return view('intern.admin.internship.to_close')
-            ->withInternships($internships);
-
-
+            $internship = InternInternship::find($request->internship_id);
+            $request->request->add(['closed_by' => $user->id]);
+            $internship->update($request->except(['_token', 'internship_id', 'application_id']));
         }
-
     }
+
+
+
+
 }

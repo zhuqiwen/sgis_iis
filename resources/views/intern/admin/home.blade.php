@@ -16,7 +16,7 @@
                     'front_text' => 'some text',
                     'back_title_1' => 'Approve Internship',
                     'back_title_2' => 'Close Internship',
-                    'back_url_1' => './admin/application/to_approve', 'back_url_2' => '#'
+                    'back_url_1' => './admin/application/to_approve', 'back_url_2' => './admin/internship/to_close'
                 ],
                 [
                     'front_title' => 'Scholarships',

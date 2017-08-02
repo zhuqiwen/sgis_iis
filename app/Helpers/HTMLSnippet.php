@@ -8,6 +8,8 @@
 
 namespace app\Helpers;
 
+use Illuminate\Support\Facades\Auth;
+
 class HTMLSnippet
 {
 
@@ -417,6 +419,8 @@ EOF;
         $accordion_site_evaluation = self::generateInternshipSiteEvaluationAccordion($internship);
         $accordion_student_evaluation = self::generateInternshipStudentEvaluationAccordion($internship);
 
+        $form_sgis_opinion = self::generateSGISOpinionForm($internship);
+
         $modal =<<<EOF
 			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -460,15 +464,14 @@ EOF;
                                 </div>
                                 <div id="internship_for_sgis_use_only">
                                 <h4>SGIS Opinions</h4>
-                                SGIS's opinions
+                                $form_sgis_opinion
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button id="$internship->id" type="button" class="btn btn-info closeInternship" data-dismiss="modal">Close and Archive</button>
+                                <button form="sgis_opinions_form" id="close_internship_$internship->internship_id" type="button" class="btn btn-info closeInternship" data-dismiss="modal">Close and Archive</button>
                             </div>
                       </div>
-
                 </div>
             </div>
 
@@ -529,7 +532,7 @@ EOF;
             $journal_content = $journal->journal;
             $submission_mark = '<i class="fa fa-check" aria-hidden="true"></i>';
 
-            if($journal->submitted_at < $journal->due_date)
+            if($journal->submitted_at > $journal->due_date)
             {
                 $submission_mark = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
             }
@@ -545,16 +548,18 @@ EOF;
             $accordion .= '<div class="panel panel-default">'
                 . '<div class="panel-heading">'
                 . '<div class="row">'
-                    . '<div class="col-sm-6">'
+                    . '<div class="col-sm-10">'
                         . '<h4 class="panel-title">'
                             . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
                             . $journal->id
                             . '">'
-                            . 'Journal ' . $journal->serial_num . ' of ' . $journal->required_total_num
+                            . 'Journal ' . $journal->serial_num . '/' . $journal->required_total_num
+                            . ' due: ' . $journal->due_date
+                            . ' | submitted: ' . $journal->submitted_at
                             . '</a>'
                         . '</h4>'
                     . '</div>'
-                    . '<div class="col-sm-1 col-sm-offset-5">'
+                    . '<div class="col-sm-1 col-sm-offset-1">'
                       . $submission_mark
                     . '</div>'
                 . '</div>'
@@ -786,6 +791,46 @@ EOF;
 
         return $accordion;
 
+    }
+
+    private static function generateSGISOpinionForm($internship)
+    {
+
+        $action = '/test_ajax_close_internship';
+        $grade_seeds = [
+            'A',
+            'B',
+            'C',
+            'D',
+        ];
+
+        $suggested_grade = $grade_seeds[rand(0,3)];
+        $grade_options = '';
+        foreach($grade_seeds as $seed)
+        {
+            $grade_options .= '<option value="'. $seed . '+' .'">'. $seed . '+' .'</option>';
+            $grade_options .= '<option value="'. $seed .'">'. $seed .'</option>';
+            $grade_options .= '<option value="'. $seed . '-' .'">'. $seed . '-' .'</option>';
+        }
+        $grade_options .='<option value="F">F</option>';
+
+
+        $form = <<<EOF
+        <form action="$action" method="post" id="sgis_opinions_form">
+        <input type="hidden" name="internship_id" value="$internship->internship_id">
+        <input type="hidden" name="case_closed" value="1">
+        <label for="final_notes">Final Notes</label>
+        <textarea name="final_notes" id="final_notes"></textarea>
+        <label for="x373_grade">Suggested Grade: $suggested_grade</label>
+        <select name="x373_grade" id="x373_grade">
+        $grade_options
+        </select>
+        </form>
+
+EOF;
+        return $form;
+
+        
     }
 
 

@@ -108,6 +108,34 @@
 
             showHomeLinkIfNoCard();
 
+            var form_id = '#sgis_opinions_form';
+
+            var form = $(form_id);
+
+            $(document).on('click', 'button.closeInternship', function(e){
+                e.preventDefault();
+                console.log('close button is clicked');
+                console.log('form data: ' + form.serialize());
+                console.log('form action: ' + form.attr('action'));
+                console.log('form method: ' + form.attr('method'));
+
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(returned_data){
+                        console.log(returned_data);
+                        alert('the internship' +  + 'is closed and archived')
+                        location.reload();
+
+                    }
+                });
+
+
+            });
+
+
+
         });
 
     </script>
