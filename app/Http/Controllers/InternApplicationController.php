@@ -86,7 +86,6 @@ class InternApplicationController extends Controller
 		$application = InternApplication::find($request->input('application_id'));
 		$application->is_submitted = 1;
 		$application->submitted_date = date('Y-m-d H:i:s');
-		$application->submitted_by = $request->input('signature');
 		$application->save();
 		return view('intern.student.application.submitted')->withApplication($application);
 
