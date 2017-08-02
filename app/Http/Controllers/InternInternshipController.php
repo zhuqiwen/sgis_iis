@@ -226,6 +226,7 @@ class InternInternshipController extends Controller
                     ->get();
                 $internship['student_evaluation'] = InternStudentEvaluation::where('internship_id', $internship_id)
                     ->get();
+
             }
 
 //            dump($internships);

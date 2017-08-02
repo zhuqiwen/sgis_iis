@@ -411,19 +411,11 @@ EOF;
 
     private static function generateInternshipModal($internship)
     {
-        $inner_journals = self::generateInternshipJournalInsideAccordion($internship->journal);
 
-        $num_submitted_journals = 0;
-
-        $required_total_num_journals = sizeof($internship->journal);
-
-        for($i = 0; $i < sizeof($internship->journal); $i++)
-        {
-            if(!is_null($internship->journal[$i]->journal))
-            {
-                $num_submitted_journals ++;
-            }
-        }
+        $accordion_journal = self::generateInternshipJournalOutsideAccordion($internship);
+        $accordion_reflection = self::generateInternshipReflectionAccordion($internship);
+        $accordion_site_evaluation = self::generateInternshipSiteEvaluationAccordion($internship);
+        $accordion_student_evaluation = self::generateInternshipStudentEvaluationAccordion($internship);
 
         $modal =<<<EOF
 			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
@@ -458,68 +450,12 @@ EOF;
                                 </div> 
                                 <div id="internship_assignments">
                                     <div class="panel-group" id="accordion_$internship->internship_id">
-                                      <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                  <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#journal_of_internship_$internship->internship_id">
-                                                    Journals</a>
-                                                  </h4>
-                                                </div> 
-                                                <div class="col-sm-1 col-sm-offset-5">
-                                                  <span>$num_submitted_journals/$required_total_num_journals</span>
-                                                </div> 
-                                            </div>  
-                                        </div>
-                                        <div id="journal_of_internship_$internship->internship_id" class="panel-collapse collapse">
-                                          <div class="panel-body">
-                                            $inner_journals
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                          <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#reflection_of_internship_$internship->internship_id">
-                                            Reflection Paper</a>
-                                          </h4>
-                                        </div>
-                                        <div id="reflection_of_internship_$internship->internship_id" class="panel-collapse collapse">
-                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                          commodo consequat.</div>
-                                        </div>
-                                      </div>
-                                      <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                          <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#site_eval_of_intenship_$internship->internship_id">
-                                            Site Evaluation</a>
-                                          </h4>
-                                        </div>
-                                        <div id="site_eval_of_intenship_$internship->internship_id" class="panel-collapse collapse">
-                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                          commodo consequat.</div>
-                                        </div>
-                                      </div>
-                                      <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                          <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#student_eval_of_intenship_$internship->internship_id">
-                                            Supervisor's Evaluation of Student</a>
-                                          </h4>
-                                        </div>
-                                        <div id="student_eval_of_intenship_$internship->internship_id" class="panel-collapse collapse">
-                                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                          commodo consequat.</div>
-                                        </div>
-                                      </div>
+
+                                      $accordion_journal
+                                      $accordion_reflection
+                                      $accordion_site_evaluation
+                                      $accordion_student_evaluation
+                                      
                                     </div>
                                 </div>
                                 <div id="internship_for_sgis_use_only">
@@ -538,6 +474,47 @@ EOF;
 EOF;
         return $modal;
 
+
+    }
+
+    private static function generateInternshipJournalOutsideAccordion($internship)
+    {
+        $inner_journals = self::generateInternshipJournalInsideAccordion($internship->journal);
+        $num_submitted_journals = 0;
+        $required_total_num_journals = sizeof($internship->journal);
+        for($i = 0; $i < sizeof($internship->journal); $i++)
+        {
+            if(!is_null($internship->journal[$i]->journal))
+            {
+                $num_submitted_journals ++;
+            }
+        }
+
+        $accordion = <<<EOF
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#journal_of_internship_$internship->internship_id">
+                            Journals
+                            </a>
+                        </h4>
+                    </div> 
+                    <div class="col-sm-1 col-sm-offset-5">
+                        <span>$num_submitted_journals/$required_total_num_journals</span>
+                    </div> 
+                </div>  
+            </div>
+            <div id="journal_of_internship_$internship->internship_id" class="panel-collapse collapse">
+                <div class="panel-body">
+                $inner_journals
+                </div>
+            </div>
+        </div>
+
+EOF;
+        return $accordion;
 
     }
 
@@ -599,6 +576,216 @@ EOF;
     }
 
 
+    private static function generateInternshipReflectionAccordion($internship)
+    {
+        $submission_marker = '<i class="fa fa-check" aria-hidden="true"></i>';
+
+        $reflection = $internship->reflection[0];
+
+        if($reflection->submitted_at > $reflection->due_date)
+        {
+            $submission_marker = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
+        }
+
+        if(is_null($reflection->reflection))
+        {
+            $submission_marker = '<i class="fa fa-times" aria-hidden="true"></i>';
+        }
+
+
+        $accordion = <<<EOF
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#reflection_of_internship_$internship->internship_id">
+                            Reflection Paper
+                            </a>
+                        </h4>
+                    </div> 
+                    <div class="col-sm-1 col-sm-offset-5">
+                        <span>$submission_marker</span>
+                    </div> 
+                </div>  
+            </div>
+            <div id="reflection_of_internship_$internship->internship_id" class="panel-collapse collapse">
+                <div class="panel-body">
+                $reflection->reflection
+                </div>
+            </div>
+        </div>
+
+EOF;
+        return $accordion;
+    }
+
+
+    private static function generateInternshipSiteEvaluationAccordion($internship)
+    {
+        $submission_marker = '<i class="fa fa-check" aria-hidden="true"></i>';
+
+        $site_evaluation = $internship->site_evaluation[0];
+
+        $site_eval_contents = 'detailed contents of site evaluation';
+
+        if($site_evaluation->submitted_at > $site_evaluation->due_date)
+        {
+            $submission_marker = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
+        }
+
+        if(is_null($site_evaluation->submitted_at))
+        {
+            $submission_marker = '<i class="fa fa-times" aria-hidden="true"></i>';
+            $site_eval_contents = 'No Submission';
+        }
+
+        $accordion = <<<EOF
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#site_evaluation_of_internship_$internship->internship_id">
+                            Internship Site Evaluation
+                            </a>
+                        </h4>
+                    </div> 
+                    <div class="col-sm-1 col-sm-offset-5">
+                        <span>$submission_marker</span>
+                    </div> 
+                </div>  
+            </div>
+            <div id="site_evaluation_of_internship_$internship->internship_id" class="panel-collapse collapse">
+                <div class="panel-body">
+                $site_eval_contents
+                </div>
+            </div>
+        </div>
+
+EOF;
+        return $accordion;
+    }
+
+    private static function generateInternshipStudentEvaluationAccordion($internship)
+    {
+
+
+        $inner_accordion = self::generateStudentEvaluationInnerAccordion($internship->student_evaluation);
+
+        if(!is_null($internship->student_evaluation[0]->submitted_at)
+            && !is_null($internship->student_evaluation[1]->submitted_at))
+        {
+            $num_submission = 2;
+        }
+        elseif (is_null($internship->student_evaluation[0]->submitted_at)
+            && is_null($internship->student_evaluation[1]->submitted_at))
+        {
+            $num_submission = 0;
+        }
+        else
+        {
+            $num_submission = 1;
+        }
+
+        $accordion = <<<EOF
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#student_evaluation_of_internship_$internship->internship_id">
+                            Supervisor's Evaluation of Student
+                            </a>
+                        </h4>
+                    </div> 
+                    <div class="col-sm-1 col-sm-offset-5">
+                        <span>$num_submission/2</span>
+                    </div> 
+                </div>  
+            </div>
+            <div id="student_evaluation_of_internship_$internship->internship_id" class="panel-collapse collapse">
+                <div class="panel-body">
+                $inner_accordion
+                </div>
+            </div>
+        </div>
+
+EOF;
+        return $accordion;
+    }
+
+    private static function generateStudentEvaluationInnerAccordion($evaluations)
+    {
+        $accordion = '<div class="panel-group" id="student_evaluation_accordion">';
+        $eval_contents = 'student evaluation';
+        $submission_mark = '<i class="fa fa-check" aria-hidden="true"></i>';
+
+
+
+        foreach ($evaluations as $evaluation)
+        {
+
+
+
+            if($evaluation->submitted_at > $evaluation->due_date)
+            {
+                $submission_mark = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
+            }
+
+            if(is_null($evaluation->submitted_at))
+            {
+                $submission_mark = '<i class="fa fa-times" aria-hidden="true"></i>';
+                $eval_contents = 'No Submission';
+            }
+
+
+            if($evaluation->is_midterm == 1)
+            {
+                $inner_title = 'Midterm Evaluation';
+            }
+            else
+            {
+                $inner_title = 'Final Evaluation';
+            }
+
+            $accordion .= '<div class="panel panel-default">'
+                . '<div class="panel-heading">'
+                . '<div class="row">'
+                . '<div class="col-sm-6">'
+                . '<h4 class="panel-title">'
+                . '<a data-toggle="collapse" data-parent="#student_evaluation_accordion" href="#student_eval_'
+                . $evaluation->id
+                . '">'
+                . $inner_title
+                . '</a>'
+                . '</h4>'
+                . '</div>'
+                . '<div class="col-sm-1 col-sm-offset-5">'
+                . $submission_mark
+                . '</div>'
+                . '</div>'
+                . '<div id="student_eval_'
+                . $evaluation->id
+                . '" class="panel-collapse collapse">'
+                . '<div class="panel-body">'
+                . $eval_contents
+                . '</div>'
+                . '</div>'
+                . '</div>'
+                . '</div>';
+        }
+
+
+
+
+
+        $accordion .= '</div>';
+
+
+        return $accordion;
+
+    }
 
 
 
