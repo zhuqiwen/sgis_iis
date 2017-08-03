@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <?php
-            $success = 'success';
-    ?>
+
 
     <link href="/css/test/bootstrap.min.css" rel="stylesheet">
     <link href="/css/test/tab_list.css" rel="stylesheet">
@@ -18,7 +16,7 @@
             flex-wrap: wrap;
         }
 
-        .modal-dialog  {width:75%;}
+        .modal-dialog  {width:90%;}
 
     </style>
 
@@ -30,7 +28,9 @@
                     <div id="group-title">
                         <div class="row equal-height">
                             <div class="col-md-6 col-md-offset-3">
-                                <h3 id="current-grouper">Finished Internships by Today</h3>
+                                <h3 id="current-grouper">Finished Internships by
+                                    <?php echo 'Today, '.\Carbon\Carbon::now('America/New_York')->toDateString();?>
+                                </h3>
                             </div>
                         </div>
                     </div>
