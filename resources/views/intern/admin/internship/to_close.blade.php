@@ -119,7 +119,7 @@
 
                     center = {lat: center.lat(), lng: center.lng()};
                     var map = new google.maps.Map(document.getElementById(map_id), {
-                        zoom: 8,
+                        zoom: 3,
                         center: center,
                         scrollwheel: false
 

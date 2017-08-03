@@ -436,7 +436,7 @@ EOF;
                                    
                                     <div>
                                     <h4>Internship Location: <small>$internship->street, $internship->state, $internship->country</small></h4> 
-                                    <div id="map_$internship->internship_id" style="height: 400px; width: 90%;"></div>
+                                    <div id="map_$internship->internship_id" style="height: 450px; width: 100%;"></div>
                                     </div>
                                     <div>
                                     $internship->term, in $internship->year<br>
