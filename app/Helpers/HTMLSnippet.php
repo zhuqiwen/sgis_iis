@@ -574,12 +574,12 @@ EOF;
                 . '</div>'
                 . '</div>';
         }
-        
+
         $accordion .= '</div>';
-                                              
+
 
         return $accordion;
-                                            
+
     }
 
 
@@ -831,7 +831,7 @@ EOF;
 EOF;
         return $form;
 
-        
+
     }
 
 
