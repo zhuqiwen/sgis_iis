@@ -147,7 +147,7 @@ class InternInternshipController extends Controller
                 ->join('intern_applications AS a', function ($join) use ($now){
                     $join->on('a.id', 'intern_internships.application_id');
                     $join->whereNull('a.deleted_at');
-                    $join->where('a.end_date', '<', '2017-09-31');
+                    $join->where('a.end_date', '<', $now);
                     $join->whereNotNull('a.approved_by');
                     $join->whereNotNull('a.approved_date');
                     $join->where('a.is_approved', 1);

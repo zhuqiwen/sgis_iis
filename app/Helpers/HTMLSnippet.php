@@ -370,7 +370,7 @@ EOF;
         $modal = self::generateInternshipModal($internship);
         $card = <<< EOF
 		<div class="col-md-4" style="margin-bottom: 5%;">
-            <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->internship_id">
+            <a id="float_card_a" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->internship_id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$internship->id">
 	                    <div class="row">
@@ -391,8 +391,8 @@ EOF;
                         <div class="row">
 	                        <div class="col-md-12">
 		                        <p><strong>Internship Address:</strong></p>
-		                        <p>$internship->street, $internship->city,</p>
-		                        <p>$internship->state, $internship->country</p>
+		                        <p id="address_$internship->internship_id">$internship->street, $internship->city,
+		                        $internship->state, $internship->country</p>
 		                        <p><strong>Internship Organization:</strong></p>
 		                        <p>$internship->org_name</p>
 		                        <p><strong>Internship Date:</strong></p>
