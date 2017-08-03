@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="/css/test/gsdk-bootstrap-wizard.css">
 
     {{--<div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">--}}
-    <div class="image-container set-full-height">
+    {{--<div class="image-container set-full-height">--}}
         <!--   Big container   -->
-        <div class="container"  style="min-height: 100%;">
+        <div class="container">
             @yield('card_rows')
         </div> <!--  big container -->
-    </div>
+    {{--</div>--}}
 
 
     {{--<script src="/js/test/jquery-1.10.2.js"></script>--}}

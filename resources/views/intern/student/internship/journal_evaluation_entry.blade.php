@@ -11,7 +11,7 @@
 
 
     {{--<div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">--}}
-    <div class="image-container set-full-height">
+    {{--<div class="image-container set-full-height">--}}
         <!--   Big container   -->
         <div class="container">
             <div class="row">
@@ -87,7 +87,7 @@
 
 
 
-    </div>
+    {{--</div>--}}
 
 
     {{--<script src="/js/test/jquery-1.10.2.js"></script>--}}

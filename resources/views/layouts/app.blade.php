@@ -26,7 +26,7 @@
     </script>
 </head>
 <body>
-    <div id="app" style="background-image: url('/img/wizard-europe.jpg'); height: 100vh;">
+    <div id="app" style="background-image: url('/img/wizard-europe.jpg'); height: 100vh; overflow: auto;">
     {{--<div id="app">--}}
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
