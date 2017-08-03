@@ -479,11 +479,11 @@ h1 .subtitle {
 }
 
 .btn {
-  border-width: 2px;
+  border-width: 1px;
   background-color: transparent;
   font-weight: 400;
   opacity: 0.8;
-  padding: 8px 16px;
+  padding: 6px 12px;
 }
 .btn:active, .btn.active {
   background-image: none;

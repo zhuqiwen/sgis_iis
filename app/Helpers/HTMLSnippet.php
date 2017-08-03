@@ -892,10 +892,10 @@ EOF;
                     <input type="hidden" name="doc_type" value="">
                      $modal_body
                     </div>
-                    <div class="modal-footer">Modal Footer Content
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                      <button type="submit" class="btn btn-primary">submit</button>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-fill btn-default" data-dismiss="modal">Close</button>
+                      <!--<button type="submit" class="btn btn-primary">submit</button>-->
+                      <button type="submit" class="btn btn-fill btn-info">submit</button>
                       $csrf
                       </form>
                     </div>
