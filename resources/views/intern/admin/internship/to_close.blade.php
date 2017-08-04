@@ -140,12 +140,6 @@
                 }
             });
 
-
-
-
-
-
-
         }
 
         // on each click on float card, call this function to load google's url map api

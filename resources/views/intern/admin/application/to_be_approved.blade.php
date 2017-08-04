@@ -115,6 +115,65 @@
         }
 
 
+        var map_id = '';
+        var map_address = '';
+        function initMap()
+        {
+
+            var geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({'address': map_address}, function(results, status){
+                if(status == google.maps.GeocoderStatus.OK)
+                {
+                    var center = results[0].geometry.location;
+//                    console.log(center.lat());
+//                    console.log(center.lng());
+
+                    center = {lat: center.lat(), lng: center.lng()};
+                    var map = new google.maps.Map(document.getElementById(map_id), {
+                        zoom: 3,
+                        center: center,
+                        scrollwheel: false
+
+                    });
+                    var marker = new google.maps.Marker({
+                        position: center,
+                        map: map
+                    });
+
+                    console.log(map_id);
+
+
+                    $('.modal').on('shown.bs.modal', function(){
+                        console.log('modal is fully shown');
+                        google.maps.event.trigger(map, "resize");
+                        map.setCenter(center);
+                    });
+                }
+            });
+
+        }
+
+        // on each click on float card, call this function to load google's url map api
+        function loadScript(application_id, address)
+        {
+            var script_id = 'google_map_api_js';
+            //first remove previously added script tag
+            $('#' + script_id).remove();
+            //then re-add it and update map div's map id.
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.id = script_id;
+            map_id = 'map_' + application_id;
+            map_address = address;
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA5m_w_hNJuMtBTsSz06VteC1msQIzDRGs&callback=initMap';
+            document.body.appendChild(script);
+
+        }
+
+
+
+
 
         $(document).ready(function(){
             $.ajaxSetup({
@@ -203,6 +262,13 @@
                 $('.removeFromFolio').hide();
                 $('.addToFolio').show();
             }
+
+            var application_id = $(this).parent().attr('data-target');
+            application_id = application_id.split('_')[1];
+
+            var address = $('#address_' + application_id).text();
+
+            loadScript(application_id, address);
         });
 
         $(document).on('click', '.addToFolio', function (e) {
