@@ -179,5 +179,7 @@
 
     <script src="/js/app.js"></script>
     {{--<script src="/js/test/bootstrap.min.js"></script>--}}
+
+
 </body>
 </html>

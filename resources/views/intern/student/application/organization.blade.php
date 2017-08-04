@@ -10,9 +10,6 @@ $user_id = Auth::user()->id;
     <link rel="stylesheet" href="/css/test/awesomplete.css">
 
 
-
-    {{--<div class="image-container set-full-height" style="background-image: url('/img/wizard-europe.jpg')">--}}
-    <div class="image-container set-full-height">
         <!--   Big container   -->
         <div class="container">
             <div class="row">
@@ -94,10 +91,8 @@ $user_id = Auth::user()->id;
 
 
 
-    </div>
 
 
-    {{--<script src="/js/test/jquery-1.10.2.js"></script>--}}
     <script src="/js/test/jquery-2.2.4.min.js"></script>
     <script src="/js/test/bootstrap.min.js"></script>
     <script src="/js/test/jquery.validate.min.js"></script>
