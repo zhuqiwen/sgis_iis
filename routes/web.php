@@ -133,3 +133,6 @@ Route::post('/test_ajax_close_internship', 'InternInternshipController@ajaxClose
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/adminlte', function (){
+    return view('test.adminlte_home');
+});
