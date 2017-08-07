@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-dompdf": "^0.8.0",
         "ixudra/curl": "^6.10",
+        "jeroennoten/laravel-adminlte": "^1.19",
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "^5.3.0"
     },

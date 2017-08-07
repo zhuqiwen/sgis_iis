@@ -182,6 +182,8 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
 	    Barryvdh\DomPDF\ServiceProvider::class,
 
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+
 
 
     ],

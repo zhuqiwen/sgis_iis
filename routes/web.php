@@ -130,3 +130,6 @@ Route::get('/test_ajax_city', 'CityController@ajaxGetCityByStateId');
 Route::get('/test_ajax_organization', 'InternOrganizationController@ajaxGetSuggestions');
 Route::get('/test_ajax_get_available_docs', 'InternInternshipController@ajaxGetAvailableDocs');
 Route::post('/test_ajax_close_internship', 'InternInternshipController@ajaxCloseInternship');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
