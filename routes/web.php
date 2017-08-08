@@ -59,9 +59,45 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 
 });
 
+Route::group(['prefix' => 'student', 'middleware' => ['auth', 'checkRole:student']], function (){
+    // define sub uri's actions
+    Route::get('/', function (){
+        return view('intern.student.base');
+    });
+
+
+
+    Route::get('/application/create', 'InternApplicationController@create');
+
+    Route::post('/application/create', 'InternApplicationController@create');
+
+    Route::post('/application/review_liability', 'InternApplicationController@prepareLiability');
+
+
+    Route::post('/application/review', 'InternApplicationController@review');
+    Route::post('/application/submit', 'InternApplicationController@submit');
+
+
+    Route::get('/application/organization', 'InternOrganizationController@prepareForm');
+    Route::post('/application/organization', 'InternOrganizationController@store');
+
+    Route::get('/application/supervisor', 'InternSupervisorController@prepareForm');
+    Route::post('/application/supervisor', 'InternSupervisorController@store');
+
+
+    Route::get('/internship/assignment/', 'InternInternshipController@assignmentGuide');
+
+});
+
+
+
+
 Route::group(['prefix' => 'intern/supervisor', 'middleware' => ['auth', 'checkRole:supervisor']], function (){
 	// define sub uri's actions
 });
+
+
+
 
 Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:intern_admin']], function (){
 	// define sub uri's actions
@@ -74,6 +110,26 @@ Route::group(['prefix' => 'intern/admin', 'middleware' => ['auth', 'checkRole:in
 
 
 });
+
+Route::group(['prefix' => 'admin/internship', 'middleware' => ['auth', 'checkRole:intern_admin']], function (){
+    // define sub uri's actions
+    Route::get('/', function (){
+        return view('intern.admin.base');
+    });
+
+    Route::get('application/to_approve', 'InternApplicationController@indexApplicationToBeApproved');
+    Route::get('internship/to_close', 'InternInternshipController@indexInternshipToBeClosed');
+
+    //Ajax calls
+    Route::get('/ajax_to_approve', 'InternApplicationController@ajaxApplicationToApprove');
+
+});
+
+
+
+
+
+
 
 Route::group(['prefix' => 'alum/admin', 'middleware' => ['auth', 'checkRole:alum_admin']], function (){
 	// define sub uri's actions
@@ -134,5 +190,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/adminlte', function (){
-    return view('test.adminlte_home');
+//    return view('test.adminlte_home');
+    return view('test.student_intern_nested');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('/adminlte_ajax_test', function (){
+    return view('intern.admin.application.to_approve')->withTestNum(rand(1,10));
 });

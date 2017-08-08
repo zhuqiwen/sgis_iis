@@ -269,7 +269,7 @@ EOF;
 	{
 		$modal = self::generateApplicationModal($application);
 		$card = <<< EOF
-		<div class="col-md-4" style="margin-bottom: 5%;">
+		<div class="col-md-3 col-sm-4" style="margin-bottom: 5%;">
             <a href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$application->id">
@@ -314,7 +314,7 @@ EOF;
     {
         $modal =<<<EOF
 			<div id="myModalApplicationId_$application->id" class="modal fade" role="dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width: 80%;">
                       <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -980,6 +980,51 @@ EOF;
 
 EOF;
         return $form;
+    }
+
+
+    public static function generateTabListContainer($applications)
+    {
+
+        $cards = '';
+        foreach ($applications as $application)
+        {
+            $cards .= self::generateFloatCardWithModal($application);
+        }
+
+        $tabs = self::generateApplicationGroupTab('All', true);
+        $content = <<<EOF
+        <div class="row">
+            <div class="col-md-12" style="padding-bottom: 30px;">
+                <div class="panel with-nav-tabs panel-default">
+                    <div class="panel-heading">
+                        <ul id="tabs" class="nav nav-tabs">
+
+                            $tabs
+
+                        </ul>
+                    </div>
+                    <div class="panel-body" style="height: 70vh; overflow: scroll;">
+                        <div id="tab-contents" class="tab-content">
+
+                            <div class="tab-pane fade in active" id="default">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        $cards
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+EOF;
+        return $content;
+
     }
 
 

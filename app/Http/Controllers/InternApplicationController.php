@@ -416,4 +416,36 @@ class InternApplicationController extends Controller
 		return json_encode(['tabs' => $tabs, 'contents' => $contents]);
 
 	}
+
+
+
+    public function ajaxApplicationToApprove(Request $request)
+    {
+        if($request->isMethod('GET'))
+        {
+            $applications = InternApplication::where('intern_applications.is_approved', 0)
+                ->where('intern_applications.is_submitted', 1)
+                ->where('intern_applications.deleted_at', NULL)
+                ->join('users', 'intern_applications.user_id', '=', 'users.id')
+                ->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id')
+                ->select(
+                    'intern_organizations.type AS org_type',
+                    'intern_organizations.name As org_name',
+                    'intern_organizations.url As org_url',
+                    'users.*',
+                    'intern_applications.*')
+
+                ->orderBy('intern_applications.submitted_date', 'ASC')
+                ->orderBy('users.first_name', 'ASC')
+                ->get();
+
+        $applications_to_approve = HTMLSnippet::generateTabListContainer($applications);
+
+        return view('intern.admin.application.to_approve')
+            ->withApplicationsToApprove($applications_to_approve);
+        }
+
+
+
+    }
 }
