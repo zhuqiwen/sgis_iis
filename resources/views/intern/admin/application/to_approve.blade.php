@@ -26,7 +26,8 @@
         <div class="box-tools">
             <!-- Buttons, labels, and many other things can be placed here! -->
             <!-- Here is a label for example -->
-        <span class="label label-primary">Label</span>
+        {{--<span class="label label-primary">Label</span>--}}
+        <span class="btn btn-danger" id="submit_approval_folio">No Application Selected</span>
 
         </div>
         <!-- /.box-tools -->

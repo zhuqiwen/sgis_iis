@@ -375,14 +375,14 @@ EOF;
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$internship->id">
 	                    <div class="row">
-	                        <div class="col-md-9">
+	                        <div class="col-md-8">
 	                                <h4 id="applicant_name">
 	                                    $internship->last_name, $internship->first_name
 	                                    <br/><small>Internship ID: $internship->internship_id</small>
 	                                    <br/><small>Application ID: $internship->application_id</small>
 	                                </h4>
 	                        </div>
-	                        <div id="iconCheck_$internship->id" class="col-md-3 hide" style="margin-top:5%;">
+	                        <div id="iconCheck_$internship->id" class="col-md-4 hide" style="margin-top:5%;">
 	                            <i class="fa fa-check fa-2x"></i>
 	                        </div>
 	                    </div>
