@@ -323,7 +323,7 @@ EOF;
                             </div>
                             <div class="modal-body">
                                 <div>
-                                <h4>Internship Location: <small id="address_$application->id">$application->street, $application->state, $application->country</small></h4> 
+                                <h4>Internship Location: <small id="address_$application->id">$application->city, $application->state, $application->country</small></h4> 
                                 <!--<img src="http://via.placeholder.com/800x300">-->
                                 <div id="map_$application->id" style="height: 450px; width: 100%;"></div>
                                 </div>

@@ -5,7 +5,6 @@
     {
         padding-top: 0;
     }
-
     .panel.with-nav-tabs
     {
         border: 0;
