@@ -128,8 +128,44 @@ return [
             ],
             [
                 'text' => 'Approve Application',
-                'url'  => '#',
                 'can'  => 'approve-internship-application',
+                'submenu' => [
+                    [
+                        'text' => 'All',
+                        'url' => '/admin/internship/application/ajax_group_by/all',
+                    ],
+                    [
+                        'text' => 'Group By',
+                        'submenu' => [
+                            [
+                                'text' => 'Country',
+                                'url' => '/admin/internship/application/ajax_group_by/country',
+                            ],
+                            [
+                                'text' => 'Year',
+                                'url' => '/admin/internship/application/ajax_group_by/year',
+                            ],
+                            [
+                                'text' => 'Term',
+                                'url' => '/admin/internship/application/ajax_group_by/term',
+                            ],
+                            [
+                                'text' => 'Organization Type',
+                                'url' => '/admin/internship/application/ajax_group_by/organization_type',
+                            ],
+                            [
+                                'text' => 'Payment',
+                                'url' => '/admin/internship/application/ajax_group_by/paid_internship',
+                            ],
+                            [
+                                'text' => 'Desired Credits',
+                                'url' => '/admin/internship/application/ajax_group_by/credit_hours',
+                            ],
+                        ],
+                    ],
+
+
+                ],
             ],
             [
                 'text' => 'Close Internship',

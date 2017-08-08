@@ -423,13 +423,16 @@ class InternApplicationController extends Controller
     {
         if($request->isMethod('GET'))
         {
-            $applications = InternApplication::where('intern_applications.is_approved', 0)
+            $grouped_applications = InternApplication::where('intern_applications.is_approved', 0)
                 ->where('intern_applications.is_submitted', 1)
+                ->where('intern_applications.is_approved', 0)
+                ->orWhere('intern_applications.approved_date', null)
+                ->orWhere('intern_applications.approved_by', null)
                 ->where('intern_applications.deleted_at', NULL)
                 ->join('users', 'intern_applications.user_id', '=', 'users.id')
                 ->join('intern_organizations', 'intern_applications.organization_id', '=', 'intern_organizations.id')
                 ->select(
-                    'intern_organizations.type AS org_type',
+                    'intern_organizations.type AS organization_type',
                     'intern_organizations.name As org_name',
                     'intern_organizations.url As org_url',
                     'users.*',
@@ -437,10 +440,16 @@ class InternApplicationController extends Controller
 
                 ->orderBy('intern_applications.submitted_date', 'ASC')
                 ->orderBy('users.first_name', 'ASC')
-                ->get();
+                ->get()
+                ->groupBy($request->field);
+//            dump($grouped_applications);
+//            exit();
 
-        $applications_to_approve = HTMLSnippet::generateTabListContainer($applications);
 
+        $applications_to_approve = HTMLSnippet::generateTabListContainer($grouped_applications);
+
+//        dump($applications_to_approve);
+//        exit();
         return view('intern.admin.application.to_approve')
             ->withApplicationsToApprove($applications_to_approve);
         }

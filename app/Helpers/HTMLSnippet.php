@@ -983,16 +983,46 @@ EOF;
     }
 
 
-    public static function generateTabListContainer($applications)
+    public static function generateTabListContainer($grouped_applications)
     {
-
-        $cards = '';
-        foreach ($applications as $application)
+        $cnt = 0;
+        $tabs = '';
+        $tab_panes = '';
+        foreach($grouped_applications as $tab_name => $applications)
         {
-            $cards .= self::generateFloatCardWithModal($application);
+            if ($cnt == 0)
+            {
+                //
+                $tabs .= HTMLSnippet::generateApplicationGroupTab($tab_name, TRUE);
+                $tab_panes .=  '<div class="tab-pane fade in active" id="'.$tab_name.'">'
+                    .'<div class="row">'
+                    .'<div class="col-md-12">';
+            }
+            else
+            {
+                $tabs .= HTMLSnippet::generateApplicationGroupTab($tab_name, FALSE);
+                $tab_panes .= '<div class="tab-pane fade" id="'.$tab_name.'">'
+                    .'<div class="row">'
+                    .'<div class="col-md-12">';
+            }
+
+
+            // add cards
+            foreach ($applications as $key => $application)
+            {
+                $tab_panes .= HTMLSnippet::generateFloatCardWithModal($application);
+
+            }
+
+
+            $tab_panes .= '</div></div></div>';
+
+            $cnt ++;
+
+
         }
 
-        $tabs = self::generateApplicationGroupTab('All', true);
+
         $content = <<<EOF
         <div class="row">
             <div class="col-md-12" style="padding-bottom: 30px;">
@@ -1007,13 +1037,7 @@ EOF;
                     <div class="panel-body" style="height: 70vh; overflow: scroll;">
                         <div id="tab-contents" class="tab-content">
 
-                            <div class="tab-pane fade in active" id="default">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        $cards
-                                    </div>
-                                </div>
-                            </div>
+                            $tab_panes
 
 
                         </div>
