@@ -1,10 +1,13 @@
+
+{{--click save button to save current info and refresh whole page which will load the home content--}}
 {!! Form::submit(
-    'Go to release liability',
+    'Save',
     [
         'class' => 'btn btn-finish btn-fill btn-info btn-wd btn-sm pull-left',
         'name' => 'save',
         'id' => 'save_button_application_details'
-    ]) !!}        {{--<input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />--}}
+    ]) !!}
+
 {!! Form::submit(
     'Go to release liability',
     [
@@ -12,5 +15,7 @@
         'name' => 'submit',
         'id' => 'submit_button_application_details'
     ]) !!}
+
+
 {{--</form>--}}
 {!! Form::close() !!}

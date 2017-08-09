@@ -181,6 +181,19 @@
         });
 
 
+        $(document).on('click', '#submit_button_application_details', function(e){
+            e.preventDefault();
+            console.log('submit_button_application_details button clicked');
+
+            //ajax submit
+
+            //collapse current, and enable and expand next
+            $('#box_application').find('.btn-box-tool').trigger('click');
+            $('#box_liability_release').find('.btn-box-tool').prop('disabled', false);
+            $('#box_liability_release').find('.btn-box-tool').trigger('click');
+        });
+
+
     </script>
 @stop
 

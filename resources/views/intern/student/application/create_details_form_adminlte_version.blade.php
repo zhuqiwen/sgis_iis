@@ -86,6 +86,8 @@ $countries = [
         <div class="col-sm-5 col-sm-offset-1">
             <div class="form-group">
 
+                {{--Here dynamically check if current country is in warning list --}}
+                {{--if so display the warning; the warning in the same line of "Where is the internship" label --}}
                 {!! Form::label('country', 'Country') !!}
                 {!! Form::select('country',
                                   $countries,

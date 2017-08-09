@@ -100,15 +100,7 @@
         <div id="box_supervisor" class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title">Who will be your internship <strong>Supervisor</strong></h3>
-
-
-
-                {{--<div class="box-tools pull-right">--}}
                 <div class="box-tools">
-                    <!-- Buttons, labels, and many other things can be placed here! -->
-                    <!-- Here is a label for example -->
-                    {{--<span class="label label-primary">Label</span>--}}
-                    {{--<span class="btn btn-danger" id="submit_approval_folio">No Application Selected</span>--}}
                 <!-- Collapse Button -->
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" disabled>
                         <i class="fa fa-plus"></i>
@@ -150,6 +142,34 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 @include('intern.student.application.create_details_form_submit_close_adminlte_version')
+            </div>
+            <!-- box-footer -->
+        </div>
+        <!-- /.box -->
+
+
+        {{--liability release form--}}
+        <div id="box_liability_release" class="box collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title"><strong>Liability Release Form</strong></h3>
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" disabled>
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+                liability release
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <!-- Collapse Button -->
+                <button id="submit_button_application_all" type="button" class="btn btn-info pull-right">
+                    <span style="color: #fff;">Submit</span>
+                </button>
+
 
             </div>
             <!-- box-footer -->
