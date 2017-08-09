@@ -35,7 +35,7 @@ return [
 
     'logo' => '<b>SGIS IIS</b>',
 
-    'logo_mini' => '<b>SGIS IIS</b>',
+    'logo_mini' => '<b>SGIS</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -114,17 +114,33 @@ return [
         [
             'header' => 'Internship',
             'can' => 'see-menu-header-internship',
-
         ],
             [
-                'text' => 'Create Application',
-                'url'  => 'abc',
+                'text' => 'Your Internships',
                 'can'  => 'create-internship-application',
-            ],
-            [
-                'text' => 'Submit Internship Assignment',
-                'url'  => '#',
-                'can'  => 'submit-internship-assignment',
+                'submenu' => [
+                    [
+                        'text' => 'Create Application',
+                        'url' => '/student/internship/application/ajax_create',
+                    ],
+                    [
+                        'text' => 'Un-submitted',
+                        'url' => '/student/internship/application/ajax_index_unsubmitted',
+                    ],
+                    [
+                        'text' => 'Submitted (Read Only)',
+                        'url' => '/student/internship/application/ajax_index_submitted',
+                    ],
+                    [
+                        'text' => 'Approved (Read Only)',
+                        'url' => '/student/internship/ajax_index_approved',
+                    ],
+                    [
+                        'text' => 'Submit Assignments',
+                        'url' => '/student/internship/ajax_prepare_assignments',
+//                        'can'  => 'submit-internship-assignment',
+                    ],
+                ],
             ],
             [
                 'text' => 'Approve Application',

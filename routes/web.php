@@ -87,6 +87,29 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth', 'checkRole:student
 
     Route::get('/internship/assignment/', 'InternInternshipController@assignmentGuide');
 
+
+
+    /////////used by adminlte version//////////
+    Route::get('/internship/application/ajax_create', function(){
+        return view('intern.student.application.create_adminlte_version');
+    });
+
+    Route::get('/internship/application/ajax_index_unsubmitted', function(){
+        return '<p>unsubmitted application view</p>';
+    });
+
+    Route::get('/internship/application/ajax_index_submitted', function(){
+        return '<p>submitted  view</p>';
+    });
+
+    Route::get('/internship/ajax_index_approved', function(){
+        return '<p>approved internship view</p>';
+    });
+
+    Route::get('/internship/ajax_prepare_assignments', function(){
+        return '<p>assignments view</p>';
+    });
+
 });
 
 
