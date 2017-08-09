@@ -419,11 +419,14 @@ class InternApplicationController extends Controller
 
 
 
+	////////////////used by adminlte version/////////////////////////
+
     public function ajaxApplicationToApprove(Request $request)
     {
+        // get method returns applications that need to be approved.
         if($request->isMethod('GET'))
         {
-            $grouped_applications = InternApplication::where('intern_applications.is_approved', 0)
+            $applications = InternApplication::where('intern_applications.is_approved', 0)
                 ->where('intern_applications.is_submitted', 1)
                 ->where('intern_applications.is_approved', 0)
                 ->orWhere('intern_applications.approved_date', null)
@@ -440,8 +443,16 @@ class InternApplicationController extends Controller
 
                 ->orderBy('intern_applications.submitted_date', 'ASC')
                 ->orderBy('users.first_name', 'ASC')
-                ->get()
-                ->groupBy($request->field);
+                ->get();
+
+
+
+            foreach($applications as $application)
+            {
+                $application['profile_type'] = 'application';
+            }
+
+            $grouped_applications = $applications->groupBy($request->field);
 //            dump($grouped_applications);
 //            exit();
 
@@ -452,6 +463,134 @@ class InternApplicationController extends Controller
 //        exit();
         return view('intern.admin.application.to_approve')
             ->withApplicationsToApprove($applications_to_approve);
+        }
+
+        // post method deals with update application's approval status
+        if($request->isMethod('POST'))
+        {
+//            $user_id = Auth::user()->id;
+            $user_id = $request->user()->id;
+
+            InternApplication::whereIn('id', $request->application_ids)
+                ->update([
+                    'is_approved' => 1,
+                    'approved_date' => Carbon::now('America/New_York'),
+                    'approved_by' => $user_id,
+                ]);
+
+
+
+            $approved_applications = InternApplication::whereIn('id', $request->application_ids)
+                ->where('is_approved', 1)
+                ->where('is_submitted', 1)
+                ->where('deleted_at', NULL)
+                ->get();
+
+            // create new internships, and their required documents
+            // such as journals, reflection, site_evaluation and student_evaluation,
+            // for later use.
+            //	            // specify within how many days after end date should a doc be submitted.
+            $reflection_buffer = 15;
+            $site_evaluation_buffer = 15;
+            $student_evaluation_buffer = 15;
+
+            // every 7 days a journal should be submitted
+            $journal_period = 7;
+            foreach ($approved_applications as $application)
+            {
+
+                $start_date = Carbon::createFromFormat('Y-m-d', $application->start_date);
+                $end_date = Carbon::createFromFormat('Y-m-d', $application->end_date);
+
+                // make sure one application generates only one internship record
+                $internship = InternInternship::updateOrCreate(
+                    [
+                        'application_id' => $application->id,
+                        'x373_hours' => $application->credit_hours
+                    ],
+                    [
+                        'case_closed' => 0,
+                        'case_closed_by' => $user_id,
+                    ]
+                );
+//
+//
+                // reflection due date = application end date + buffer
+                $reflection_due_date = $end_date->copy()->addDays($reflection_buffer)->toDateString();
+                InternReflection::updateOrCreate(
+                    [
+                        'internship_id' => $internship->id,
+                        'due_date' => $reflection_due_date,
+                        'submitted_at' => null
+
+                    ]
+                );
+
+                // set up new record for site evaluation
+                $site_evaluation_due_date = $end_date->copy()->addDays($site_evaluation_buffer)->toDateString();
+                InternSiteEvaluation::updateOrCreate(
+                    [
+                        'internship_id' => $internship->id,
+                        'due_date' => $site_evaluation_due_date,
+                        'submitted_at' => null
+                    ]
+                );
+
+                // set up new record for student evaluation, both final and midterm
+
+
+
+
+                $half_period = $start_date->diffInDays($end_date) / 2;
+                $student_midterm_evaluation_date = $start_date->copy()->addDays($half_period)->toDateString();
+                $student_evaluation_date = $end_date->copy()->addDays($student_evaluation_buffer)->toDateString();
+
+                // final eval
+                InternStudentEvaluation::updateOrCreate(
+                    [
+                        'internship_id' => $internship->id,
+                        'due_date' => $student_evaluation_date,
+                    ],
+                    ['submitted_at' => null]
+                );
+
+                // midterm
+                InternStudentEvaluation::updateOrCreate(
+                    [
+                        'internship_id' => $internship->id,
+                        'due_date' => $student_midterm_evaluation_date,
+                    ],
+                    [
+                        'is_midterm' => 1,
+                        'submitted_at' => null
+                    ]
+                );
+
+
+//                // set up new record for journals
+                $num_days = $start_date->diffInDays($end_date);
+                $rounds = $num_days / $journal_period;
+//
+                for($i = 0; $i < $rounds; $i++)
+                {
+                    InternJournal::updateOrCreate(
+                        [
+                            'internship_id' => $internship->id,
+                            'serial_num' => $i + 1,
+                            'required_total_num' => $rounds,
+                            'due_date' => $start_date->copy()
+                                ->addDays($journal_period * ($i + 1))->toDateString(),
+//
+                        ],
+                        ['submitted_at' => null]
+                    );
+                }
+
+
+
+            }
+
+            return $approved_applications;
         }
 
 

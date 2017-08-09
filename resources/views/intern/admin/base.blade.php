@@ -65,6 +65,33 @@
         }
 
 
+        function ajaxLoadGroupBy(url, data) {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.tabs);
+                    $("#tabs").html(data.tabs);
+                    $("#tab-contents").html(data.contents);
+                    showHomeLinkIfNoApplication();
+
+                }
+            });
+        }
+        function showHomeLinkIfNoApplication() {
+            if ($('.container .float-card').length == 0)
+            {
+                $("#tab-contents").html('' +
+                    '<div style="text-align: center">' +
+                    '<p>No Application Needs To Be Approved. ' +
+                    '<a href="/home" style="text-decoration: underline;">Click Here</a> to go to Home screen</p>' +
+                    '</div>');
+            }
+        }
+
+
         $(document).ready(function () {
             //set up global csrf for ajax call
             $.ajaxSetup({
@@ -76,6 +103,8 @@
             window.ApplicationFolio = {};
             ApplicationFolio.Ids = new Set();
             ApplicationFolio.ajaxApproveURL = '/intern/application/to_approve/ajax';
+            ApplicationFolio.ajaxGroupURL = '/intern/application/to_group/ajax';
+
 
 
 
@@ -84,6 +113,7 @@
 
             window.ApplicationMenus = {};
             window.ApplicationGroupByAjaxConfigrations = {};
+            window.ApplicationGroupByAjaxCurrentConfigration = '';
             var menus = $('.sidebar-menu a');
             for(var i = 0; i < menus.length; i++)
             {
@@ -127,12 +157,18 @@
             if(typeof ApplicationGroupByAjaxConfigrations[key] != 'undefined')
             {
                 $.ajax(ApplicationGroupByAjaxConfigrations[key]);
+
+                ApplicationGroupByAjaxCurrentConfigration = ApplicationGroupByAjaxConfigrations[key];
+
             }
         });
 
         $(document).on('click', '#float-card', function (e) {
+            console.log(ApplicationGroupByAjaxCurrentConfigration);
+
+
             var currentCardId = $(this).find('div:first').attr('id');
-            console.log($(this).parent());
+//            console.log($(this).parent());
             if (ApplicationFolio.Ids.has(currentCardId))
             {
                 $('.removeFromFolio').show();
@@ -203,22 +239,29 @@
                 });
                 if (confirm(confirm_content))
                 {
-                    post_data = {'application_ids': Array.from(ApplicationFolio.Ids)};
+
                     $.ajax({
                         type: 'POST',
-                        url: ApplicationFolio.ajaxApprove,
-                        data: post_data,
+                        url: ApplicationFolio.ajaxApproveURL,
+                        data: {'application_ids': Array.from(ApplicationFolio.Ids)},
                         success: function (returned_data) {
                             console.log(returned_data);
 //                                    alert(ApplicationFolio.Ids.size + ' applications successfully approved');
                             alert(returned_data.size + ' applications successfully approved');
-                            ajaxLoadGroupBy(
-                                ApplicationFolio.ajaxGroup,
-                                {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1}
-                            );
+//                            ajaxLoadGroupBy(
+//                                ApplicationFolio.ajaxGroupURL,
+//                                {'field': ApplicationFolio.currentGroupByField, 'is_approved': 0, 'is_submitted': 1}
+//                            );
+                            $.ajax(ApplicationGroupByAjaxCurrentConfigration);
+
                             ApplicationFolio.Ids.clear();
                             $('#submit_approval_folio').text('No application selected');
 
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.status);
+                            console.log(xhr.responseText);
+                            console.log(thrownError);
                         }
                     });
                 }

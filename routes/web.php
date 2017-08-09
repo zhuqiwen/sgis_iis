@@ -120,9 +120,14 @@ Route::group(['prefix' => 'admin/internship', 'middleware' => ['auth', 'checkRol
     Route::get('application/to_approve', 'InternApplicationController@indexApplicationToBeApproved');
     Route::get('internship/to_close', 'InternInternshipController@indexInternshipToBeClosed');
 
-    //Ajax calls
-    Route::get('application/ajax_to_approve', 'InternApplicationController@ajaxApplicationToApprove');
+    //Ajax calls, used by adminlte version
+    Route::post('application/ajax_to_approve', 'InternApplicationController@ajaxApplicationToApprove');
     Route::get('application/ajax_group_by', 'InternApplicationController@ajaxApplicationToApprove');
+
+
+//    Route::get('to_close/ajax_to_approve', 'InternInternshipController@ajaxApplicationToApprove');
+    Route::get('to_close/ajax_group_by', 'InternInternshipController@ajaxInternshipToClose');
+
 
 });
 

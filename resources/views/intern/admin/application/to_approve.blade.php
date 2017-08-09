@@ -40,7 +40,6 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        The footer of the box
     </div>
     <!-- box-footer -->
 </div>
