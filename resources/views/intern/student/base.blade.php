@@ -91,6 +91,8 @@
         }
 
 
+
+
         // prepare configurations for ajas calls on this page
         $(document).ready(function () {
             //set up global csrf for ajax call
@@ -99,6 +101,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+
 
 
 
@@ -119,9 +123,12 @@
                         $('.content').html(returned_data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.status);
-                        console.log(xhr.responseText);
-                        console.log(thrownError);
+//                        console.log(xhr.status);
+                        var e = window.open();
+                        e.document.write(xhr.responseText);
+//                        console.log(xhr.responseText);
+//                        console.log(thrownError);
+
                     }
 
                 };
@@ -158,32 +165,84 @@
 
         $(document).on('click', '#submit_button_organization_info', function(e){
             e.preventDefault();
-            console.log('org info submit button clicked');
+
+//            console.log($(this.form).serialize());
             //ajax submit
 
-            //collapse current, and enable and expand next
-            $('#box_organization').find('.btn-box-tool').trigger('click');
-            $('#box_supervisor').find('.btn-box-tool').prop('disabled', false);
-            $('#box_supervisor').find('.btn-box-tool').trigger('click');
+            var form = $(this.form);
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                dataType: 'json',
+                success: function(returned_data){
+                    window.organization = returned_data;
+                    console.log(window.organization.id);
+                    //collapse current, and enable and expand next
+                    $('#box_organization').find('.btn-box-tool').trigger('click');
+                    $('#box_supervisor').find('.btn-box-tool').prop('disabled', false);
+                    $('#box_supervisor').find('.btn-box-tool').trigger('click');
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+//                        console.log(xhr.status);
+                    var e = window.open();
+                    e.document.write(xhr.responseText);
+//                        console.log(xhr.responseText);
+//                        console.log(thrownError);
+
+                }
+            });
+
+
 
         });
 
         $(document).on('click', '#submit_button_supervisor_info', function(e){
             e.preventDefault();
-            console.log('supervisor button clicked');
 
-            //ajax submit
 
-            //collapse current, and enable and expand next
-            $('#box_supervisor').find('.btn-box-tool').trigger('click');
-            $('#box_application').find('.btn-box-tool').prop('disabled', false);
-            $('#box_application').find('.btn-box-tool').trigger('click');
+//            //ajax submit
+            var form = $(this.form);
+            form.find('input[name="organization_id"]').val(window.organization.id);
+
+            //concatenate country code and phone num
+            var phone_num = form.find('input[name="phone_country_code"]').val() + form.find('input[name="phone"]').val();
+            form.find('input[name="phone"]').val(phone_num);
+
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                dataType: 'json',
+                success: function(returned_data){
+                    window.supervisor = returned_data;
+                    console.log(window.supervisor.first_name);
+                //collapse current, and enable and expand next
+                $('#box_supervisor').find('.btn-box-tool').trigger('click');
+                $('#box_application').find('.btn-box-tool').prop('disabled', false);
+                $('#box_application').find('.btn-box-tool').trigger('click');
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+//                        console.log(xhr.status);
+                    var e = window.open();
+                    e.document.write(xhr.responseText);
+//                        console.log(xhr.responseText);
+//                        console.log(thrownError);
+
+                }
+            });
+//
+//
+
         });
 
 
         $(document).on('click', '#submit_button_application_details', function(e){
             e.preventDefault();
-            console.log('submit_button_application_details button clicked');
 
             //ajax submit
 

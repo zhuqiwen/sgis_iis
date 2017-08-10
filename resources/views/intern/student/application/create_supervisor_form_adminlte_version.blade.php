@@ -1,9 +1,8 @@
-<?php
-    $org_id = 1;
-?>
 
-{!! Form::open(['action' => 'InternSupervisorController@store']) !!}
-{!! Form::hidden('organization_id', $org_id) !!}
+
+{!! Form::open(['action' => 'InternSupervisorController@ajaxStore', 'id' => 'create_application_supervisor_form']) !!}
+{{--0 is the temp id; real org id will be update via js--}}
+{!! Form::hidden('organization_id', 0) !!}
 
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">

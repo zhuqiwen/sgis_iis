@@ -58,6 +58,18 @@ class InternOrganizationController extends Controller
 
         }
         return json_encode($organizations->all());
+    }
+
+
+    public function ajaxStore(Request $request)
+    {
+        $organization = InternOrganization::firstOrCreate([
+            'name' => $request->name,
+            'type' => $request->type,
+            'url' => $request->url,
+        ]);
+
+        return json_encode($organization);
 
     }
 }

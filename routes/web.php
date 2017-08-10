@@ -94,6 +94,11 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth', 'checkRole:student
         return view('intern.student.application.create_adminlte_version');
     });
 
+    ////////store new organization///////
+    Route::post('/internship/application/ajax_store_organization', 'InternOrganizationController@ajaxStore');
+    ///////store new supervisor///////
+    Route::post('/internship/application/ajax_store_supervisor', 'InternSupervisorController@ajaxStore');
+
     Route::get('/internship/application/ajax_index_unsubmitted', function(){
         return '<p>unsubmitted application view</p>';
     });

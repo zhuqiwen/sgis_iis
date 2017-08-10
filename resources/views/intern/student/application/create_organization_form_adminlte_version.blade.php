@@ -1,14 +1,16 @@
 <?php
 $organization_types = [
-    'type 1' => 'type 1',
-    'type 2' => 'type 2',
-    'type 3' => 'type 3',
+    'Government' => 'Government',
+    'NGO' => 'NGO',
+    'Industry' => 'Industry',
+    'Other' => 'Other',
 ]
 ?>
 
 
 
-{!! Form::open(['action' => 'InternOrganizationController@store']) !!}
+{{--{!! Form::open(['action' => 'InternOrganizationController@store', 'id' => 'create_application_organization_form']) !!}--}}
+{!! Form::open(['action' => 'InternOrganizationController@ajaxStore', 'id' => 'create_application_organization_form']) !!}
 <div class="row">
      <div class="col-sm-8 col-sm-offset-2">
         <div class="form-group">
