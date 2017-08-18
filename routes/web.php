@@ -91,10 +91,19 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth', 'checkRole:student
 
 
 
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
     /////////used by adminlte version//////////
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
     Route::get('/internship/application/ajax_create', function(){
-        return view('intern.student.application.create_adminlte_version');
+//        return view('intern.student.application.create_adminlte_version');
+        return view('intern.student.application.create_all_in_one_form_adminlte_version');
     });
+
+
+    ////////store all in one application, including organization and supervisor/////////
+    Route::post('/internship/application/ajax_store', 'InternApplicationController@ajaxStoreApplication');
 
     ////////store new organization///////
     Route::post('/internship/application/ajax_store_organization', 'InternOrganizationController@ajaxStore');

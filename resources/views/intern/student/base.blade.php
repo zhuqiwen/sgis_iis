@@ -121,6 +121,18 @@
                     dataType: 'html',
                     success: function(returned_data){
                         $('.content').html(returned_data);
+
+                        // collect form buttons for generic button click triggering next collapse box.
+                        console.log($(".application-form-button"));
+                        window.ApplicationFormButtonIds = [];
+                        window.ApplicationFormButtons = $(".application-form-button");
+                        for(var i = 0; i < ApplicationFormButtons.length; i++)
+                        {
+                            ApplicationFormButtonIds.push(ApplicationFormButtons[i].id);
+                        }
+                        console.log(ApplicationFormButtonIds);
+
+
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
 //                        console.log(xhr.status);
@@ -135,6 +147,10 @@
 
                 AjaxConfigrations[url] = configuration;
             }
+
+
+
+
         });
 
         //
@@ -147,8 +163,11 @@
 
                 AjaxCurrentConfigration = AjaxConfigrations[key];
 
-                console.log($(this).parent().siblings('.active').removeClass('active'));
+                $(this).parent().siblings('.active').removeClass('active');
                 $(this).parent().addClass('active');
+
+
+
 
             }
         });
@@ -161,6 +180,9 @@
                 .addClass('fa-plus');
             $('#box_organization').find('.btn-box-tool').prop('disabled', false);
             $('#box_organization').find('.btn-box-tool').trigger('click');
+
+
+
         });
 
         $(document).on('click', '#submit_button_organization_info', function(e){

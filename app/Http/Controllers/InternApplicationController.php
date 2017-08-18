@@ -593,7 +593,10 @@ class InternApplicationController extends Controller
             return $approved_applications;
         }
 
+    }
 
+    public function ajaxStoreApplication()
+    {
 
     }
 }

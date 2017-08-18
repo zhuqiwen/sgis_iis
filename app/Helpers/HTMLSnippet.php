@@ -1138,9 +1138,17 @@ EOF;
 
     }
 
+    // internship application button
+    public static function generateInternshipApplicationFormButton($id, $form, $type, $button_text)
+    {
+        $button = <<<EOF
+        <button class="btn btn-finish btn-fill btn-info btn-wd btn-sm pull-right application-form-button" id="$id" type="$type" form="$form">
+            $button_text
+        </button>
+EOF;
+        return $button;
 
-
-
+    }
 
 
 
