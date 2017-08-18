@@ -47,4 +47,20 @@ class InternSupervisorController extends Controller
 		    ->withCountryCodes(Country::all());
     }
 
+
+    public function ajaxStore(Request $request)
+    {
+        $supervisor = InternSupervisor::firstOrCreate([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'prefix' => $request->prefix,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'organization_id' => $request->organization_id,
+        ]);
+
+        return json_encode($supervisor);
+
+    }
+
 }

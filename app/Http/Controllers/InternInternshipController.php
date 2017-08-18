@@ -252,6 +252,96 @@ class InternInternshipController extends Controller
         }
     }
 
+    public function ajaxInternshipToClose(Request $request)
+    {
+        // get returns available internships
+        // available internships:
+        // 1.
+
+        $now = Carbon::now('America/New_York')->toDateString();
+        $internships = new InternInternship();
+
+        if($request->isMethod('GET'))
+        {
+            $internships = $internships
+                ->join('intern_applications AS a', function ($join) use ($now){
+                    $join->on('a.id', 'intern_internships.application_id');
+                    $join->whereNull('a.deleted_at');
+                    $join->where('a.end_date', '<', $now);
+                    $join->whereNotNull('a.approved_by');
+                    $join->whereNotNull('a.approved_date');
+                    $join->where('a.is_approved', 1);
+                    $join->where('a.is_submitted', 1);
+                })
+                ->join('users', function($join){
+                    $join->on('users.id', 'a.user_id');
+                })
+                ->join('intern_organizations AS org', function ($join){
+                    $join->on('org.id', 'a.organization_id');
+                    $join->whereNotNull('org.deleted_at');
+                })
+                ->join('intern_supervisors AS sup', function ($join){
+                    $join->on('sup.id', 'a.supervisor_id');
+                    $join->whereNotNull('sup.deleted_at');
+                })
+                // have to select the internship.id
+                // eloquent makes up temp table for joins, so
+                // the default id is not internship.id
+                ->select(
+                    'intern_internships.id AS internship_id',
+                    'intern_internships.*',
+                    'a.id AS application_id',
+                    'a.*',
+                    'users.*',
+                    'org.name AS organization_name',
+                    'org.name AS organization_url',
+                    'org.name AS organization_type',
+                    'sup.first_name AS supervisor_first_name',
+                    'sup.last_name AS supervisor_last_name',
+                    'sup.prefix AS supervisor_prefix',
+                    'sup.email AS supervisor_email',
+                    'sup.phone AS supervisor_phone'
+                )
+                ->whereNull('intern_internships.deleted_at')
+                ->where('case_closed', 0)
+                ->whereNull('closed_by')
+                ->orderBy('a.end_date', 'ASC')
+                ->orderBy('users.last_name', 'ASC')
+                ->get();
+
+            foreach ($internships as $internship)
+            {
+                $internship['profile_type'] = 'internship';
+                $internship_id = $internship->internship_id;
+
+                $internship['journal'] = InternJournal::where('internship_id', $internship_id)
+                    ->get();
+                $internship['reflection'] = InternReflection::where('internship_id', $internship_id)
+                    ->get();
+                $internship['site_evaluation'] = InternSiteEvaluation::where('internship_id', $internship_id)
+                    ->get();
+                $internship['student_evaluation'] = InternStudentEvaluation::where('internship_id', $internship_id)
+                    ->get();
+
+            }
+
+            $grouped_internships = $internships->groupBy($request->field);
+
+
+            //construct html
+
+            $internships_to_close = HTMLSnippet::generateTabListContainer($grouped_internships);
+
+            return view('intern.admin.internship.to_close')
+                ->withInternshipsToClose($internships_to_close);
+        }
+
+        if($request->isMethod('POST'))
+        {
+
+        }
+    }
+
 
 
 

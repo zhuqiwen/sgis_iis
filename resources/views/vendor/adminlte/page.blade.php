@@ -143,25 +143,4 @@
     @stack('js')
     @yield('js')
 
-
-    <script>
-        $(document).on('click', '.sidebar-menu a', function(e){
-            e.preventDefault();
-            $.ajax({
-                type: 'GET',
-                url: '/admin/internship/ajax_to_approve',
-                data: {},
-                dataType: 'html',
-                success: function(returned_data){
-                    console.log(returned_data);
-                    $('.content').html(returned_data);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(xhr.responseText);
-                    console.log(thrownError);
-                }
-            });
-        });
-    </script>
 @stop

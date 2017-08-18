@@ -87,6 +87,34 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth', 'checkRole:student
 
     Route::get('/internship/assignment/', 'InternInternshipController@assignmentGuide');
 
+
+
+    /////////used by adminlte version//////////
+    Route::get('/internship/application/ajax_create', function(){
+        return view('intern.student.application.create_adminlte_version');
+    });
+
+    ////////store new organization///////
+    Route::post('/internship/application/ajax_store_organization', 'InternOrganizationController@ajaxStore');
+    ///////store new supervisor///////
+    Route::post('/internship/application/ajax_store_supervisor', 'InternSupervisorController@ajaxStore');
+
+    Route::get('/internship/application/ajax_index_unsubmitted', function(){
+        return '<p>unsubmitted application view</p>';
+    });
+
+    Route::get('/internship/application/ajax_index_submitted', function(){
+        return '<p>submitted  view</p>';
+    });
+
+    Route::get('/internship/ajax_index_approved', function(){
+        return '<p>approved internship view</p>';
+    });
+
+    Route::get('/internship/ajax_prepare_assignments', function(){
+        return '<p>assignments view</p>';
+    });
+
 });
 
 
@@ -120,8 +148,14 @@ Route::group(['prefix' => 'admin/internship', 'middleware' => ['auth', 'checkRol
     Route::get('application/to_approve', 'InternApplicationController@indexApplicationToBeApproved');
     Route::get('internship/to_close', 'InternInternshipController@indexInternshipToBeClosed');
 
-    //Ajax calls
-    Route::get('/ajax_to_approve', 'InternApplicationController@ajaxApplicationToApprove');
+    //Ajax calls, used by adminlte version
+    Route::post('application/ajax_to_approve', 'InternApplicationController@ajaxApplicationToApprove');
+    Route::get('application/ajax_group_by', 'InternApplicationController@ajaxApplicationToApprove');
+
+
+//    Route::get('to_close/ajax_to_approve', 'InternInternshipController@ajaxApplicationToApprove');
+    Route::get('to_close/ajax_group_by', 'InternInternshipController@ajaxInternshipToClose');
+
 
 });
 
