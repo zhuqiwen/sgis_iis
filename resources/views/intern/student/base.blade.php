@@ -133,6 +133,11 @@
                         console.log(ApplicationFormButtonIds);
 
 
+                        // AHAAA, the eq() method returns a jquery object of the specified index
+                        // and because it is a jquery object, we can use prop() now.
+                        console.log($(".btn-box-tool").eq(2).prop('disabled', false));
+
+
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
 //                        console.log(xhr.status);
