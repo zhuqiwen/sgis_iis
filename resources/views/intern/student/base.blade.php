@@ -187,6 +187,10 @@
             $('#box_organization').find('.btn-box-tool').trigger('click');
 
 
+//            console.log($(".btn.btn-info.pull-right").index($(this)));
+            console.log($(this).attr('type'));
+
+
 
         });
 
