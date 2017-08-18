@@ -94,6 +94,7 @@
 
 
         // prepare configurations for ajas calls on this page
+        // and initiate global variables
         $(document).ready(function () {
             //set up global csrf for ajax call
             $.ajaxSetup({
@@ -102,9 +103,11 @@
                 }
             });
 
-
-
-
+            // for internship application form
+            window.InternshipApplicationFormId = "<?php echo config('constants.form_id_internship_application')?>";
+            window.OrganizationId = '';
+            window.SupervisorId = '';
+            window.ApplicationId = '';
 
             window.ApplicationMenus = {};
             window.AjaxConfigrations = {};
@@ -159,7 +162,7 @@
 
         });
 
-        //
+        // sidebar menu click event
         $(document).on('click', '.sidebar-menu a', function(e){
             e.preventDefault();
             var key = $(this).attr('href');
@@ -172,28 +175,53 @@
                 $(this).parent().siblings('.active').removeClass('active');
                 $(this).parent().addClass('active');
 
-
-
-
             }
         });
 
 
+        // form button click event
         $(document).on('click', '.btn.btn-info.pull-right', function(e){
             e.preventDefault();
 
-            console.log($(this));
+            var currentElement = $(this);
             window.PullRightButtons =  $('.btn.btn-info.pull-right');
-            var currentIndex = PullRightButtons.index($(this));
-            if($(this).attr('type') == 'submit' || $(this).attr('type') == 'button')
+            var currentIndex = PullRightButtons.index(currentElement);
+            if(currentElement.attr('type') == 'submit' || currentElement.attr('type') == 'button')
             {
+                if (currentElement.attr('form') == InternshipApplicationFormId)
+                {
+                    var form = $('#' + InternshipApplicationFormId);
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        dataType: 'json',
+                        success: function(returned_data){
+                            console.log(returned_data);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            var e = window.open();
+                            e.document.write(xhr.responseText);
+                        }
+
+                    });
+                }
+//                var form = $(this).form;
+//                //send form data to backend if the button is a submit
+//                if ($(this).attr('type') == 'submit')
+//                {
+//                    $.ajax({
+//                        type: 'post',
+//                        url:
+//                    });
+//                }
+
                 if(currentIndex < PullRightButtons.length && currentIndex >= 0)
                 {
                     $('.btn-box-tool').eq(currentIndex).trigger('click');
                     var next_collapse = $('.btn-box-tool').eq(currentIndex + 1);
                     next_collapse.prop('disabled', false);
                     next_collapse.trigger('click');
-
                 }
             }
         });

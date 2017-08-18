@@ -595,8 +595,11 @@ class InternApplicationController extends Controller
 
     }
 
-    public function ajaxStoreApplication()
+    public function ajaxStoreApplication(Request $request)
     {
-
+	    if($request->isMethod('post'))
+	    {
+		    return json_encode($request->all());
+	    }
     }
 }

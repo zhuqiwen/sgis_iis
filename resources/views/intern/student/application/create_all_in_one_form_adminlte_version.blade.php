@@ -29,8 +29,9 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
+        @include('intern.student.application.partials.form_open')
         {{--guide box--}}
-        <div id="box_guide" class="box">
+        <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Guide</h3>
                 <div class="box-tools">
@@ -59,11 +60,9 @@
         <!-- /.box -->
 
         {{--organization--}}
-        <div id="box_organization" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title">Which <strong>Organization</strong> is this internship with?</h3>
-
-
 
                 {{--<div class="box-tools pull-right">--}}
                 <div class="box-tools">
@@ -94,7 +93,7 @@
         <!-- /.box -->
 
         {{--supervisor--}}
-        <div id="box_supervisor" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title">Who will be your internship <strong>Supervisor</strong></h3>
                 <div class="box-tools">
@@ -124,7 +123,7 @@
         <!-- /.box -->
 
         {{--application_basic_details--}}
-        <div id="box_application" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title"><strong>Basic Details</strong> of this internship</h3>
                 {{--<div class="box-tools pull-right">--}}
@@ -308,6 +307,8 @@
             <!-- box-footer -->
         </div>
         <!-- /.box -->
+
+        @include('intern.student.application.partials.form_close')
 
     </div>
     <!-- /.box-body -->

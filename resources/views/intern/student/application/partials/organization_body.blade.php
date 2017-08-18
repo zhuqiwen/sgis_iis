@@ -9,7 +9,6 @@ $organization_types = [
 
 
 
-{!! Form::open(['action' => 'InternApplicationController@ajaxStoreApplication', 'id' => 'internship_application_form']) !!}
 <div class="row">
      <div class="col-sm-8 col-sm-offset-2">
         <div class="form-group">
