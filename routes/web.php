@@ -59,6 +59,8 @@ Route::group(['prefix' => 'intern/student', 'middleware' => ['auth', 'checkRole:
 
 });
 
+
+// used for adminlte version
 Route::group(['prefix' => 'student', 'middleware' => ['auth', 'checkRole:student']], function (){
     // define sub uri's actions
     Route::get('/', function (){

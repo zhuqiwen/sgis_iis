@@ -240,7 +240,6 @@
 
         });
 
-
         $(document).on('click', '#submit_button_application_details', function(e){
             e.preventDefault();
 
