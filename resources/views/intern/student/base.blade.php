@@ -135,7 +135,8 @@
 
                         // AHAAA, the eq() method returns a jquery object of the specified index
                         // and because it is a jquery object, we can use prop() now.
-                        console.log($(".btn-box-tool").eq(2).prop('disabled', false));
+//                        console.log($(".btn-box-tool").eq(2).prop('disabled', false));
+
 
 
                     },
@@ -177,22 +178,27 @@
             }
         });
 
-        $(document).on('click', '#understand_button_internship_application_process', function(){
-            $(this).parent()
-                .siblings('.box-header')
-                .find('i')
-                .removeClass('fa-minus')
-                .addClass('fa-plus');
-            $('#box_organization').find('.btn-box-tool').prop('disabled', false);
-            $('#box_organization').find('.btn-box-tool').trigger('click');
 
+        $(document).on('click', '.btn.btn-info.pull-right', function(e){
+            e.preventDefault();
 
-//            console.log($(".btn.btn-info.pull-right").index($(this)));
-            console.log($(this).attr('type'));
+            console.log($(this));
+            window.PullRightButtons =  $('.btn.btn-info.pull-right');
+            var currentIndex = PullRightButtons.index($(this));
+            if($(this).attr('type') == 'submit' || $(this).attr('type') == 'button')
+            {
+                if(currentIndex < PullRightButtons.length && currentIndex >= 0)
+                {
+                    $('.btn-box-tool').eq(currentIndex).trigger('click');
+                    var next_collapse = $('.btn-box-tool').eq(currentIndex + 1);
+                    next_collapse.prop('disabled', false);
+                    next_collapse.trigger('click');
 
-
-
+                }
+            }
         });
+
+
 
         $(document).on('click', '#submit_button_organization_info', function(e){
             e.preventDefault();

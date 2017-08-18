@@ -136,7 +136,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+            <div class="box-body">
                 @include('intern.student.application.partials.application_basic_details_body')
             </div>
             <!-- /.box-body -->
@@ -155,7 +155,7 @@
         <!-- /.box -->
 
         {{--application_location--}}
-        <div id="box_application" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title"><strong>Where</strong> will the internship be?</h3>
                 {{--<div class="box-tools pull-right">--}}
@@ -167,7 +167,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+            <div class="box-body">
                 @include('intern.student.application.partials.application_location_body')
             </div>
             <!-- /.box-body -->
@@ -186,7 +186,7 @@
         <!-- /.box -->
 
         {{--application_dates--}}
-        <div id="box_application" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title">Important <strong>Dates</strong></h3>
                 {{--<div class="box-tools pull-right">--}}
@@ -198,7 +198,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+            <div class="box-body">
                 @include('intern.student.application.partials.application_dates_body')
             </div>
             <!-- /.box-body -->
@@ -217,7 +217,7 @@
         <!-- /.box -->
 
         {{--application_budget--}}
-        <div id="box_application" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title"><strong>How much</strong> could this internship cost?</h3>
                 {{--<div class="box-tools pull-right">--}}
@@ -229,7 +229,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+            <div class="box-body">
                 @include('intern.student.application.partials.application_budget_body')
             </div>
             <!-- /.box-body -->
@@ -248,7 +248,7 @@
         <!-- /.box -->
 
         {{--application_work_schedule--}}
-        <div id="box_application" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title">What <strong>work schedule</strong> of this internship is like?</h3>
                 {{--<div class="box-tools pull-right">--}}
@@ -260,7 +260,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+            <div class="box-body">
                 @include('intern.student.application.partials.application_work_schedule_body')
             </div>
             <!-- /.box-body -->
@@ -279,7 +279,7 @@
         <!-- /.box -->
 
         {{--application_value--}}
-        <div id="box_application" class="box collapsed-box">
+        <div class="box collapsed-box">
             <div class="box-header with-border">
                 <h3 class="box-title">What <strong>value</strong> of this internship could be?</h3>
                 {{--<div class="box-tools pull-right">--}}
@@ -291,7 +291,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="height: 50vh;overflow-y: scroll; overflow-x: hidden">
+            <div class="box-body">
                 @include('intern.student.application.partials.application_value_body')
             </div>
             <!-- /.box-body -->
