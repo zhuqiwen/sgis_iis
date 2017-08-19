@@ -15,12 +15,10 @@ class CreateAlumAcademicInfoTable extends Migration
     {
 	    Schema::create('alum_academic_info', function(Blueprint $table){
 		    $table->increments('id');
-		    $table->date('class-year')->nullable()->default(NULL);
-		    $table->string('degree')->nullable()->default(NULL);
+		    $table->date('academic_info_class_year')->nullable();
+		    $table->string('academic_info_degree')->nullable();
 		    $table->integer('contact_id')->unsigned();
-		    $table->integer('field_id')->unsigned();
-		    $table->foreign('contact_id')->references('id')->on('alum_contacts');
-		    $table->foreign('field_id')->references('id')->on('alum_study_fields');
+		    $table->integer('study_field_id')->unsigned();
 		    $table->timestamps();
 		    $table->softDeletes();
 

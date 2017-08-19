@@ -16,7 +16,7 @@ class CreateAlumEmployerTypesTable extends Migration
         //
 	    Schema::create('alum_employer_types', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('type');
+		    $table->string('employer_type')->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

@@ -16,14 +16,13 @@ class CreateInternJournalsTable extends Migration
 		Schema::create('intern_journals', function (Blueprint $table) {
 			$table->increments('id');
             $table->integer('internship_id')->unsigned();
-            $table->foreign('internship_id')->references('id')->on('intern_internships');
-			$table->text('journal')->nullable()->default(null);
+			$table->text('intern_journal_content')->nullable();
 
-			$table->smallInteger('serial_num')->nullable()->default(null);
-			$table->smallInteger('required_total_num')->nullable()->default(null);
+			$table->smallInteger('intern_journal_serial_num')->nullable();
+			$table->smallInteger('intern_journal_required_total_num')->nullable();
 
-            $table->date('due_date')->nullable()->default(null);
-            $table->date('submitted_at')->nullable()->default(null);
+            $table->date('intern_journal_due_date')->nullable();
+            $table->date('intern_journal_submitted_at')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

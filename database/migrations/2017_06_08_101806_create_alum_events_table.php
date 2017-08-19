@@ -15,11 +15,11 @@ class CreateAlumEventsTable extends Migration
     {
 	    Schema::create('alum_events', function(Blueprint $table){
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->date('date')->nullable()->default(NULL);
-		    $table->string('country')->nullable()->default(NULL);
-		    $table->string('state')->nullable()->default(NULL);
-		    $table->string('city')->nullable()->default(NULL);
+		    $table->string('event_name')->nullable();
+		    $table->date('event_date')->nullable();
+		    $table->string('event_country')->nullable();
+		    $table->string('event_state')->nullable();
+		    $table->string('event_city')->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

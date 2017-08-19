@@ -15,13 +15,12 @@ class CreateInternSupervisorsTable extends Migration
     {
 	    Schema::create('intern_supervisors', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('first_name');
-		    $table->string('last_name');
-		    $table->string('prefix');
-		    $table->string('email');
-		    $table->string('phone');
-		    $table->integer('organization_id')->unsigned();
-		    $table->foreign('organization_id')->references('id')->on('intern_organizations');
+		    $table->string('intern_supervisor_first_name')->nullable();
+		    $table->string('intern_supervisor_last_name')->nullable();
+		    $table->string('intern_supervisor_prefix')->nullable();
+		    $table->string('intern_supervisor_email')->nullable();
+		    $table->string('intern_supervisor_phone')->nullable();
+		    $table->integer('intern_organization_id')->unsigned();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

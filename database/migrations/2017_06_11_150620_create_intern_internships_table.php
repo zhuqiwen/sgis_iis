@@ -16,13 +16,12 @@ class CreateInternInternshipsTable extends Migration
 		Schema::create('intern_internships', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('application_id')->unsigned();
-			$table->foreign('application_id')->references('id')->on('intern_applications');
-			$table->text('application_notes')->nullable()->default(null);
-			$table->text('final_notes')->nullable()->default(null);
-			$table->tinyInteger('x373_hours')->nullable()->default(null);
-			$table->string('x373_grade')->nullable()->default(null);
-			$table->boolean('case_closed')->nullable()->default(null);
-			$table->integer('closed_by')->unsigned()->nullable()->default(null);
+			$table->text('intern_internship_application_approval_notes')->nullable();
+			$table->text('intern_internship_final_notes')->nullable();
+			$table->tinyInteger('intern_internship_x373_hours')->nullable();
+			$table->string('intern_internship_x373_grade')->nullable();
+			$table->date('intern_internship_case_closed_date')->nullable();
+			$table->integer('intern_internship_closed_by')->unsigned()->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

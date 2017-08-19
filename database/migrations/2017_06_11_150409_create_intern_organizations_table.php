@@ -16,9 +16,9 @@ class CreateInternOrganizationsTable extends Migration
         //
 	    Schema::create('intern_organizations', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->string('url')->nullable();
-		    $table->string('type');
+		    $table->string('intern_organization_name')->nullable();
+		    $table->string('intern_organization_url')->nullable();
+		    $table->string('intern_organization_type')->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

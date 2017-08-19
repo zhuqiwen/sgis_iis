@@ -15,7 +15,7 @@ class CreateAlumEngagementIndicatorsTable extends Migration
     {
 	    Schema::create('alum_engagement_indicators', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('name');
+		    $table->string('engagement_indicator_name')->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

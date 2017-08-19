@@ -18,34 +18,34 @@ class CreateInternStudentEvaluationsTable extends Migration
 		Schema::create('intern_student_evaluations', function (Blueprint $table) {
 			$table->increments('id');
             $table->integer('internship_id')->unsigned();
-            $table->foreign('internship_id')->references('id')->on('intern_internships');
-			$table->text('performance_comment')->nullable()->default(null);
-			$table->boolean('has_noteworthy')->nullable()->default(null);
-			$table->text('noteworthy_aspects')->nullable()->default(null);
-			$table->boolean('need_improve')->nullable()->default(null);
-			$table->text('student_weakness')->nullable()->default(null);
-			$table->text('weakness_remedy')->nullable()->default(null);
-			$table->text('suitability')->nullable()->default(null);
-			$table->text('job_advice')->nullable()->default(null);
+			$table->text('intern_student_evaluation_performance_comment')->nullable();
+			$table->boolean('intern_student_evaluation_has_noteworthy')->nullable();
+			$table->text('intern_student_evaluation_noteworthy_aspects')->nullable();
+			$table->boolean('intern_student_evaluation_need_improve')->nullable();
+			$table->text('intern_student_evaluation_student_weakness')->nullable();
+			$table->text('intern_student_evaluation_weakness_remedy')->nullable();
+			$table->text('intern_student_evaluation_suitability')->nullable();
+			$table->text('intern_student_evaluation_job_advice')->nullable();
 			// 5 options are:
 			// Outstanding (top 10%)
 			// Good (top 25%)
 			// Fair (top 50%)
 			// Poor (bottom 50%)
 			// Unable to compare
-			$table->string('performance_rating')->nullable()->default(null);
+			$table->string('intern_student_evaluation_performance_rating')->nullable();
 			// 4 options are:
 			// Outstanding (top 10%)
 			// Good (top 25%)
 			// Fair (top 50%)
 			// Poor (bottom 50%)
-			$table->string('development_rating')->nullable()->default(null);
+			$table->string('intern_student_evaluation_development_rating')->nullable();
 			// to tell if an evaluation is a midterm or a final
-			$table->boolean('is_midterm')->default(0);
+			$table->boolean('intern_student_evaluation_is_midterm')->default(0);
 			// once the evaluation is submitted, NO ONE can update it anymore.
-            $table->date('due_date')->nullable()->default(null);
-			$table->date('submitted_at')->nullable()->default(null);
-			$table->date('sent_at')->nullable()->default(null);
+            $table->date('intern_student_evaluation_due_date')->nullable();
+			$table->date('intern_student_evaluation_submitted_on')->nullable();
+			$table->date('intern_student_evaluation_request_sent_on')->nullable();
+			$table->integer('intern_student_evaluation_request_sent_by')->unsigned()->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

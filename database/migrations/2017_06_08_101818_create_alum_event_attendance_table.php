@@ -17,8 +17,6 @@ class CreateAlumEventAttendanceTable extends Migration
 		    $table->increments('id');
 		    $table->integer('contact_id')->unsigned();
 		    $table->integer('event_id')->unsigned();
-		    $table->foreign('contact_id')->references('id')->on('alum_contacts');
-		    $table->foreign('event_id')->references('id')->on('alum_events');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

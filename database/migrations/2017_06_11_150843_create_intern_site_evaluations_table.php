@@ -16,19 +16,18 @@ class CreateInternSiteEvaluationsTable extends Migration
 	    Schema::create('intern_site_evaluations', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->integer('internship_id')->unsigned();
-		    $table->foreign('internship_id')->references('id')->on('intern_internships');
-		    $table->text('how_did_locate')->nullable()->default(null);
-		    $table->text('site_description')->nullable()->default(null);
-		    $table->text('task_description')->nullable()->default(null);
-		    $table->text('fit_into_study')->nullable()->default(null);
-		    $table->text('site_strength')->nullable()->default(null);
-		    $table->text('site_weakness')->nullable()->default(null);
-		    $table->text('gained_skills')->nullable()->default(null);
-		    $table->text('brief_comment')->nullable()->default(null);
+		    $table->text('how_did_locate')->nullable();
+		    $table->text('site_description')->nullable();
+		    $table->text('task_description')->nullable();
+		    $table->text('fit_into_study')->nullable();
+		    $table->text('site_strength')->nullable();
+		    $table->text('site_weakness')->nullable();
+		    $table->text('gained_skills')->nullable();
+		    $table->text('brief_comment')->nullable();
 		    // the scale is 0-9
-		    $table->tinyInteger('willing_to_recommend')->nullable()->default(null);
-		    $table->date('due_date')->nullable()->default(null);
-		    $table->date('submitted_at')->nullable()->default(null);
+		    $table->tinyInteger('willing_to_recommend')->nullable();
+		    $table->date('intern_site_evaluation_due_date')->nullable();
+		    $table->date('intern_site_evaluation_submitted_on')->nullable();
 
 		    $table->timestamps();
 		    $table->softDeletes();

@@ -15,10 +15,9 @@ class CreateAlumEmployersTable extends Migration
     {
 	    Schema::create('alum_employers', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->string('web_address')->nullable();
-		    $table->integer('type_id')->unsigned();
-		    $table->foreign('type_id')->references('id')->on('alum_employer_types');
+		    $table->string('employer')->nullable();
+		    $table->string('employer_url')->nullable();
+		    $table->integer('employer_type_id')->unsigned();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

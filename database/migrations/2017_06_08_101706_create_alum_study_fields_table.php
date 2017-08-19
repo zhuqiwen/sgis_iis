@@ -15,7 +15,7 @@ class CreateAlumStudyFieldsTable extends Migration
     {
 	    Schema::create('alum_study_fields', function (Blueprint $table){
 		    $table->increments('id');
-		    $table->string('field');
+		    $table->string('study_field')->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

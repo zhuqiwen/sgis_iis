@@ -105,9 +105,9 @@
 
             // for internship application form
             window.InternshipApplicationFormId = "<?php echo config('constants.form_id_internship_application')?>";
-            window.OrganizationId = '';
-            window.SupervisorId = '';
-            window.ApplicationId = '';
+            window.OrganizationId = 0;
+            window.SupervisorId = 0;
+            window.ApplicationId = 0;
 
             window.ApplicationMenus = {};
             window.AjaxConfigrations = {};
@@ -191,6 +191,27 @@
                 if (currentElement.attr('form') == InternshipApplicationFormId)
                 {
                     var form = $('#' + InternshipApplicationFormId);
+
+
+                    // add hidden data of org_id, supervisor_id and application_id
+                    var organizationIdInput = $("<input>")
+                        .attr('type', 'hidden')
+                        .attr('name', 'organization_id')
+                        .val(OrganizationId);
+                    var supervisorIdInput = $("<input>")
+                        .attr('type', 'hidden')
+                        .attr('name', 'supervisor_id')
+                        .val(SupervisorId);
+                    var applicationIdInput = $("<input>")
+                        .attr('type', 'hidden')
+                        .attr('name', 'application_id')
+                        .val(ApplicationId);
+
+                    form.append($(organizationIdInput))
+                        .append($(supervisorIdInput))
+                        .append($(applicationIdInput));
+
+
                     $.ajax({
                         type: form.attr('method'),
                         url: form.attr('action'),

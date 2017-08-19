@@ -7,9 +7,11 @@ use app\Helpers\TravelWarning;
 use App\Models\Country;
 use App\Models\InternInternship;
 use App\Models\InternJournal;
+use App\Models\InternOrganization;
 use App\Models\InternReflection;
 use App\Models\InternSiteEvaluation;
 use App\Models\InternStudentEvaluation;
+use App\Models\InternSupervisor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
@@ -599,7 +601,34 @@ class InternApplicationController extends Controller
     {
 	    if($request->isMethod('post'))
 	    {
-		    return json_encode($request->all());
+
+	        if($request->organization_id == 0)
+            {
+                // means it is first time submit, then create
+                $organization = InternOrganization::create($request->all());
+                $request->request->add(['organization_id' => $organization->id]);
+
+                $supervisor = InternSupervisor::create($request->all());
+                $request->request->add(['supervisor_id' => $supervisor->id]);
+
+                $application = InternApplication::create($request->all());
+
+            }
+            else
+            {
+                // then just update
+                $organization_id = $request->organization_id;
+                $supervisor_id = $request->supervisor_id;
+                $application_id = $request->application_id;
+
+                $organization = InternOrganization::update($request->all());
+                $supervisor = InternOrganization::update($request->except('organization_id'));
+                $application = InternOrganization::update($request->except(['organization_id', 'supervisor_id']));
+
+            }
+
+
+            return json_encode(compact('organization', 'supervisor', 'application'));
 	    }
     }
 }

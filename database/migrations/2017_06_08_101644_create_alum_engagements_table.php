@@ -16,9 +16,7 @@ class CreateAlumEngagementsTable extends Migration
 	    Schema::create('alum_engagements', function (Blueprint $table){
 		    $table->increments('id');
 		    $table->integer('contact_id')->unsigned();
-		    $table->integer('indicator_id')->unsigned();
-		    $table->foreign('contact_id')->references('id')->on('alum_contacts');
-		    $table->foreign('indicator_id')->references('id')->on('alum_engagement_indicators');
+		    $table->integer('engagement_indicator_id')->unsigned();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
